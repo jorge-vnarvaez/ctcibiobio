@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <!-- <InfoUltimaNoticiaDestacada></InfoUltimaNoticiaDestacada> -->
+    <InfoUltimaNoticiaDestacada></InfoUltimaNoticiaDestacada>
 
     <v-container>
       <v-responsive :aspect-ratio="16 / 6" class="flex align-center">

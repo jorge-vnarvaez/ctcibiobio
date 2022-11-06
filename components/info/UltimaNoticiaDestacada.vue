@@ -1,12 +1,5 @@
 <template lang="">
   <div>
-    <v-container
-      :fluid="$vuetify.breakpoint.width < 2000"
-      :class="{
-        'ma-0 pa-0': $vuetify.breakpoint.width < 2000,
-        'my-0 py-0': $vuetify.breakpoint.width > 2000,
-      }"
-    >
       <v-carousel
         id="hc"
         class="blue-grey lighten-5"
@@ -41,10 +34,10 @@
             }"
             class="bg-fixed bg-cover"
           >
-            <div class="bg-slate-800/60 py-10 py-md-0">
+            <!-- <div class="bg-slate-800/60 py-10 py-md-0">
               <v-container>
                 <v-responsive
-                  :aspect-ratio="16 / 9"
+                  :aspect-ratio="16 / 6"
                   container-class=""
                   content-class="flex align-center"
                 >
@@ -64,11 +57,10 @@
                   </div>
                 </v-responsive>
               </v-container>
-            </div>
+            </div> -->
           </v-card>
         </v-carousel-item>
       </v-carousel>
-    </v-container>
   </div>
 </template>
 <script>
