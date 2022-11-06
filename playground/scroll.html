@@ -1,0 +1,33 @@
+<div class="flex overflow-scroll">
+  <div class="container bg-1">123</div>
+  <div class="container bg-2">asd</div>
+  <div class="container bg-3">456</div>
+</div>
+<style>
+
+.overflow-scroll {
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+.flex {
+  display: flex;
+}
+.container {
+  width: 400px;
+  flex-shrink: 0;
+}
+.bg-1 {
+  background:red;
+}
+.bg-2 {
+  background:blue;
+}
+.bg-3 {
+  background:green;
+}
+</style>
+<script>
+  document.querySelector('flex').onclick(() => {
+    
+  })
+</script>
