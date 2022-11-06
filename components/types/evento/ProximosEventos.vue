@@ -1,5 +1,5 @@
 <template lang="">
-  <div>
+  <div class="max-w-screen-xl mx-auto">
     <div v-if="eventos">
       <!-- Data eventos -->
       <div v-if="eventos.data">

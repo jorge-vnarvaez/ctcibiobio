@@ -1,17 +1,10 @@
 <template lang="">
-  <div>
-
+  <div class="grey lighten-4 pt-[35px]">
     <InfoJumbo/>
 
     <v-container>
       <InfoComponentes />
     </v-container>
-
-
-    
-
-    
-
   </div>
 </template>
 <script>

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    
+  <div class="max-w-screen-xl mx-auto pt-[35px]">
     <v-container v-if="noticia">
       <div class="text-h3 font-weight-bold mb-2">{{noticia.title}}</div>
       <div v-if="noticia.date_start" class="font-sans font-bold mb-4 text-blue-500">

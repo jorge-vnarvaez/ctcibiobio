@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="max-w-screen-xl mx-auto">
     <v-container>
-      <v-responsive :aspect-ratio="16 / 6" class="flex align-center">
+      <v-responsive :aspect-ratio="16/6" class="flex align-center">
         <v-card
           color="amber lighten-5"
           class="elevation-0 mt-4"

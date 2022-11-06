@@ -12,7 +12,7 @@
       <v-carousel-item
         v-for="(noticiaDestacada, index) in $store.state.noticias
           .featuredNoticias.data"
-        :key="color"
+        :key="index"
       >
         <v-card
           dark
@@ -25,28 +25,30 @@
           class="bg-fixed bg-cover"
         >
           <div class="bg-slate-800/40 py-10 py-md-0">
-            <v-container>
-              <v-responsive
-                :aspect-ratio="16/6"
-                container-class=""
-                content-class="flex align-center"
-              >
-                <div>
-                  <div class="text-h3 font-weight-bold">
-                    {{ noticiaDestacada.title }}
+            <div class="max-w-screen-xl mx-auto">
+              <v-container>
+                <v-responsive
+                  :aspect-ratio="16 / 6"
+                  container-class=""
+                  content-class="flex align-center"
+                >
+                  <div>
+                    <div class="text-h3 font-weight-bold">
+                      {{ noticiaDestacada.title }}
+                    </div>
+                    <div class="font-sans text-xl-2">
+                      {{ noticiaDestacada.excerpt }}
+                    </div>
+                    <v-btn
+                      class="mt-5"
+                      outlined
+                      :to="`${'/noticias/' + noticiaDestacada.slug}`"
+                      >Leer más</v-btn
+                    >
                   </div>
-                  <div class="font-sans text-xl-2">
-                    {{ noticiaDestacada.excerpt }}
-                  </div>
-                  <v-btn
-                    class="mt-5"
-                    outlined
-                    :to="`${'/noticias/' + noticiaDestacada.slug}`"
-                    >Leer más</v-btn
-                  >
-                </div>
-              </v-responsive>
-            </v-container>
+                </v-responsive>
+              </v-container>
+            </div>
           </div>
         </v-card>
       </v-carousel-item>

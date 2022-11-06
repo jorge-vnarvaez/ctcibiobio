@@ -1,6 +1,5 @@
 <template>
-  <div>
-    
+  <div class="max-w-screen-xl mx-auto pt-[35px]">>
     <v-container v-if="evento">
       <div class="text-h3 font-weight-bold">{{evento.title}}</div>
       <div v-if="evento.date_start" class="font-sans font-bold mb-4 text-blue-500">
@@ -33,7 +32,6 @@
       </div>
 
     </v-container>
-  
     <!-- <pre>{{evento}}</pre> -->
   </div>
 </template>
@@ -59,7 +57,6 @@ export default {
     }
   },
   computed: {
-
    fechaEvento(){
       let targetStartDate = this.evento.date_start
       let targetEndDate = this.evento.date_end

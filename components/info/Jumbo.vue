@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="grey lighten-4">
+  <div>
     <v-container>
       <v-responsive :aspect-ratio="16/9" content-class="d-flex align-center justify-center">
         <div class="mb-5 d-flex align-center text-center">
