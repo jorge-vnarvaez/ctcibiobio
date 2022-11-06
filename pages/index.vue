@@ -1,7 +1,6 @@
 <template lang="">
   <div>
-
-    <InfoUltimaNoticiaDestacada></InfoUltimaNoticiaDestacada>
+    <!-- <InfoUltimaNoticiaDestacada></InfoUltimaNoticiaDestacada> -->
 
     <v-container>
       <v-card color="amber lighten-5" class="elevation-0 mt-4" flat href="https://form.typeform.com/to/O4QHEvzE" target="_blank">
