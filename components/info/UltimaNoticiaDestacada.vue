@@ -1,6 +1,6 @@
 <template lang="">
+<client-only>
   <div>
-
     <v-container :fluid="$vuetify.breakpoint.width < 2000" :class="{
       'ma-0 pa-0':  $vuetify.breakpoint.width < 2000,
       'my-0 py-0':  $vuetify.breakpoint.width > 2000,
@@ -43,12 +43,8 @@
         </v-carousel-item>
       </v-carousel>
     </v-container>
-
-
-    
-
-
   </div>
+<client-only>
 </template>
 <script>
 export default {
