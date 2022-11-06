@@ -1,9 +1,9 @@
 <template lang="">
   <div>
-    <InfoUltimaNoticiaDestacada></InfoUltimaNoticiaDestacada>
+    <v-responsive :aspect-ratio="16 / 6" class="flex align-center">
+      <InfoUltimaNoticiaDestacada></InfoUltimaNoticiaDestacada>
 
-    <v-container>
-      <v-responsive :aspect-ratio="16 / 6" class="flex align-center">
+      <v-container>
         <v-card
           color="amber lighten-5"
           class="elevation-0 mt-4"
@@ -34,16 +34,16 @@
             </div>
           </div>
         </v-card>
-      </v-responsive>
-    </v-container>
+      </v-container>
 
-    <!-- Derivadores globales -->
-    <InfoDerivadoresGlobales></InfoDerivadoresGlobales>
-    <!-- Derivadores globales -->
+      <!-- Derivadores globales -->
+      <InfoDerivadoresGlobales></InfoDerivadoresGlobales>
+      <!-- Derivadores globales -->
 
-    <!-- Próximos eventos -->
-    <TypesEventoProximosEventos></TypesEventoProximosEventos>
-    <!-- Próximos eventos -->
+      <!-- Próximos eventos -->
+      <TypesEventoProximosEventos></TypesEventoProximosEventos>
+      <!-- Próximos eventos -->
+    </v-responsive>
   </div>
 </template>
 <script>
