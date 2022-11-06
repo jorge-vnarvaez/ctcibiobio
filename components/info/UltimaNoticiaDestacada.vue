@@ -27,7 +27,7 @@
           <div class="bg-slate-800/40 py-10 py-md-0">
             <v-container>
               <v-responsive
-                :aspect-ratio="16 / 6"
+                :aspect-ratio="16/6"
                 container-class=""
                 content-class="flex align-center"
               >
