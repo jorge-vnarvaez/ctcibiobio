@@ -2,6 +2,10 @@
   <div>
     <v-carousel
       v-if="$store.state.noticias.featuredNoticias.data"
+      :continuous="true"
+      :cycle="true"
+      :interval="10000"
+      :progress="true"
       hide-delimiters
       height="auto"
     >
@@ -109,8 +113,6 @@
   </div>
 </template>
 <script>
-export default {
-
-};
+export default {};
 </script>
 <style lang=""></style>
