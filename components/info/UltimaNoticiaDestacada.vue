@@ -1,40 +1,47 @@
 <template lang="">
   <div>
-      <v-carousel
-        id="hc"
-        class="blue-grey lighten-5"
-        v-if="true"
-        :continuous="true"
-        :cycle="true"
-        :interval="10000"
-        :progress="true"
-        height="auto"
-        :show-arrows="true"
-        :hide-delimiters="false"
-        :hide-delimiter-background="true"
+    <v-carousel v-model="model">
+      <v-carousel-item v-for="(color, i) in colors" :key="color">
+        <v-sheet :color="color" height="100%" tile>
+          <v-row class="fill-height" align="center" justify="center">
+            <div class="text-h2">Slide {{ i + 1 }}</div>
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
+    <!-- <v-carousel
+      class="blue-grey lighten-5"
+      :continuous="true"
+      :cycle="true"
+      :interval="10000"
+      :progress="true"
+      height="auto"
+      :show-arrows="true"
+      :hide-delimiters="false"
+      :hide-delimiter-background="true"
+    >
+      <v-carousel-item
+        v-if="
+          $store.state.noticias.featuredNoticias &&
+          $store.state.noticias.featuredNoticias.data
+        "
+        v-for="(noticiaDestacada, index) in $store.state.noticias
+          .featuredNoticias.data"
+        :key="index"
+        style="background: #2875ff"
+        :to="`${'/noticias/' + noticiaDestacada.slug}`"
       >
-        <v-carousel-item
-          v-if="
-            $store.state.noticias.featuredNoticias &&
-            $store.state.noticias.featuredNoticias.data
-          "
-          v-for="(noticiaDestacada, index) in $store.state.noticias
-            .featuredNoticias.data"
-          :key="index"
-          style="background: #2875ff"
-          :to="`${'/noticias/' + noticiaDestacada.slug}`"
+        <v-card
+          dark
+          :style="{
+            backgroundImage: `url(${
+              $config.apiAssetsV2 +
+              noticiaDestacada.featured_image.filename_disk
+            })`,
+          }"
+          class="bg-fixed bg-cover"
         >
-          <v-card
-            dark
-            :style="{
-              backgroundImage: `url(${
-                $config.apiAssetsV2 +
-                noticiaDestacada.featured_image.filename_disk
-              })`,
-            }"
-            class="bg-fixed bg-cover"
-          >
-            <!-- <div class="bg-slate-800/60 py-10 py-md-0">
+          <div class="bg-slate-800/60 py-10 py-md-0">
               <v-container>
                 <v-responsive
                   :aspect-ratio="16 / 6"
@@ -57,13 +64,26 @@
                   </div>
                 </v-responsive>
               </v-container>
-            </div> -->
-          </v-card>
-        </v-carousel-item>
-      </v-carousel>
+            </div>
+        </v-card>
+      </v-carousel-item>
+    </v-carousel> -->
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      model: 0,
+      colors: [
+        'primary',
+        'secondary',
+        'yellow darken-2',
+        'red',
+        'orange',
+      ],
+    }
+  }
+};
 </script>
 <style lang=""></style>
