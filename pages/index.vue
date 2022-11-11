@@ -2,6 +2,8 @@
   <div>
     <InfoUltimaNoticiaDestacada></InfoUltimaNoticiaDestacada>
 
+    <InfoTrivia></InfoTrivia>
+
     <InfoEncuesta></InfoEncuesta>
 
     <!-- Derivadores globales -->

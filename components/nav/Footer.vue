@@ -1,9 +1,7 @@
 <template lang="">
-<v-footer elevation="0" bottom absolute class="white" >
-
+<v-footer elevation="0" class="white" >
   <v-container fluid>
-    
-    <div class="d-flex justify-space-between px-3 align-center">
+    <div class="d-flex justify-space-between px-3 h-full align-center">
       <div class="text-caption blue-grey--text">Estrategia de CTCI, Región del Biobío.</div>
       <v-spacer></v-spacer>
       <div>

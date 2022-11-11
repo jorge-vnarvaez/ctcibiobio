@@ -2,8 +2,8 @@
   <v-app>
     <v-main>
       <NavHeader />
-      <div class="pb-[150px]">
-        <Nuxt />
+      <div>
+        <Nuxt class="pb-[150px]" />
       </div>
       <NavFooter />
     </v-main>
