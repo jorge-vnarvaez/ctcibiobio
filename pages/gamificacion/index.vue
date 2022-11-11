@@ -7,7 +7,7 @@
       <div class="rounded-lg shadow-xl">
         <v-card class="bg-white p-8 rounded-lg " max-width="520" width="520" flat>
           <v-card-title>Bienvenido/a</v-card-title>
-          <v-card-subtitle>&#128075; Hola de nuevo, {{ has_answered ? '¿Quieres seguir participando?' : 'Participar' }}</v-card-subtitle>
+          <v-card-subtitle> {{ has_answered ? '&#128075; Hola de nuevo, ¿Quieres seguir participando?' : 'Participar' }}</v-card-subtitle>
           <v-card-text>
             <v-text-field
               v-model="rut"
