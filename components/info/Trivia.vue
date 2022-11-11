@@ -33,7 +33,7 @@
           </span>
 
           <span class="block white--text font-light text-2xl mt-2">
-            Ayudanos a responder el siguiente instrumento.
+            Ayúdanos a responder el siguiente instrumento.
           </span>
 
           <div class="mt-4">
