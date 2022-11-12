@@ -14,7 +14,6 @@
         <!-- ILUSTRATION -->
 
         <!-- ILUSTRATION -->
-
         <div v-if="!$vuetify.breakpoint.mobile">
           <v-img
             src="/illustration/vector-linea-de-puntos.png"

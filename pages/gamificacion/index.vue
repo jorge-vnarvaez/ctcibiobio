@@ -1,11 +1,11 @@
 <template>
   <v-img
     src="/patterns/topography.png"
-    :class="$vuetify.breakpoint.mobile ? 'py-20 px-8' : 'h-screen'"
+    :class="$vuetify.breakpoint.mobile ? 'py-20 px-8' : 'h-screen px-4'"
   >
-    <div class="d-flex h-full align-center justify-center">
+    <div class="d-flex h-full align-center justify-center px-8">
       <div class="rounded-lg shadow-xl">
-        <v-card class="bg-white p-8 rounded-lg " max-width="520" width="520" flat>
+        <v-card class="bg-white p-8 rounded-lg " :max-width="$vuetify.breakpoint.mobile ? 300 : 520" :width="$vuetify.breakpoint.mobile ? 300 : 520" flat>
           <v-card-title>Bienvenido/a</v-card-title>
           <v-card-subtitle> {{ has_answered ? '&#128075; Hola de nuevo, ¿Quieres seguir participando?' : 'Participar' }}</v-card-subtitle>
           <v-card-text>

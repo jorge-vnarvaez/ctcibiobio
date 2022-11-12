@@ -1,7 +1,7 @@
 <template>
   <div class="pb-14 grey lighten-4 pb-20">
     <!-- HERO IMAGE -->
-    <v-img src="/patterns/cork-wallet.png" class="pt-8" height="380">
+    <v-img src="/patterns/cork-wallet.png" class="pt-8" height="420">
       <v-container>
         <span class="blcok text-xl lg:text-5xl font-bold fic-2--text text--darken-3">Ranking de priorización</span>
         <span class="block text-sm lg:text-xl mt-4">

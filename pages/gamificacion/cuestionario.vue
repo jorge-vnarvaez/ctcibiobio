@@ -24,7 +24,7 @@
             <v-card
               @click="optionSelected(optionsData[firstOption].id)"
               class="px-8 py-8 d-flex flex-col align-center justify-center"
-              height="180"
+              height="240"
               style="cursor: pointer"
               flat
             >
@@ -47,7 +47,7 @@
             <v-card
               @click="optionSelected(optionsData[secondOption].id)"
               class="px-8 py-8 d-flex flex-col align-center justify-center"
-              height="180"
+              height="240"
               style="cursor: pointer"
               flat
             >
@@ -79,24 +79,24 @@
           <!-- SIN PREFERENCIA -->
 
           <!-- SALIR -->
-          <span class="text-xs text-center" v-if="numberOfAnswers < 10"
-            >Debes seleccionar al menos 10 opciones para ver los
+          <span class="text-xs text-center" v-if="numberOfAnswers < 15"
+            >Debes seleccionar al menos 15 opciones para ver los
             resultados</span
           >
 
-          <span class="text-xs text-center" v-if="numberOfAnswers >= 10">
+          <span class="text-xs text-center" v-if="numberOfAnswers >= 15">
             Ahora tienes
             <span class="text-[#2929c6] font-bold">{{ numberOfAnswers }}</span>
             opciones seleccionadas, puedes seguir seleccionando o ver los
             resultados
           </span>
 
-          <v-progress-linear :value="numberOfAnswers * 10"></v-progress-linear>
+          <v-progress-linear :value="(numberOfAnswers * 100) / 15"></v-progress-linear>
 
           <v-btn
             color="purple darken-4"
             class="white--text text-capitalize"
-            :disabled="numberOfAnswers < 10"
+            :disabled="numberOfAnswers < 15"
             to="/gamificacion/resultados"
             >Ver Resultados</v-btn
           >
