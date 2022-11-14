@@ -28,7 +28,7 @@
         >
           <v-card
             class="px-4 py-4 d-flex flex-column justify-space-between h-full"
-            :height="$vuetify.breakpoint.mobile ? '290' : '230'"
+            :height="$vuetify.breakpoint.mobile ? '290' : '280'"
             flat
           >
             <div>
