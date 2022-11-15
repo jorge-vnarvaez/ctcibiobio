@@ -32,7 +32,6 @@
                 class="text-base lg:text-lg text-center text-[#2929c6] h-20"
               >
                 {{ optionsData[firstOption].title }}
-                <!-- {{ optionsData[firstOption].title }} -->
               </span>
 
               <span v-if="optionsData[firstOption].mission"
@@ -91,7 +90,9 @@
             resultados
           </span>
 
-          <v-progress-linear :value="(numberOfAnswers * 100) / 15"></v-progress-linear>
+          <v-progress-linear
+            :value="(numberOfAnswers * 100) / 15"
+          ></v-progress-linear>
 
           <v-btn
             color="purple darken-4"
@@ -104,17 +105,20 @@
         </div>
       </div>
 
-      <div v-else class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto">
+      <div
+        v-else
+        class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto"
+      >
         <span
           class="block text-2xl lg:text-4xl font-black text-[#2929c6] text-center w-96"
           >En estos momentos no tenemos más propuestas</span
         >
         <v-btn
-            color="purple darken-4"
-            class="white--text text-capitalize mt-8"
-            to="/gamificacion/resultados"
-            >Ver Resultados</v-btn
-          >
+          color="purple darken-4"
+          class="white--text text-capitalize mt-8"
+          to="/gamificacion/resultados"
+          >Ver Resultados</v-btn
+        >
       </div>
     </v-img>
   </div>
@@ -126,6 +130,7 @@ export default {
   data() {
     return {
       winner: null,
+      loser: null,
       firstOption: 0,
       secondOption: 1,
       optionsSelected: 1,
@@ -177,7 +182,15 @@ export default {
   },
   methods: {
     optionSelected(id) {
-      this.winner = id;
+      this.winner = this.optionsData.find(
+        (declaration) => declaration.id == id
+      );
+
+      this.loser =
+        this.optionsData[this.firstOption].id != id
+          ? this.optionsData[this.firstOption]
+          : this.optionsData[this.secondOption];
+
       this.registerMatch();
       this.optionsSelected++;
       this.optionsData.find((item, index) => {
@@ -190,14 +203,14 @@ export default {
           ? this.firstOption + 1
           : this.optionsSelected;
 
-      this.numberOfAnswers++;	
+      this.numberOfAnswers++;
     },
     async registerMatch() {
       // Inserta un nuevo match registrando las 2 opciones que se compararon y la opcion ganadora
       const data = await this.$axios
         .$post(`${this.$config.apiUrlV2}/items/matches`, {
           user: this.user_id,
-          winner: this.winner,
+          winner: this.winner.id,
           pairs: [
             {
               collection: "declarations",
@@ -216,7 +229,7 @@ export default {
       // Obtener las wins de la declaracion ganadora
       let wins = await this.$axios
         .$get(
-          `${this.$config.apiUrlV2}/items/declarations/${this.winner}?fields[]=id, wins.*`
+          `${this.$config.apiUrlV2}/items/declarations/${this.winner.id}?fields[]=id, wins.*`
         )
         .then((res) => {
           return res.data.wins;
@@ -224,17 +237,48 @@ export default {
 
       // Agregar el nuevo match a la lista de wins de la declaracion ganadora
       wins.push({
-        declarations_id: this.winner,
+        declarations_id: this.winner.id,
         matches_id: data.id,
       });
 
       // Actualizar las wins de la declaracion ganadora
       await this.$axios.$patch(
-        `${this.$config.apiUrlV2}/items/declarations/${this.winner}`,
+        `${this.$config.apiUrlV2}/items/declarations/${this.winner.id}`,
         {
           wins: wins,
         }
       );
+
+      const trueskill = require("trueskill");
+
+      // Update skill of the winner and loser declarations
+      let winner = {};
+      let loser = {};
+
+      winner.skill = JSON.parse(this.winner.skill);
+      loser.skill = JSON.parse(this.loser.skill);
+
+      winner.rank = 1;
+      winner.rank = 2;
+
+      trueskill.AdjustPlayers([winner, loser]);
+
+      await this.$axios.$patch(
+        `${this.$config.apiUrlV2}/items/declarations/${this.winner.id}`,
+        {
+          skill: JSON.stringify(winner.skill),
+        }
+      );
+
+      // Actualizar las skills de la declaracion perdedora
+      await this.$axios.$patch(
+        `${this.$config.apiUrlV2}/items/declarations/${this.loser.id}`,
+        {
+          skill: JSON.stringify(loser.skill),
+        }
+      );
+
+      // await this.$store.dispatch("gamificacion/loadDeclarations");
     },
     async noPreferences() {
       // Registra un match sin ganador
@@ -262,7 +306,7 @@ export default {
       this.firstOption = this.optionsSelected - 1;
       this.secondOption = this.firstOption + 1;
 
-      this.numberOfAnswers++;	
+      this.numberOfAnswers++;
     },
     moveToNextPair() {
       this.optionsSelected = this.optionsSelected + 2;

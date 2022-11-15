@@ -5,9 +5,20 @@
   >
     <div class="d-flex h-full align-center justify-center px-8">
       <div class="rounded-lg shadow-xl">
-        <v-card class="bg-white p-8 rounded-lg " :max-width="$vuetify.breakpoint.mobile ? 300 : 520" :width="$vuetify.breakpoint.mobile ? 300 : 520" flat>
+        <v-card
+          class="bg-white p-8 rounded-lg"
+          :max-width="$vuetify.breakpoint.mobile ? 300 : 520"
+          :width="$vuetify.breakpoint.mobile ? 300 : 520"
+          flat
+        >
           <v-card-title>Bienvenido/a</v-card-title>
-          <v-card-subtitle> {{ has_answered ? '&#128075; Hola de nuevo, ¿Quieres seguir participando?' : 'Participar' }}</v-card-subtitle>
+          <v-card-subtitle>
+            {{
+              has_answered
+                ? "&#128075; Hola de nuevo, ¿Quieres seguir participando?"
+                : "Participar"
+            }}</v-card-subtitle
+          >
           <v-card-text>
             <v-text-field
               v-model="rut"
@@ -57,17 +68,32 @@ export default {
     async participar() {
       const cookie_token = window.btoa(this.rut);
 
-      if (this.$cookies.get("cookie_token") === undefined) {
-        const data = await this.$axios
-          .$post(`${this.$config.apiUrlV2}/users`, {
-            role: "2f5d20a2-c287-49a4-be3e-5c2160e8476e",
-            cookie_token: cookie_token,
-            rut: this.rut,
-          })
-          .then((res) => res.data);
-        this.$cookies.set("userID", data.id);
-        this.$cookies.set("userRUT", data.rut);
-        this.$cookies.set("cookie_token", cookie_token);
+      const data = await this.$axios
+        .$get(`${this.$config.apiUrlV2}/users?filter[rut][_eq]=${this.rut}`)
+        .then((res) => res.data);
+
+      if (data.length > 0) {
+        this.$cookies.set("userID", data[0].id);
+        this.$cookies.set("userRUT", data[0].rut);
+        this.$cookies.set("cookie_token", data[0].cookie_token);
+      } else {
+        
+        this.$cookies.remove("userID");
+        this.$cookies.remove("userRUT");
+        this.$cookies.remove("cookie_token");
+
+        if (this.$cookies.get("cookie_token") === undefined) {
+          const data = await this.$axios
+            .$post(`${this.$config.apiUrlV2}/users`, {
+              role: "2f5d20a2-c287-49a4-be3e-5c2160e8476e",
+              cookie_token: cookie_token,
+              rut: this.rut,
+            })
+            .then((res) => res.data);
+          this.$cookies.set("userID", data.id);
+          this.$cookies.set("userRUT", data.rut);
+          this.$cookies.set("cookie_token", cookie_token);
+        }
       }
 
       this.$router.push("/gamificacion/cuestionario");

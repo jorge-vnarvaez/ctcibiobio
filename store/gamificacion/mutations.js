@@ -7,7 +7,14 @@ export default {
         state.declarationsLoading = false;
     },
     setRanking(state, ranking) {
-        state.ranking = ranking;
+        let rankingSorted = ranking.sort((a, b) => {
+            return b.skill[0] - a.skill[0];
+        }).map((declaration, index) => {
+            return {
+                ...declaration,
+                rank: index + 1
+            }});
+        state.ranking = rankingSorted 
     },
     setUserId(state, userId) {
         state.userId = userId;

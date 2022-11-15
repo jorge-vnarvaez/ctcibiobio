@@ -27,22 +27,19 @@ export default {
         });
     },
     async loadRanking({ commit }) {
-        const trueskill = require('trueskill');
-
-        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?fields[]=id, title&fields[]=count(wins)&sort[]=-count(wins)`).then(response => {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?fields[]=id, title, skill&fields[]=count(wins)&sort[]=-count(wins)`).then(response => {
             if (response.data) {
                 this.ranking = response.data.map((declaration, index) => {
                     // create an array of objects using the declaration title as a key
                     return {
                         id: declaration.id,
                         title: declaration.title,
-                        skill: [25.0, 25.0 / 3.0],
+                        skill: JSON.parse(declaration.skill),
                         rank: index + 1,
                         n_wins: declaration.wins_count
                     };
                 });
 
-                trueskill.AdjustPlayers(this.ranking);
                 commit('setRanking', this.ranking);
             }
         })

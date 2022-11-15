@@ -6,7 +6,7 @@
         <span class="blcok text-xl lg:text-5xl font-bold fic-2--text text--darken-3">Ranking de priorización</span>
         <span class="block text-sm lg:text-xl mt-4">
           Aquí podrás ver el ranking de priorización de propuestas, ordenadas de mayor a menor el ranking se compone
-          de aquellas propuestas que han obtenido el mayor número de votaciones entre todos los usuarios participantes utilizando
+          de aquellas propuestas que han obtenido el mejor nivel de aceptación entre todos los usuarios participantes utilizando
           el sistema de clasificación de <a href="https://www.microsoft.com/en-us/research/project/trueskill-ranking-system/" target="_blank">True Skill&#8482;</a>. 
         </span>
         <span class="block text-sm lg:text-2xl mt-8 mb-4">¿Te interesan más propuestas?</span>
@@ -41,6 +41,7 @@
               <span class="text-body-1 d-block h-20">{{
                 declaration.title
               }}</span>
+              {{ declaration.skill[0] }}
             </div>
 
             <div>
