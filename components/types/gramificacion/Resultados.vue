@@ -41,7 +41,6 @@
               <span class="text-body-1 d-block h-20">{{
                 declaration.title
               }}</span>
-              {{ declaration.skill[0] }}
             </div>
 
             <div>
