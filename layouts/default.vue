@@ -16,7 +16,7 @@ export default {
     await this.$store.dispatch('noticias/loadNoticias')
     await this.$store.dispatch('noticias/loadFeaturedNoticias')
     // Carga de capítulos de modelo estratégico
-    // await this.$store.dispatch('capitulos/loadCapitulos')
+    await this.$store.dispatch('capitulos/loadCapitulos')
   }
 }
 </script>

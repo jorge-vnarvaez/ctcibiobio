@@ -7,7 +7,7 @@ export default {
     // * Desactiva el contenido activo
     state.contenidoActivoId = null
   },
-  updateContenidoActivo(state,data){
+  updateContenidoActivo(state, data){
     state.contenidoActivoId = data
   }
 }

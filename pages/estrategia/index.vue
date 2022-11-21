@@ -5,6 +5,8 @@
     <v-container>
       <InfoComponentes />
     </v-container>
+
+      <TypesEstrategiaNavegadorEstrategia />
   </div>
 </template>
 <script>
