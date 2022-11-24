@@ -16,8 +16,7 @@ export default {
       fields: [
         '*',
         'contents.*',
-        "contents.file.id",
-        "contents.file.description",
+        "contents.file.*"
       ]
     })
 

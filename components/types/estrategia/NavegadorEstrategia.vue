@@ -9,19 +9,13 @@
         <div id="capitulos-index-wrapper">
           <!-- Tarjeta de Capítulo |INICIO| -->
           <div
-            :class="`${
-              $store.getters['capitulos/activeCapitulo'].sort === capitulo.sort
-                ? 'capitulo-card-active'
-                : 'capitulo-card'
-            }`"
+            :class="`${$store.getters['capitulos/activeCapitulo'].sort === capitulo.sort ? 'capitulo-card-active' : 'capitulo-card'}`"
             v-for="(capitulo, indexCapitulo) in capitulos"
             :key="indexCapitulo"
-            @click="
-              $store.commit('capitulos/updateCapituloActivo', capitulo.sort)
-            "
+            @click="$store.commit('capitulos/updateCapituloActivo', capitulo.sort)"
           >
             <div>
-              <div class="text-xs font-black">Capítulo {{ capitulo.sort }}</div>
+              <div class="text-xs font-black">Capítulo {{ capitulo.sort  }}</div>
               <div class="text-base font-bold">
                 {{ capitulo.title }}
               </div>
@@ -33,119 +27,152 @@
         <!-- Selector de capitulo |FIN| -->
 
         <!-- Layout contenido y selector |INICIO| -->
-
         <div id="layout-estrategia-content">
           <!-- Selector de contenidos |INICIO| -->
-          <div id="layout-slides-navigation">
+          <div id="layout-slides-navigation" class="slides-wrapper">
+            <!-- MENU DESPLEGABLE FOR SMALL AND MEDIUM DEVICES -->
+            <div v-if="['xs', 'md'].includes($vuetify.breakpoint.name)" class="mt-4"> 
+                <span class="font-bold">Contenidos</span>
+            </div>
+            <!-- MENU DESPLEGABLE FOR SMALL AND MEDIUM DEVICES -->
+
             <!-- Slide card |INICIO| -->
             <div
               v-for="(contenidoCapitulo, index) in $store.getters[
                 'capitulos/activeCapitulo'
               ].contents"
               :key="index"
-              class="cursor-pointer"
-              @click="
-                $store.commit(
-                  'capitulos/updateContenidoActivo',
-                  contenidoCapitulo.id
-                )
-              "
+              :class="`${
+                $store.getters['capitulos/activeContenido'].id ===
+                contenidoCapitulo.id
+                  ? 'contenido-card-active'
+                  : contenidoCapitulo.featured === true
+                  ? 'contenido-card-featured'
+                  : 'contenido-card'
+              }`"
+              @click="$store.commit('capitulos/updateContenidoActivo',contenidoCapitulo.id)"
             >
-              <!-- <v-img
-                v-if="contenidoCapitulo.file.data"
-                contain
-                :aspect-ratio="16 / 9"
-                class="bg-white rounded-lg p-5 shadow-md shadow-slate-300"
-                :src="
-                  $config.apiUrl + contenidoCapitulo.file.data.attributes.url
-                "
-              ></v-img> -->
+              <div>
+                <div class="flex lg:justify-between lg:align-center lg:space-x-4">
+                  <div class="flex flex-col justify-end">
+                    <div class="flex align-center space-x-2">
+                      <span class="block text-2xl font-black"
+                        >{{ contenidoCapitulo.sort < 10 ? "0" : ""
+                        }}{{ contenidoCapitulo.sort + 1  }}</span
+                      >
+                      <font-awesome-icon
+                        v-if="contenidoCapitulo.featured"
+                        icon="fa-solid fa-circle-star"
+                        class="w-4 h-4"
+                        fixed-width
+                      />
+                    </div>
+                    <div class="flex flex-col">
+                      <div class="font-black text-xs lg:text-base">{{ contenidoCapitulo.title }}</div>
+                      <div class="text-xs font-thin">
+                        {{ contenidoCapitulo.excerpt }}
+                      </div>
+                    </div>
+                  </div>
 
-              <!-- <v-img
-                v-if="contenidoCapitulo.Formato == 'Video'"
-                contain
-                :aspect-ratio="16 / 9"
-                class="bg-white rounded-lg p-5 shadow-md shadow-slate-300"
-                :src="
-                  'https://img.youtube.com/vi/' +
-                  contenidoCapitulo.embedUrl +
-                  '/0.jpg'
-                "
-              ></v-img> -->
-
-              <!-- <div class="font-bold text-xs">{{index}}</div> -->
-              <div
-                :class="`${
-                  $store.getters['capitulos/activeContenido'].id ===
-                  contenidoCapitulo.id
-                    ? 'contenido-card-active'
-                    : 'contenido-card'
-                }`"
-              >
-                <span class="block text-2xl font-black"
-                  >{{ contenidoCapitulo.sort < 10 ? "0" : ""
-                  }}{{ contenidoCapitulo.sort + 1 }}</span
-                >
-                <div class="font-black">{{ contenidoCapitulo.title }}</div>
-                <div class="text-xs font-thin">{{
-                  contenidoCapitulo.excerpt
-                }}</div>
+                  <div>
+                    <v-img
+                      v-if="contenidoCapitulo.file && !$vuetify.breakpoint.mobile"
+                      class="rounded-lg"
+                      :src="$config.apiUrlV2 +'/assets/' +contenidoCapitulo.file.id + '?fit=cover&width=120&height=80&quality=25&withoutEnlargement'"
+                      contain
+                    ></v-img>
+                  </div>
+                </div>
               </div>
-              <!-- <div>{{contenidoCapitulo.Formato}}</div> -->
-              <!-- <div>{{contenidoCapitulo.embedUrl}}</div> -->
             </div>
             <!-- Slide card |INICIO| -->
           </div>
           <!-- Selector de contenidos |FIN| -->
 
           <!-- Capítulo > Contenido activo |INICIO| -->
-          <v-responsive
-            :aspect-ratio="16 / 5"
-            content-class="contenido-content"
-          >
-            <!-- <div>{{$store.state.capitulos.contenidoActivoId}}</div> -->
-
-            <div v-if="$store.getters['capitulos/activeContenido']">
+          <div class="contenido-content" v-if="$store.getters['capitulos/activeContenido']">
               <div id="contenido-head">
                 <div id="c-title">
-                  <div class="text-3xl font-bold">
-                    {{ $store.getters["capitulos/activeContenido"].title }}
-                  </div>
-                </div>
-                <!-- <div id="c-index">
-                      <div>{{$store.getters['capitulos/activeContenido'].id}}</div>
-                    </div> -->
-                <!-- <div id="c-type">
-                      <div>{{$store.getters['capitulos/activeContenido'].Formato}}</div>
-                    </div> -->
-              </div>
-              <div id="contenido-body">
-                <div class="c-content w-full min-h-24">
-                  <div
-                    v-if="
-                      ['Foto referencial', 'Infografía'].includes(
-                        $store.getters['capitulos/activeContenido'].format
-                      )
-                    "
-                  >
-                    <div
-                      v-if="$store.getters['capitulos/activeContenido'].file"
-                    >
-                      <v-img
-                        :src="
-                          $config.apiUrlV2 +
-                          '/assets/' +
-                          $store.getters['capitulos/activeContenido'].file.id
-                        "
-                      >
-                      </v-img>
+                  <div class="text-lg lg:text-3xl font-bold flex flex-col lg:flex-row justify-between lg:align-center">
+                    <div>
+                      <span>{{ $store.getters["capitulos/activeContenido"].title }}</span>
+                      <div v-if="$store.getters['capitulos/activeContenido'].featured" class="flex align-center space-x-2 mb-2">
+                        <font-awesome-icon 
+                          icon="fa-solid fa-circle-star"
+                          class="w-4 h-4"
+                          fixed-width
+                        />
 
-                      <span class="block mt-4 text-xs font-thin text-slate-500">{{
-                        $store.getters["capitulos/activeContenido"].file
-                          .description
-                      }}</span>
+                        <span class="font-bold text-sm">Contenido destacado</span>
+                      </div>
+                    </div> 
+                    <div v-if="['Presentación PDF'].includes($store.getters['capitulos/activeContenido'].format) && $store.getters['capitulos/activeContenido'].file">
+                     <a :href="$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id + '?download'" target="_blank" :download="$store.getters['capitulos/activeContenido'].file.filename_download">
+                      <v-btn outlined color="red darken-1" :small="['xs', 'md'].includes($vuetify.breakpoint.name)">
+                        <span>Descargar</span>
+                        <font-awesome-icon icon="fa-solid fa-file-arrow-down" class="w-4 h-4 ml-2" :style="{ color: 'red' }" />
+                      </v-btn>
+                      </a>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div id="contenido-body">
+                <div class="c-content w-full min-h-24 w-full">
+                  <!-- FOTOS REFERENCALES -->
+                  <div v-if="['Foto referencial'].includes($store.getters['capitulos/activeContenido'].format)">
+                    <div v-if="$store.getters['capitulos/activeContenido'].file">
+                      <v-img :src="$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id + '?width=' + width + '&height=' + height"></v-img>
+
+                      <span class="block mt-4 mb-4 lg:mb-0 text-xs font-thin text-slate-500">{{ $store.getters["capitulos/activeContenido"].file.description }}</span>
+                    </div>
+                  </div>
+                  <!-- FOTOS REFERENCALES -->
+
+                  <!-- INFOGRAFIAS -->
+                  <div v-if="['Infografía'].includes($store.getters['capitulos/activeContenido'].format)">
+                    <div v-if="$store.getters['capitulos/activeContenido'].file">
+                      <iframe
+                       class="image-wrapper"
+                      :src="$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id"
+                      :width="width"
+                      :height="height"
+                       ></iframe>
+                      <span class="block mt-4 text-xs font-thin text-slate-500">{{ $store.getters["capitulos/activeContenido"].file.description }}</span>
+                    </div>
+                  </div>
+                  <!-- INFOGRAFIAS -->
+
+                  <!-- VIDEOS ONLINE -->
+                  <div
+                    v-if="['Video Online'].includes($store.getters['capitulos/activeContenido'].format)"
+                  >
+                    <iframe
+                      v-if="$store.getters['capitulos/activeContenido'].url"
+                      :src="get_video_params.outputUrl"
+                      :width="width"
+                      :height="height"
+                    ></iframe>
+                  </div>
+                  <!-- VIDEOS ONLINE -->
+
+                  <!-- PRESENTACION PDF -->
+                  <div v-if="['Presentación PDF'].includes($store.getters['capitulos/activeContenido'].format)">
+                    <iframe
+                      :src="$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id"
+                      :width="width"
+                      :height="height"
+                    ></iframe>
+                  </div>
+                  <!-- PRESENTACION PDF -->
+
+                  <!-- CODIGO EMBED -->
+                  <div v-if="['Código embedido'].includes($store.getters['capitulos/activeContenido'].format)"> 
+                    <div v-html="$store.getters['capitulos/activeContenido'].embed_code"></div>
+                  </div>
+                  <!-- CODIGO EMBED -->
                 </div>
 
                 <div class="c-description" v-if="markedBody">
@@ -155,27 +182,8 @@
                     class="marked"
                   ></div>
                 </div>
-
-                <!--<div
-                    v-if="
-                      ['Video'].includes(
-                        $store.getters['capitulos/activeContenido'].Formato
-                      ) && $store.getters['capitulos/activeContenido'].embedUrl
-                    "
-                  >
-                    <iframe
-                      width="100%"
-                      class="aspect-video"
-                      :src="`https://www.youtube.com/embed/${$store.getters['capitulos/activeContenido'].embedUrl}`"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    >
-                    </iframe> -->
-              </div>
             </div>
-          </v-responsive>
+          </div>
           <!-- Capítulo > Contenido activo |FIN| -->
         </div>
         <!-- Layout contenido y selector |FIN| -->
@@ -186,7 +194,7 @@
     <!-- v-if: se encuentran capítulos |FIN| -->
 
     <!-- v-if: no se encuentran capítulos |INICIO| -->
-    <div v-else>No hay capítulos</div>
+    <!-- <div v-else>No hay capítulos</div> -->
     <!-- v-if: no se encuentran capítulos |FIN| -->
   </div>
 </template>
@@ -197,6 +205,11 @@ export default {
   computed: {
     capitulos() {
       return this.$store.state.capitulos.capitulos;
+    },
+    contenido_is_featured() {
+      return this.$store.getters["capitulos/activeContenido"].featured
+        ? "contenido-card-active"
+        : "contenido-card";
     },
     get_video_params() {
       let res = {
@@ -209,6 +222,27 @@ export default {
         inputUrl: null,
         outputUrl: null,
       };
+
+      res.inputUrl = this.$store.getters["capitulos/activeContenido"].url;
+
+      // get provider of the url (youtube or youtu.be) and set the provider
+      if (res.inputUrl.includes("youtube.com")) {
+        res.provider = "youtube";
+      } else if (res.inputUrl.includes("youtu.be")) {
+        res.provider = "youtu.be";
+      }
+
+      switch (res.provider) {
+        case "youtube":
+          res.params.v = res.inputUrl.split("v=")[1].split("&")[0];
+          res.outputUrl = `https://www.youtube.com/embed/${res.params.v}`;
+          break;
+        case "youtu.be":
+          res.params.v = res.inputUrl.split("youtu.be/")[1].split("&")[0];
+          res.outputUrl = `https://www.youtube.com/embed/${res.params.v}`;
+          break;
+      }
+
       /**
        * Casos youtube
        * Ej1 - Default: https://www.youtube.com/watch?v=Iu3Vez0StvM
@@ -217,7 +251,6 @@ export default {
        * Embed: https://www.youtube.com/embed/Iu3Vez0StvM
        *
        */
-      res.provider = "youtube";
 
       /**
        * Casos Vimeo
@@ -238,6 +271,34 @@ export default {
         return null;
       }
     },
+    width() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 320;
+        case 'sm':
+          return 400;
+        case 'md':
+          return 1000;
+        case 'lg':
+          return this.$store.getters['capitulos/activeContenido'].body ? 400 : 680;
+        case 'xl':
+          return this.$store.getters['capitulos/activeContenido'].body ? 680 : 1280;
+      }
+    },
+    height() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 180;
+        case 'sm':
+          return 240;
+        case 'md':
+          return 500;
+        case 'lg':
+          return 340;
+        case 'xl':
+          return ['Infografía', 'Video Online', 'Presentación PDF'].includes(this.$store.getters['capitulos/activeContenido'].format) ? 480 : 340;
+      }
+    }
   },
 };
 </script>
@@ -257,9 +318,11 @@ export default {
 #capitulos-index-wrapper::-webkit-scrollbar {
   height: 10px;
 }
+
 #capitulos-index-wrapper::-webkit-scrollbar-track {
   background: #f1f5f9;
 }
+
 #capitulos-index-wrapper::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 5px;
@@ -267,9 +330,9 @@ export default {
 }
 
 .capitulo-card {
-  @apply p-4 m-2 bg-slate-100 text-slate-800 rounded-xl cursor-pointer;
-  min-width: 400px;
-  width: 400px;
+  @apply p-4 m-2 bg-slate-200 text-slate-800 rounded-xl cursor-pointer;
+  min-width: 400px; 
+  width: 400px; 
   max-width: 400px;
 }
 
@@ -287,50 +350,117 @@ export default {
   height: 50vh;
 }
 
+@media screen and (max-width: 768px) {
+  #layout-estrategia-content {
+    @apply flex flex-col-reverse;
+    height: 100%;
+  }
+}
+
 /* Estilos de slides para selección de contenido */
 #layout-slides-navigation {
-  @apply grid justify-items-start px-2 content-start shadow-inner gap-3 rounded-sm;
+  @apply grid justify-items-start content-start shadow-inner gap-3 rounded-sm;
   grid-template-columns: repeat(2, minmax(1, 1fr));
+  height: 50vh;
 }
+
 .slide-preview {
   @apply bg-slate-200 rounded-2xl;
 }
 
-.contenido-card {
-  @apply p-4 bg-slate-100 text-slate-800 rounded-xl cursor-pointer;
-  min-width: 400px;
-  width: 400px;
-  max-width: 400px;
+.slides-wrapper {
+   @apply snap-y scroll-mt-4;
+   width: 400px;
+   overflow-y: scroll;
 }
 
-.contenido-card-active {
-  @apply p-4 bg-neutral-700 text-white rounded-xl cursor-pointer;
-  min-width: 400px;
-  width: 400px;
-  max-width: 400px;
+@media only screen and (max-width: 420px) {
+  .slides-wrapper {
+    @apply snap-y scroll-mt-8;
+    width: 320px;
+    overflow-y: scroll;
+  }
+}
+
+.slides-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.slides-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.slides-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+  max-width: 100px;
 }
 
 /* Estilos de contenido */
 .contenido-content {
-  @apply p-5 grid;
+  @apply lg:pl-8 pl-0 grid;
+}
+
+.contenido-card {
+  @apply p-4 bg-slate-200 text-slate-800 rounded-xl cursor-pointer;
+  min-width: 380px;
+  width: 380px;
+  max-width: 380px;
+}
+
+.contenido-card-active {
+  @apply p-4 bg-slate-800 text-white rounded-xl cursor-pointer;
+  min-width: 380px;
+  width: 380px;
+  max-width: 380px;
+}
+
+.contenido-card-featured {
+  @apply p-4 bg-slate-400 text-white rounded-xl cursor-pointer;
+  min-width: 380px;
+  width: 380px;
+  max-width: 380px;
+}
+
+/* Resize card width for extra small and small devices */
+@media only screen and (max-width: 420px) {
+  .contenido-card {
+    @apply p-4 bg-slate-200 text-slate-800 rounded-xl cursor-pointer;
+    min-width: 310px;
+    width: 310px;
+    max-width: 310px;
+  }
+
+  .contenido-card-active {
+    @apply p-4 bg-slate-800 text-white rounded-xl cursor-pointer;
+    min-width: 310px;
+    width: 310px;
+    max-width: 310px;
+  }
+
+  .contenido-card-featured {
+    @apply p-4 bg-slate-400 text-white rounded-xl cursor-pointer;
+    min-width: 310px;
+    width: 310px;
+    max-width: 310px;
+  }
 }
 
 #contenido-body {
-  @apply grid gap-5;
-  grid-template-columns: repeat(1, minmax(0, 1fr) minmax(0, 1fr));
+  @apply flex lg:space-x-8 space-x-0 flex-col lg:flex-row mb-4 lg:mb-0;
+  /* grid-template-columns: repeat(1, minmax(0, 1fr) minmax(0, 1fr)); */
 }
 
 #c-title {
-  @apply mb-5 text-slate-700 px-4;
+  @apply mb-5 text-slate-700;
 }
 
-
 .marked {
-  @apply font-sans;
+  @apply font-sans px-0;
 }
 
 #marked-wrapper {
-  @apply scroll-py-10 pl-8 snap-y mr-4;
+  @apply scroll-py-10 snap-y;
   overflow-y: scroll;
   height: 50vh;
 }
@@ -344,6 +474,25 @@ export default {
 }
 
 #marked-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+  max-width: 100px;
+}
+
+.image-wrapper {
+  @apply snap-x;
+  overflow-x: scroll;
+}
+
+.image-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+.image-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.image-wrapper::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 5px;
   max-width: 100px;
