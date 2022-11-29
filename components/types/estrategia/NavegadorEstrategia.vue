@@ -31,10 +31,11 @@
           <!-- Selector de contenidos |INICIO| -->
           <div id="layout-slides-navigation" class="slides-wrapper">
             <!-- MENU DESPLEGABLE FOR SMALL AND MEDIUM DEVICES -->
-            <div v-if="['xs', 'md'].includes($vuetify.breakpoint.name)" class="mt-4"> 
-                <span class="font-bold">Contenidos</span>
-            </div>
+              <div v-if="['xs', 'md'].includes($vuetify.breakpoint.name)" class="mt-4"> 
+                  <span class="font-bold">Contenidos</span>
+              </div>
             <!-- MENU DESPLEGABLE FOR SMALL AND MEDIUM DEVICES -->
+
 
             <!-- Slide card |INICIO| -->
             <div
@@ -57,7 +58,7 @@
                   <div class="flex flex-col justify-end">
                     <div class="flex align-center space-x-2">
                       <span class="block text-2xl font-black"
-                        >{{ contenidoCapitulo.sort < 10 ? "0" : ""
+                        >{{ contenidoCapitulo.sort < 9 ? "0" : ""
                         }}{{ contenidoCapitulo.sort + 1  }}</span
                       >
                       <font-awesome-icon
@@ -66,9 +67,30 @@
                         class="w-4 h-4"
                         fixed-width
                       />
+
+                      <!-- ICONO [VIDEO, CODIGO EMBEDIDO, PDF] -->
+                      <font-awesome-icon 
+                      v-if="['Presentación PDF'].includes(contenidoCapitulo.format)" 
+                      icon="fa-solid fa-file-pdf"  
+                      class="w-4 h-4"
+                      fixed-width />
+
+                      <font-awesome-icon
+                        v-if="['Video Online'].includes(contenidoCapitulo.format)"
+                        icon="fa-solid fa-video"
+                        class="w-4 h-4"
+                        fixed-width />
+
+                      <font-awesome-icon
+                        v-if="['Código embedido'].includes(contenidoCapitulo.format)"
+                        icon="fa-solid fa-presentation-screen"
+                        class="w-4 h-4"
+                        fixed-width />
+                      <!-- ICONO [VIDEO, CODIGO EMBEDIDO, PDF] -->
+
                     </div>
                     <div class="flex flex-col">
-                      <div class="font-black text-xs lg:text-base">{{ contenidoCapitulo.title }}</div>
+                      <div class="font-black text-xs lg:text-sm">{{ contenidoCapitulo.title }}</div>
                       <div class="text-xs font-thin">
                         {{ contenidoCapitulo.excerpt }}
                       </div>
@@ -76,12 +98,14 @@
                   </div>
 
                   <div>
+                    <!-- THUMBNAIL [FOTO REFERENCIAL, INFOGRAFIAS] -->
                     <v-img
                       v-if="contenidoCapitulo.file && !$vuetify.breakpoint.mobile"
                       class="rounded-lg"
                       :src="$config.apiUrlV2 +'/assets/' +contenidoCapitulo.file.id + '?fit=cover&width=120&height=80&quality=25&withoutEnlargement'"
                       contain
                     ></v-img>
+                    <!-- THUMBNAIL [FOTO REFERENCIAL, INFOGRAFIAS] -->
                   </div>
                 </div>
               </div>
@@ -107,6 +131,8 @@
                         <span class="font-bold text-sm">Contenido destacado</span>
                       </div>
                     </div> 
+
+                    <!-- DOWNLOAD PDF BUTTON -->
                     <div v-if="['Presentación PDF'].includes($store.getters['capitulos/activeContenido'].format) && $store.getters['capitulos/activeContenido'].file">
                      <a :href="$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id + '?download'" target="_blank" :download="$store.getters['capitulos/activeContenido'].file.filename_download">
                       <v-btn outlined color="red darken-1" :small="['xs', 'md'].includes($vuetify.breakpoint.name)">
@@ -115,34 +141,28 @@
                       </v-btn>
                       </a>
                     </div>
+                    <!-- DOWNLOAD PDF BUTTON -->
                   </div>
                 </div>
               </div>
 
               <div id="contenido-body">
-                <div class="c-content w-full min-h-24 w-full">
+                <div class="c-content min-h-24">
                   <!-- FOTOS REFERENCALES -->
-                  <div v-if="['Foto referencial'].includes($store.getters['capitulos/activeContenido'].format)">
-                    <div v-if="$store.getters['capitulos/activeContenido'].file">
-                      <v-img :src="$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id + '?width=' + width + '&height=' + height"></v-img>
-
-                      <span class="block mt-4 mb-4 lg:mb-0 text-xs font-thin text-slate-500">{{ $store.getters["capitulos/activeContenido"].file.description }}</span>
-                    </div>
-                  </div>
+                  <UtilitariosLightBox 
+                  v-if="['Foto referencial'].includes($store.getters['capitulos/activeContenido'].format) && $store.getters['capitulos/activeContenido'].file"
+                  :images="[$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id + '?fit=contain&width=' + width + '&height=' + height]">
+                  </UtilitariosLightBox>
                   <!-- FOTOS REFERENCALES -->
 
                   <!-- INFOGRAFIAS -->
-                  <div v-if="['Infografía'].includes($store.getters['capitulos/activeContenido'].format)">
-                    <div v-if="$store.getters['capitulos/activeContenido'].file">
-                      <iframe
-                       class="image-wrapper"
-                      :src="$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id"
-                      :width="width"
-                      :height="height"
-                       ></iframe>
-                      <span class="block mt-4 text-xs font-thin text-slate-500">{{ $store.getters["capitulos/activeContenido"].file.description }}</span>
-                    </div>
-                  </div>
+                 <UtilitariosLightBox
+                  v-if="['Infografía'].includes($store.getters['capitulos/activeContenido'].format)"
+                  :images="[$config.apiUrlV2 + '/assets/' + $store.getters['capitulos/activeContenido'].file.id]"
+                  is_infografia
+                  :width="width"
+                  :height="height">
+                  </UtilitariosLightBox>
                   <!-- INFOGRAFIAS -->
 
                   <!-- VIDEOS ONLINE -->
@@ -272,17 +292,19 @@ export default {
       }
     },
     width() {
+      const has_body = this.$store.getters["capitulos/activeContenido"].body;
+
       switch(this.$vuetify.breakpoint.name) {
         case 'xs':
           return 320;
         case 'sm':
           return 400;
         case 'md':
-          return 1000;
+          return 680;
         case 'lg':
-          return this.$store.getters['capitulos/activeContenido'].body ? 400 : 680;
+          return has_body ? 400 : 680;
         case 'xl':
-          return this.$store.getters['capitulos/activeContenido'].body ? 680 : 1280;
+          return has_body ? 680 : 1280;
       }
     },
     height() {

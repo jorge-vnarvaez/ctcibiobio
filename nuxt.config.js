@@ -36,6 +36,7 @@ export default {
   // 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/css/main.css',
     '@/assets/vuetify_blocks.scss',
     '@mdi/font/css/materialdesignicons.css'
   ],
@@ -56,7 +57,8 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
     // '@nuxtjs/fontawesome',
-    '@nuxtjs/tailwindcss',
+    // '@nuxtjs/tailwindcss',
+    '@nuxt/postcss8',
     '@nuxtjs/moment',
   ],
   moment: {
@@ -119,8 +121,9 @@ export default {
   build: {
     postcss: {
       plugins: {
-        "postcss-custom-properties": false
+        tailwindcss: {},
+        autoprefixer: {},
       },
     },
-  }
+  },
 }
