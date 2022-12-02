@@ -27,15 +27,14 @@
         <!-- TEXT AND BUTTON -->
         <div class="flex flex-col justify-center">
           <span class="block white--text font-black text-3xl lg:text-5xl">
-            Queremos saber tu opinión sobre las misiones que queremos cumplir en la región del
-            Biobío.
+           Participa en la selección de las misiones que impulsarán el Desarrollo de la CTCI en la región del Biobío.
           </span>
 
-          <span class="block white--text font-light text-2xl mt-2">
+          <!-- <span class="block white--text font-light text-2xl mt-2">
             Ayúdanos a responder el siguiente instrumento.
-          </span>
+          </span> -->
 
-          <div class="mt-4">
+          <div class="mt-8">
             <v-btn outlined color="white" elevation="0" to="/gamificacion">Participar</v-btn>
           </div>
         </div>

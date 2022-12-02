@@ -17,9 +17,10 @@
         @click="index = imageIndex"
         :src="image"
         class="cursor-pointer h-full w-full"
+        contain
       ></v-img>
       <span class="block mt-4 mb-4 lg:mb-0 text-xs font-thin text-slate-500">{{
-        $store.getters["capitulos/activeContenido"].file.description
+        description !== '' ? description : $store.getters["capitulos/activeContenido"].file.description
       }}</span>
     </div>
 
@@ -59,6 +60,11 @@ export default {
       type: Array,
       default: null,
       desc: "An array of images to display in the lightbox",
+    },
+    description: {
+      type: String,
+      default: null,
+      desc: "A description of the image",
     },
     is_infografia: {
       type: Boolean,

@@ -12,7 +12,7 @@
       >
         <span
           class="block text-2xl lg:text-4xl font-black text-[#2929c6] text-center"
-          >¿Qué priorizarías?</span
+          >Como región del Biobío, debemos enfocar nuestros esfuerzos en:</span
         >
 
         <!-- OPTIONS -->
@@ -23,20 +23,20 @@
           <div class="rounded-xl shadow-2xl col-span-12 lg:col-span-6">
             <v-card
               @click="optionSelected(optionsData[firstOption].id)"
-              class="px-8 py-8 d-flex flex-col align-center justify-center"
+              class="px-8 py-8 d-flex align-center justify-center"
               height="240"
               style="cursor: pointer"
               flat
             >
               <span
-                class="text-base lg:text-lg text-center text-[#2929c6] h-20"
+                class="text-base lg:text-lg text-center text-[#2929c6]"
               >
                 {{ optionsData[firstOption].title }}
               </span>
 
-              <span v-if="optionsData[firstOption].mission"
+              <!-- <span v-if="optionsData[firstOption].mission"
                 >{{ optionsData[firstOption].mission.label }}
-              </span>
+              </span> -->
             </v-card>
           </div>
           <!-- OPTION 1 -->
@@ -45,20 +45,20 @@
           <div class="rounded-xl shadow-2xl col-span-12 lg:col-span-6">
             <v-card
               @click="optionSelected(optionsData[secondOption].id)"
-              class="px-8 py-8 d-flex flex-col align-center justify-center"
+              class="px-8 py-8  d-flex align-center justify-center"
               height="240"
               style="cursor: pointer"
               flat
             >
               <span
-                class="text-base lg:text-lg text-center text-[#2929c6] h-20"
+                class="text-base lg:text-lg text-center text-[#2929c6]"
               >
                 {{ optionsData[secondOption].title }}
               </span>
 
-              <span v-if="optionsData[secondOption].mission"
+              <!-- <span v-if="optionsData[secondOption].mission"
                 >{{ optionsData[secondOption].mission.label }}
-              </span>
+              </span> -->
             </v-card>
           </div>
           <!-- OPTION 2 -->

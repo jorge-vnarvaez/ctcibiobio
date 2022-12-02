@@ -2,24 +2,25 @@
   <v-img>
     <v-responsive :aspect-ratio="16/5" min-height="300px" content-class="d-flex flex-column justify-center py-12" id="actividades">
       
-      <div class="text-h2 font-weight-black mb-5 fic-2--text text--darken-3">Etapas del proyecto</div>
+      <div class="text-h2 font-weight-black mb-5 fic-2--text text--darken-3">Etapas</div>
       <div class="grilla overflow-x-scroll snap-x snap-mandatory flex w-full space-x-8 py-4" id="componentes-proyecto">
         <!-- Componentes |INICIO| -->
         <div v-for="(componente, index) in componentes" :key="index" :class="clasesComponentes">
           <div>
             <div class="text-h2 font-weight-black nombre-componente">0{{index+1}}</div>
             <div class="yellow--text text--darken-4">
-              <div class="text-h5 font-weight-light mb-3 nombre-componente">{{componente.title}}</div>
+              <div class="text-h4 font-weight-light nombre-componente">{{componente.title}}</div>
+              <div class="text-h6 font-weight-light mb-3 nombre-componente">{{componente.sub_title}}</div>
               <div class="text-body-2">{{componente.description}}</div>
             </div>
           </div>
-          <div class="my-n1">
+          <!-- <div class="my-n1">
             <v-divider class="my-3"></v-divider>
-            <div class="text-overline yellow--text text--darken-4 font-weight-medium">Actividades</div>
+            <div class="text-overline yellow--text text--darken-4 font-weight-medium">Actividades</div> -->
             <!-- Actividades |INICIO| -->
-            <div v-for="(actividad, key) in componente.actividades" :key="key" :class="clasesTags">{{actividad}}</div>
+            <!-- <div v-for="(actividad, key) in componente.actividades" :key="key" :class="clasesTags">{{actividad}}</div> -->
             <!-- Actividades |FIN| -->
-          </div>
+          <!-- </div> -->
         </div>
         <!-- Componentes |FIN| -->
       </div>
@@ -32,7 +33,8 @@ export default {
     return {
       componentes: [
         {
-          title: "Levantamiento de información base del sistema regional de innovación",
+          title: 'Diagnóstico',
+          sub_title: "Levantamiento de información base del sistema regional de innovación",
           description: "Revisión y análisis de información y estrategias regionales relacionadas a la iniciativa. Además de un mapeo inicial del SRI apoyado de bases de datos, encuestas y entrevistas. Todas estas actividades tienen el fin de establecer la línea base del ecosistema de CTCI de la región, sus componentes e indicadores.",
           actividades: [
             "Revisión",
@@ -41,7 +43,8 @@ export default {
           ],
         },
         {
-          title: "Sociabilización de temas estratégicos y levantamiento de demandas",
+          title: 'Sociabilización',
+          sub_title: "Sociabilización de temas estratégicos y levantamiento de demandas",
           description: "Comprende reuniones de cobertura territorial así como mesas de trabajo con distintos representantes tanto del sector académico, gremios, sector privado y miembros del ecosistema de emprendimiento. Finalmente, la iteración de aprendizajes, información y con el Gobierno regional. Esto definirá lineamientos, desafíos y rutas de trabajo de la estrategia.",
           actividades: [
             "Mesas de trabajo",
@@ -50,7 +53,8 @@ export default {
           ],
         },
         {
-          title: "Generación de estrategia, desafíos, oportunidades, programas",
+          title: 'Diseño',
+          sub_title: "Generación de estrategia, desafíos, oportunidades, programas",
           description: "Actividades de análisis interno de datos, gira tecnológica, definición de desafíos, validación, generación de estrategia y plan de difusión. Todo con el fin de obtener el marco estratégico, formas y volumen de las acciones y principales programas basados en misiones regionales.",
           actividades: [
             "Estrategia",
@@ -59,7 +63,8 @@ export default {
           ],
         },
         {
-          title: "Implementación de plataforma de seguimiento, visualización e información",
+          title: 'Implementación',
+          sub_title: "Implementación de plataforma de seguimiento, visualización e información",
           description: "Despliegue de una plataforma para el inclusión de métricas e implementación de un sistema de seguimiento con el fin de entregar una visualización y mecanismo de control de la estrategia con gobernanza y gestión sustentable de dicha herramienta.",
           actividades: [
             "Alcances de estrategia",

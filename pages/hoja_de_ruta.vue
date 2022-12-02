@@ -1,9 +1,9 @@
 <template lang="">
   <div class="max-w-screen-xl mx-auto">
     <v-container class="py-10">
-      <div class="text-h3">Actividades</div>
+      <div class="text-h3">Hoja de ruta</div>
       <div class="text-subtitle">
-        Conoce los hitos y actividades del proyecto
+        Conoce el estado de avance
       </div>
       <v-divider class="my-3"></v-divider>
       <div>
