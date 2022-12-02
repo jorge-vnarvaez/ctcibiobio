@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="p-3 h-screen" id="page-wrapper">
+  <div class="p-3" id="page-wrapper">
     <!-- v-if: se encuentran capítulos |INICIO| -->
     <div v-if="capitulos" ref="top">
       <!-- v-if: el capítulo tiene datos |INICIO| -->
@@ -9,7 +9,7 @@
         <div id="capitulos-index-wrapper">
           <!-- Tarjeta de Capítulo |INICIO| -->
           <div
-            :class="`${$store.getters['capitulos/activeCapitulo'].sort === capitulo.sort ? 'capitulo-card-active' : 'capitulo-card'}`"
+            :class="`${$store.getters['capitulos/activeCapitulo'].sort === capitulo.sort ? 'capitulo-card-active' : 'capitulo-card'}` + ' cursor-pointer'"
             v-for="(capitulo, indexCapitulo) in capitulos"
             :key="indexCapitulo"
             @click="capituloSeleccionado(capitulo.sort)"
@@ -123,20 +123,7 @@
     </div>
     <!-- v-if: se encuentran capítulos |FIN| -->
 
-    <!-- create a keep reading button -->
-    <div v-if="$vuetify.breakpoint.mobile ? false : true"> 
-      <div class="fixed inset-y-3/4 inset-x-2/4" v-if="text">
-        <v-btn
-        class="mt-4"
-        color="primary"
-        outlined
-        v-if="$store.getters['capitulos/activeCapitulo'].contents.length > 1"
-        @click="keepReading"
-        >
-          <span class="font-bold">Continuar leyendo</span>
-        </v-btn>
-      </div>
-    </div>
+
 
     <div class="mt-20" ref="moreContent">
       <div id="section-content" class="my-12 h-4/12" v-for="contenido in $store.getters['capitulos/activeCapitulo'].contents.slice(sliceIndex, contentsNumber)" :key="contenido.id">
@@ -144,8 +131,7 @@
       </div>
     </div>
 
-    <!-- create a floating button to bottom and center position -->
-    <div class="fixed bottom-32">
+    <div class="fixed bottom-32 w-full flex">
       <v-btn
         fab
         dark
@@ -154,6 +140,18 @@
       >
         <v-icon>mdi-arrow-up</v-icon>
       </v-btn>
+
+      <div v-if="text" class="w-full flex justify-center align-center">
+        <v-btn
+          v-if="$store.getters['capitulos/activeCapitulo'].contents.length > 1"
+          color="primary"
+          outlined
+          @click="keepReading"
+          >
+            <span class="font-bold">Continuar leyendo</span>
+          </v-btn>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -410,7 +408,7 @@ export default {
 #page-wrapper {
   @apply snap-y scroll-smooth;
   overflow-y: scroll;
-  height: 60vh;
+  height: 50vh;
 }
 
 #page-wrapper::-webkit-scrollbar {
