@@ -131,7 +131,7 @@
       </div>
     </div>
 
-    <div class="fixed bottom-32 w-full flex">
+    <div class="absolute bottom-24 w-full flex">
       <v-btn
         fab
         dark
@@ -141,7 +141,7 @@
         <v-icon>mdi-arrow-up</v-icon>
       </v-btn>
 
-      <div v-if="text" class="w-full flex justify-center align-center">
+      <!-- <div v-if="text" class="w-full flex justify-center align-center">
         <v-btn
           v-if="$store.getters['capitulos/activeCapitulo'].contents.length > 1"
           color="primary"
@@ -151,7 +151,7 @@
             <span class="font-bold">Continuar leyendo</span>
           </v-btn>
         </div>
-      </div>
+      </div> -->
     </div>
 
   </div>

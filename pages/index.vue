@@ -13,6 +13,10 @@
     <!-- Próximos eventos -->
     <TypesEventoProximosEventos></TypesEventoProximosEventos>
     <!-- Próximos eventos -->
+
+    <!-- Infografías -->
+    <InfoInfografias></InfoInfografias>
+    <!-- Infografías -->
   </div>
 </template>
 <script>

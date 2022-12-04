@@ -17,7 +17,7 @@
                 v-model="user.rut"
                 label="Indicanos tu RUT"
                 placeholder="Ejemplo: 12345678-9 (sin puntos, con guión)"
-                :rules="rulesRut"
+                :rules="reglaRut"
               ></v-text-field>
 
               <v-text-field
@@ -54,7 +54,7 @@
                 medium
                 class="text-capitalize mt-4"
                 @click="participar"
-                >Participar</v-btn
+                >Comenzar</v-btn
               >
             </v-form>
           </v-card-text>
@@ -90,18 +90,7 @@ export default {
       ],
       // create an array for years between 1930 and 2022
       years: Array.from(new Array(93), (val, index) => 2000 - index),
-      rulesRut: [
-        (v) => !!v || "El RUT es obligatorio",
-        (v) => {
-          if (v) {
-            return (
-              v.length >= 8 &&
-              v.length <= 10 &&
-              v.match(/^[0-9]+[-|‐]{1}[0-9kK]{1}$/) !== null
-            );
-          }
-        },
-      ],
+      reglaRut: [(v) => !!v || "El RUT es obligatorio"],
       notNull: [
         (v) => !!v || "Este campo es obligatorio",
       ]

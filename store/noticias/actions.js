@@ -4,7 +4,7 @@ export default {
     let route = '/items/posts'
     let params = this.$objectToQueryString({
       fields:[
-        '*.*'
+        '*'
       ],
       filter: {
         status: {

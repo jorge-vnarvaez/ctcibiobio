@@ -42,24 +42,6 @@
                 declaration.title
               }}</span>
             </div>
-
-            <!-- <div>
-              <span class="text-h6"
-                >{{ percentageOfVictories(declaration.n_wins) }}%
-                Victorias</span
-              >
-              <v-progress-linear
-                color="#f5a623"
-                height="10"
-                :value="
-                  declaration.n_wins > 0
-                    ? (declaration.n_wins * 100) / totalMatchs
-                    : 0
-                "
-                :buffer-value="100"
-                striped
-              ></v-progress-linear>
-            </div> -->
           </v-card>
         </div>
       </div>
@@ -87,16 +69,9 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch('gamificacion/totalMatchs');
-    await this.$store.dispatch("gamificacion/loadMatchs");
     await this.$store.dispatch("gamificacion/loadRanking");
   },
   methods: {
-    percentageOfVictories(nWins) {
-      return this.totalMatchs != 0
-        ? Math.round((nWins * 100) / this.totalMatchs)
-        : 0;
-    },
     trophy_color(index) {
       switch (index) {
         case 1:
@@ -113,9 +88,6 @@ export default {
   computed: {
     ranking() {
       return this.$store.getters["gamificacion/ranking"];
-    },
-    totalMatchs() {
-      return this.$store.getters["gamificacion/totalMatchs"];
     },
   },
 };

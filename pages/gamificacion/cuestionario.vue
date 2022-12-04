@@ -31,7 +31,7 @@
               <span
                 class="text-base lg:text-lg text-center text-[#2929c6]"
               >
-                {{ optionsData[firstOption].title }}
+                {{ option1.title }}
               </span>
 
               <!-- <span v-if="optionsData[firstOption].mission"
@@ -53,7 +53,7 @@
               <span
                 class="text-base lg:text-lg text-center text-[#2929c6]"
               >
-                {{ optionsData[secondOption].title }}
+                {{ option2.title }}
               </span>
 
               <!-- <span v-if="optionsData[secondOption].mission"
@@ -133,6 +133,8 @@ export default {
       loser: null,
       firstOption: 0,
       secondOption: 1,
+      option1: {},
+      option2: {},
       optionsSelected: 1,
       numberOfAnswers: 0,
       dataStatus: false,
@@ -160,19 +162,26 @@ export default {
       };
     });
   },
-  updated() {
+  async updated() {
     this.reachingIndex = this.optionsData.length - this.secondOption;
     if (
       this.reachingIndex != 0 &&
       this.reachingIndex != 1 &&
       this.reachingIndex != 2
     ) {
-      // find in matcesData if the first and second options exists in the pairs array of any match object
+      // find in matchesData if the first and second options exists in the pairs array of any match object
       const match = this.matchesData.find((match) => {
         return (
           match.pairs.includes(this.optionsData[this.firstOption].id) &&
           match.pairs.includes(this.optionsData[this.secondOption].id)
         );
+      });
+
+      this.option1 = await this.$axios.$get(this.$config.apiUrlV2 + '/items/declarations/' + this.optionsData[this.firstOption].id).then((response) => {
+        return response.data;
+      });
+      this.option2 = await this.$axios.$get(this.$config.apiUrlV2 + '/items/declarations/' + this.optionsData[this.secondOption].id).then((response) => {
+        return response.data;
       });
 
       if (match !== undefined) {

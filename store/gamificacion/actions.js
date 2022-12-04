@@ -7,11 +7,6 @@ export default {
             commit('setMatches', response.data)
         });
     },
-    async totalMatchs({ commit }) {
-        await this.$axios.$get(`${this.$config.apiUrlV2}/items/matches?fields=id`).then(response => {
-            commit('setTotalMatchs', response.data.length)
-        });
-    },
     async loadDeclarations({ commit }) {
         const qs = require('qs');
 
@@ -38,7 +33,7 @@ export default {
                         rank: index + 1,
                         n_wins: declaration.wins_count
                     };
-                });
+                }).sort((a, b) => (b.skill[0] - a.skill[0]));
 
                 commit('setRanking', this.ranking);
             }

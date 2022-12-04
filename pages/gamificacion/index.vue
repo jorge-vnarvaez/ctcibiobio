@@ -1,6 +1,6 @@
 <template>
   <!-- HERO IMAGE -->
-  <v-img src="/patterns/cork-wallet.png" class="pt-8" height="550">
+  <v-img src="/patterns/cork-wallet.png" class="pt-8" :height="$vuetify.breakpoint.mobile ? '100%' : '720'">
     <v-container>
       <span class="block text-sm lg:text-xl mt-4">
         Te damos la bienvenida a la “Encuesta para la Priorización de las
@@ -27,11 +27,17 @@
         anonimato de los participantes.
       </span>
 
+      <span class="block text-sm lg:text-xl mt-4">
+        ¿Quieres saber sobre las misiones que se están priorizando? Haz clic <nuxt-link to="/gamificacion/resultados" target="_blank">aquí</nuxt-link>
+      </span>
+
       <span class="block mt-4">
         Al presionar "comenzar" declaro comprender y aceptar los términos de la siquiente encuesta.
       </span>
 
       <v-btn color="#ffac00" to="/gamificacion/iniciar" elevation="0" class="mt-4">Comenzar</v-btn>
+
+    
     </v-container>
   </v-img>
   <!-- HERO IMAGE -->

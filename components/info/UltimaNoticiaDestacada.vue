@@ -21,10 +21,11 @@
               $config.apiAssetsV2 +
               noticiaDestacada.featured_image.filename_disk
             })`,
+            backgroundPosition: 'center',
           }"
-          class="bg-fixed bg-cover"
+          class="bg-fixed bg-cover h-full"
         >
-          <div class="bg-slate-800/40 py-10 py-md-0">
+          <div class="bg-slate-800/40 py-10 py-md-0 h-full">
             <div class="max-w-screen-xl mx-auto">
               <v-container>
                 <v-responsive

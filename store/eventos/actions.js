@@ -1,10 +1,8 @@
 export default {
   async loadEventos(vueContext){
-    
-
     let params = this.$objectToQueryString({
       fields:[
-        '*.*'
+        '*'
       ],
       filter: {
         status: {
