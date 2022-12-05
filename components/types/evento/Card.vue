@@ -3,7 +3,7 @@
   :to="`/eventos/${evento.slug}`">
       <v-img 
       v-if="evento.featured_image"
-      height="250px" :src="$config.apiUrlV2 + '/assets/' evento.featured_image"></v-img>
+      height="250px" :src="$config.apiUrlV2 + '/assets/' + evento.featured_image"></v-img>
       <div class="p-4">
         <!-- <div class="font-sans text-blue-500 font-bold text-sm">{{fechaEvento}}</div> -->
         <div class="text-md font-bold text-slate-500">{{evento.title}}</div>
