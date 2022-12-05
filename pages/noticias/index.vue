@@ -2,12 +2,12 @@
   <div class="max-w-screen-xl mx-auto pt-[35px]">
     <div v-if="noticias">
       <!-- Data noticias -->
-      <div v-if="noticias.data">
+      <div v-if="noticias">
         <v-container>
           <div id="noticias-wrapper">
             <!-- Tarjeta Noticia -->
             <TypesNoticiaCard
-              v-for="(noticia, index) in noticias.data"
+              v-for="(noticia, index) in noticias"
               :key="index"
               :noticia="noticia"
             ></TypesNoticiaCard>
