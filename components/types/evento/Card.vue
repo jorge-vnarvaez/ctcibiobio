@@ -28,27 +28,6 @@ export default {
       }
     }
   },
-  computed:{
-    // fechaEvento(){
-    //   let targetStartDate = this.evento.data_start
-    //   let targetEndDate = this.evento.date_end
-      
-    //   let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    //   let targetStartDateMonth = targetStartDate ? this.$moment(targetStartDate).month() : null
-    //   let targetEndDateMonth = targetEndDate ? this.$moment(targetEndDate).month() : null
-
-    //   if(targetStartDate){
-    //     if(targetEndDate){
-    //       return `${meses[targetStartDateMonth]} ${this.$moment(targetStartDate).format('DD, YYYY')}`
-    //     }
-    //     if(!targetEndDate){
-    //       return `${meses[targetStartDateMonth]} ${this.$moment(targetStartDate).format('DD, YYYY')}`
-    //     }
-    //   } else {
-    //     return null
-    //   }
-    // }
-  }
 }
 </script>
 <style lang="">
