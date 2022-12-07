@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20" id="equipo">
     <div class="mx-auto mb-10 lg:max-w-xl sm:text-center">
-      <p class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400 text-center">
+      <p class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400 w-full text-center">
         Equipo
       </p>
       <p class="text-base text-gray-700 md:text-lg text-center">
@@ -21,11 +21,9 @@
 </template>
 <script>
 export default {
-  
   data(){
     return {
       integrantesApi: [
-
       ],
       integrantes: [
         {

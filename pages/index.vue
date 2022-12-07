@@ -2,13 +2,22 @@
   <div>
     <InfoUltimaNoticiaDestacada></InfoUltimaNoticiaDestacada>
 
+    <!-- Misiones -->
     <InfoTrivia></InfoTrivia>
+    <!-- Misiones -->
 
+    <!-- Encuesta -->
     <InfoEncuesta></InfoEncuesta>
+    <!-- Encuesta -->
+
+    <!-- Derivadores regionales -->
+    <InfoYoutubeDeliveries></InfoYoutubeDeliveries>
+    <!-- Derivadores regionales -->
 
     <!-- Derivadores globales -->
     <InfoDerivadoresGlobales></InfoDerivadoresGlobales>
     <!-- Derivadores globales -->
+
 
     <!-- Próximos eventos -->
     <TypesEventoProximosEventos></TypesEventoProximosEventos>
