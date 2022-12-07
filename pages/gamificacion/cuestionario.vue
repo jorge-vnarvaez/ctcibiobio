@@ -31,7 +31,7 @@
               <span
                 class="text-base lg:text-lg text-center text-[#2929c6]"
               >
-                {{ option1.title }}
+                {{ optionsData[firstOption].title }}
               </span>
 
               <!-- <span v-if="optionsData[firstOption].mission"
@@ -53,7 +53,7 @@
               <span
                 class="text-base lg:text-lg text-center text-[#2929c6]"
               >
-                {{ option2.title }}
+                {{ optionsData[secondOption].title }}
               </span>
 
               <!-- <span v-if="optionsData[secondOption].mission"
@@ -134,6 +134,7 @@ export default {
       firstOption: 0,
       secondOption: 1,
       option1: {},
+      option1loaded: false,
       option2: {},
       optionsSelected: 1,
       numberOfAnswers: 0,
@@ -163,6 +164,9 @@ export default {
     });
   },
   async updated() {
+    await this.$store.dispatch("gamificacion/loadDeclarations");
+    this.optionsData = this.declarations;
+
     this.reachingIndex = this.optionsData.length - this.secondOption;
     if (
       this.reachingIndex != 0 &&
@@ -177,16 +181,17 @@ export default {
         );
       });
 
-      this.option1 = await this.$axios.$get(this.$config.apiUrlV2 + '/items/declarations/' + this.optionsData[this.firstOption].id).then((response) => {
-        return response.data;
-      });
-      this.option2 = await this.$axios.$get(this.$config.apiUrlV2 + '/items/declarations/' + this.optionsData[this.secondOption].id).then((response) => {
-        return response.data;
-      });
+      // this.option1 = await this.$axios.$get(this.$config.apiUrlV2 + '/items/declarations/' + this.optionsData[this.firstOption].id).then((response) => {
+      //   return response.data;
+      // })
+      // this.option2 = await this.$axios.$get(this.$config.apiUrlV2 + '/items/declarations/' + this.optionsData[this.secondOption].id).then((response) => {
+      //   return response.data;
+      // });
 
       if (match !== undefined) {
         this.moveToNextPair();
       }
+
     }
   },
   methods: {
