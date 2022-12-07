@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!reverse" class="grid grid-cols-12 content-center">
+    <div v-if="!reverse" class="grid grid-cols-12 content-center gap-x-0 lg:gap-x-8">
       <iframe
         :src="src"
         :height="height"
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div v-if="reverse" class="grid grid-cols-12 content-center gap-x-8">
+    <div v-if="reverse" class="grid grid-cols-12 content-center gap-x-0 lg:gap-x-8">
       <div
         class="col-span-12 lg:col-span-6 text-xl lg:text-2xl text-slate-800  mb-4 lg:mb-0 flex align-center"
       >
