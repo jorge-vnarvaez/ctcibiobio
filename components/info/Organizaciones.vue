@@ -5,16 +5,16 @@
       <div class="flex justify-center">
         <div class="flex justify-center flex-wrap gap-10">
           <div class="flex items-center justify-center">
-            <a href=""><img src="/img/udecfic.svg" alt="Todoist Logo" class="block object-contain h-12" /></a>
+            <a href="https://www.udec.cl/pexterno/" target="_blank"><img src="/img/udecfic.svg" alt="Todoist Logo" class="block object-contain h-12" /></a>
           </div>
           <div class="flex items-center justify-center">
-            <a href=""><img src="/img/ubbfic.svg" alt="Todoist Logo" class="block object-contain h-12" /></a>
+            <a href="https://www.ubiobio.cl/w/" target="_blank"><img src="/img/ubbfic.svg" alt="Todoist Logo" class="block object-contain h-12" /></a>
           </div>
           <div class="flex items-center justify-center">
-            <a href=""><img src="/img/ucscfic.svg" alt="Todoist Logo" class="block object-contain h-12" /></a>
+            <a href="https://www.ucsc.cl/" target="_blank"><img src="/img/ucscfic.svg" alt="Todoist Logo" class="block object-contain h-12" /></a>
           </div>
           <div class="flex items-center justify-center">
-            <a href=""><img src="/img/uinnfic.svg" alt="Todoist Logo" class="block object-contain h-12" /></a>
+            <a href="https://www.uinn.cl/" target="_blank"><img src="/img/uinnfic.svg" alt="Todoist Logo" class="block object-contain h-12" /></a>
           </div>
         </div>
       </div>

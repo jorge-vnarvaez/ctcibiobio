@@ -4,6 +4,7 @@
       <span class="block text-h4 font-weight-bold text-slate-800 mb-5"
         >Infografías</span
       >
+
       <CoolLightBox
         :items="infographics"
         :index="index"
@@ -21,7 +22,7 @@
         <v-img
           v-for="(infographic, infographicIndex) in infographics"
           :key="infographic.id"
-          :src="infographic"
+          :src="$config.apiUrlV2 + '/assets/' + infographic.image"
           @click="index = infographicIndex"
           class="cursor-pointer h-full w-full"
         ></v-img>
@@ -51,21 +52,24 @@ export default {
         slidesToScroll: 1,
         autoplay: true,
         speed: 10000,
-        autoplaySpeed: 1000,
+        autoplaySpeed: 3000,
         cssEase: "linear",
       },
       infographics: [],
       index: null,
     };
   },
+  activated() {
+      if (this.$fetchState.timestamp <= Date.now() - 30000) {
+        this.$fetch()
+      }
+  },
   async fetch() {
     const { data } = await fetch(
       this.$config.apiUrlV2 + "/items/infographics"
     ).then((res) => res.json());
 
-    this.infographics = data.map((infographic) => {
-      return this.$config.apiUrlV2 + '/assets/' + infographic.image;
-    });
+    this.infographics = data;
   },
 };
 </script>

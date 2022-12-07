@@ -26,6 +26,10 @@
     <!-- Infografías -->
     <InfoInfografias></InfoInfografias>
     <!-- Infografías -->
+
+    <!-- Organizaciones -->
+    <InfoOrganizacionesBlack></InfoOrganizacionesBlack>
+    <!-- Organizaciones -->
   </div>
 </template>
 <script>
