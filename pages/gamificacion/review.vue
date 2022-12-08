@@ -31,15 +31,17 @@
               target="_blank"
               >True Skill&#8482;</a
             >
-            se utiliza para clasificar jugadores de videojuegos a utilizando como criterio su
-            skill o habilidad para jugar. A partir de este punto el
+            se utiliza para clasificar jugadores de videojuegos a utilizando
+            como criterio su skill o habilidad para jugar. A partir de este
+            punto el
             <b>nivel de aceptación</b>
             <font-awesome-icon
               icon="fa-solid fa-telescope"
               class="w-4 h-4 inline-flex"
             />
             se ha de utilizar como un criterio de clasificación (priorización de
-            propuestas) de las misiones que impulsarán el desarrollo en la región. Usando la
+            propuestas) de las misiones que impulsarán el desarrollo en la
+            región. Usando la
             <a
               href="https://es.wikipedia.org/wiki/Inferencia_bayesiana"
               target="_blank"
@@ -54,10 +56,10 @@
 
         <span class="block mt-4">
           Sin importar el número o porcentaje de victorias y/o derrotas, el
-          nivel de aceptación de una propuesta varía únicamente en función de dos números.
-          El nivel de aceptación de la propuesta el cual se mide en puntos de
-          aceptación <b>(μ)</b> y el grado de incertidumbre en el nivel de
-          aceptación de una propuesta <b>(σ)</b>. En este sentido la
+          nivel de aceptación de una propuesta varía únicamente en función de
+          dos números. El nivel de aceptación de la propuesta el cual se mide en
+          puntos de aceptación <b>(μ)</b> y el grado de incertidumbre en el
+          nivel de aceptación de una propuesta <b>(σ)</b>. En este sentido la
           <a
             href="https://es.wikipedia.org/wiki/Inferencia_bayesiana"
             target="_blank"
@@ -66,8 +68,8 @@
           permite clasificar las propuestas en base a la creencias cambiantes,
           por ejemplo, supongamos que tenemos la creencia de que el nivel de
           aceptación de una propuesta es 25 y el grado de incertidumbre es 8.3,
-          si damos a elegir a los usuarios entre una <b>propuesta A</b> con alto nivel de
-          aceptación frente a una <b>propuesta B</b> con poco nivel de
+          si damos a elegir a los usuarios entre una <b>propuesta A</b> con alto
+          nivel de aceptación frente a una <b>propuesta B</b> con poco nivel de
           aceptación, existe la posibilidad de que la propuesta B gane y su
           nivel de aceptación incremente drásticamente al desfasar a una
           propuesta que creíamos que podía tener alto nivel de aceptación. Sin
@@ -98,20 +100,24 @@
           >
             <div>
               <!-- RANK # -->
-              <div class="d-flex align-end">
-                <v-icon
-                  v-if="
-                    declaration.rank == 1 ||
-                    declaration.rank == 2 ||
-                    declaration.rank == 3
-                  "
-                  class="mr-2"
-                  :color="trophy_color(declaration.rank)"
-                  large
-                  >mdi-trophy-variant</v-icon
-                >
-                <span class="text-2xl">{{ declaration.rank }}</span
-                ><span class="text-xl">/{{ ranking.length }}</span>
+              <div class="d-flex justify-between align-center">
+                <div class="d-flex align-center">
+                  <v-icon
+                    v-if="
+                      declaration.rank == 1 ||
+                      declaration.rank == 2 ||
+                      declaration.rank == 3
+                    "
+                    class="mr-2"
+                    :color="trophy_color(declaration.rank)"
+                    large
+                    >mdi-trophy-variant</v-icon
+                  >
+                  <span class="text-2xl">{{ declaration.rank }}</span
+                  ><span class="text-xl">/{{ ranking.length }}</span>
+                </div>
+
+                <span class="text-sm font-medium">{{ declaration.mission }}</span>
               </div>
               <!-- RANK # -->
 
@@ -130,7 +136,10 @@
                   /><span>{{ Math.ceil(declaration.skill[0]) }}</span>
                 </div>
                 <div class="flex flex-col align-end w-full">
-                  <span class="block">Porcentaje victorias: {{ percentageOfVictories(declaration.n_wins) }}%</span>
+                  <span class="block"
+                    >Porcentaje victorias:
+                    {{ percentageOfVictories(declaration.n_wins) }}%</span
+                  >
                   <span>Victorias: {{ declaration.n_wins }}</span>
                 </div>
               </div>
@@ -139,15 +148,15 @@
 
             <!-- PERCENTAGE BAR -->
             <v-progress-linear
-                color="#f5a623"
-                height="10"
-                :value="
-                  declaration.n_wins > 0
-                    ? (declaration.n_wins * 100) / totalMatchs
-                    : 0
-                "
-                :buffer-value="100"
-                striped
+              color="#f5a623"
+              height="10"
+              :value="
+                declaration.n_wins > 0
+                  ? (declaration.n_wins * 100) / totalMatchs
+                  : 0
+              "
+              :buffer-value="100"
+              striped
             ></v-progress-linear>
             <!-- PERCENTAGE BAR -->
           </v-card>
@@ -207,33 +216,33 @@ export default {
       return this.$store.getters["gamificacion/totalMatchs"];
     },
     height() {
-      switch(this.$vuetify.breakpoint.name) {
-        case 'xs':
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
           return 340;
-        case 'sm':
+        case "sm":
           return 310;
-        case 'md':
+        case "md":
           return 310;
-        case 'lg':
+        case "lg":
           return 300;
-        case 'xl':
+        case "xl":
           return 320;
       }
     },
     height_bg() {
-      switch(this.$vuetify.breakpoint.name) {
-        case 'xs':
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
           return 2380;
-        case 'sm':
+        case "sm":
           return 1000;
-        case 'md':
+        case "md":
           return 820;
-        case 'lg':
+        case "lg":
           return 820;
-        case 'xl':
+        case "xl":
           return 680;
       }
-    }
+    },
   },
 };
 </script>

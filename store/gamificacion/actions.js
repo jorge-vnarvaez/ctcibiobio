@@ -22,7 +22,7 @@ export default {
         });
     },
     async loadRanking({ commit }) {
-        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?fields[]=id, title, skill&fields[]=count(wins)&sort[]=-count(wins)`).then(response => {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?fields[]=id, title, skill, mission.label&fields[]=count(wins)&sort[]=-count(wins)`).then(response => {
             if (response.data) {
                 this.ranking = response.data.map((declaration, index) => {
                     // create an array of objects using the declaration title as a key
@@ -31,7 +31,8 @@ export default {
                         title: declaration.title,
                         skill: JSON.parse(declaration.skill),
                         rank: index + 1,
-                        n_wins: declaration.wins_count
+                        n_wins: declaration.wins_count,
+                        mission: declaration.mission.label
                     };
                 }).sort((a, b) => (b.skill[0] - a.skill[0]));
 
