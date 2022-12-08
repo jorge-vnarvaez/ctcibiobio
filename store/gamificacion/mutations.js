@@ -21,12 +21,10 @@ export default {
     },
     setMatches(state, matches) {
         state.matches = matches;
+        state.totalMatchs = matches.length;
         state.matchesLoaded = true;
     },
     setMatchesStatus(state, status) {
         state.matchesLoaded = status;
     },
-    setTotalMatchs(state, total) {
-        state.totalMatchs = total;
-    }
 }
