@@ -6,7 +6,9 @@
       >
 
       <CoolLightBox
-        :items="infographics"
+        :items="infographics.map((infographic) => {
+          return $config.apiUrlV2 + '/assets/' + infographic.image
+        })"
         :index="index"
         :fullScreen="true"
         useZoomBar
