@@ -36,18 +36,18 @@
                 v-if="milestone.body"
                 v-html="milestone.body"
               ></v-card-text>
+
               <v-data-table
                 v-if="milestone.activities.length"
                 :items="milestone.activities"
                 item-key="title"
                 show-expand
                 :hide-default-footer="true"
+                disable-pagination
                 @click:row="(item, slot) => slot.expand(!slot.isExpanded)"
                 :expanded.sync="milestone.expanded"
                 :footer-props="{
                   'items-per-page-options': [],
-                  'disable-items-per-page': true,
-                  'disable-pagination': true,
                   'show-current-page': false,
                   'show-first-last-page': false,
                 }"
@@ -133,6 +133,7 @@
                   </span>
                 </template>
               </v-data-table>
+
             </v-card>
           </v-timeline-item>
         </v-timeline>
