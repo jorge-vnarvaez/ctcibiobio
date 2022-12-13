@@ -10,9 +10,9 @@
         <!-- <div class="text-h3 mb-10 font-weight-light uppercase">Equipo</div> -->
       </v-img>
     </v-card>
-
-    <InfoEquipo />
+    
     <InfoComite />
+    <InfoEquipo />
     <InfoConvocados />
     <InfoOrganizaciones />
   </div>
