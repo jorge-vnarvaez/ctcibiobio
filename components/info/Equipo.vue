@@ -4,9 +4,6 @@
       <p class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400 w-full text-center">
         Equipo
       </p>
-      <p class="text-base text-gray-700 md:text-lg text-center">
-        El proyecto es conformado por un equipo multidisciplinario especialista en innovación y política pública
-      </p>
     </div>
     <div class="grid gap-10 mx-auto lg:max-w-screen-lg sm:grid-cols-2 lg:grid-cols-4">
       <div v-for="(integrante, index) in integrantesApi" :key="index" class="flex flex-col items-center">

@@ -49,13 +49,13 @@ export default {
     return {
       settings: {
         arrows: false,
-        dots: false,
+        dots: true,
         infinite: true,
         slidesToScroll: 1,
         autoplay: true,
-        speed: 10000,
+        speed: 2000,
         autoplaySpeed: 3000,
-        cssEase: "linear",
+        cssEase: "ease-out",
       },
       infographics: [],
       index: null,
@@ -76,4 +76,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>
