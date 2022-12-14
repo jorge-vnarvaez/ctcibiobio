@@ -8,9 +8,12 @@
             <iframe class="w-full h-96 mb-10" width="560" height="315" src="https://www.youtube.com/embed/YJecjsYgLZ8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="text-h3 text-md-h2 font-weight-black">Estrategia de CTCI Biobío</div>
             <div class="text-2xl font-weight-light my-10">Una iniciativa colaborativa para sentar las bases del desarrollo en innovación del 2022-2032</div>
-            <div class="flex justify-center align-center gap-10 mb-4">
-              <div><no-ssr><img height="100px" src="/img/gorebiobio.png"></no-ssr></div>
-              <div><no-ssr><img height="60px" style="max-height:60px;" src="/img/udec_color.png"></no-ssr></div>
+            <div class="flex flex-wrap justify-center align-center gap-10 mb-4">
+              <div><no-ssr><img height="100px" src="/iconos/gore-60x100px.jpg"></no-ssr></div>
+              <div><no-ssr><img height="100px" src="/iconos/udec-280x100px.png"></no-ssr></div>
+              <div><no-ssr><img height="100px" src="/iconos/ucsc-280x100px.png"></no-ssr></div>
+              <div><no-ssr><img height="100px" src="/iconos/ubb-150x100px.png"></no-ssr></div>
+              <!-- <div><no-ssr><img height="60px" style="max-height:60px;" src="/img/udec_color.png"></no-ssr></div> -->
             </div>
             <!-- <RedesSociales/> -->
           </div>

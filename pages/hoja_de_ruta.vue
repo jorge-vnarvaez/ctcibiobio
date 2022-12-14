@@ -1,11 +1,13 @@
 <template lang="">
   <div class="max-w-screen-xl mx-auto">
     <v-container class="py-10">
-      <div class="text-h3">Hoja de ruta</div>
+      <div class="text-3xl lg:text-5xl">Hoja de ruta</div>
       <div class="text-subtitle">
         Conoce el estado de avance
       </div>
+
       <v-divider class="my-3"></v-divider>
+
       <div>
         <v-timeline dense clipped align-top v-if="data">
           <v-timeline-item
@@ -20,7 +22,7 @@
           >
             <v-card flat class="mt-n4">
               <v-card-title
-                :class="`${milestone.parent_milestone ? 'text-h6' : 'text-h5'}`"
+                :class="`${milestone.parent_milestone ? 'text-lg lg:text-5xl' : 'text-lg lg:text-4xl'}`"
               >
                 {{ milestone.title }}
               </v-card-title>
@@ -42,8 +44,11 @@
                 :items="milestone.activities"
                 item-key="title"
                 show-expand
-                :hide-default-footer="true"
-                disable-pagination
+                :hide-default-footer="false"
+                disable-sort
+                :options="{
+                  itemsPerPage: 5,
+                }"
                 @click:row="(item, slot) => slot.expand(!slot.isExpanded)"
                 :expanded.sync="milestone.expanded"
                 :footer-props="{
@@ -86,7 +91,7 @@
               >
                 <template v-slot:expanded-item="{ headers, item }">
                   <td :colspan="headers.length" class="py-10">
-                    <div class="text-h6">{{ item.title }}</div>
+                    <div class="text-body-1 text-xl-h6">{{ item.title }}</div>
                     <div v-html="item.excerpt" class="text-body-2"></div>
 
                     <!-- GALERIA -->
