@@ -26,8 +26,8 @@
 
         <!-- TEXT AND BUTTON -->
         <div class="flex flex-col justify-center">
-          <span class="block white--text font-black text-3xl lg:text-5xl">
-           Participa en la selección de los focos que impulsarán el Desarrollo de la CTCI en la Región del Biobío.
+          <span class="block white--text text-3xl lg:text-5xl">
+           Participa en la selección de los <span class="font-black">focos</span> que impulsarán el Desarrollo de la CTCI en la Región del Biobío.
           </span>
 
           <!-- <span class="block white--text font-light text-2xl mt-2">

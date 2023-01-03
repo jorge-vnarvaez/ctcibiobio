@@ -1,57 +1,58 @@
 <template>
   <!-- HERO IMAGE -->
-  <v-img
-    src="/patterns/cork-wallet.png"
-    class="pt-8"
-    :height="$vuetify.breakpoint.mobile ? '100%' : '720'"
+  <v-card
+    :height="$vuetify.breakpoint.mobile ? 'auto' : '100vh'"
+    class="bg-cover bg-fixed"
+    :style="{
+      backgroundImage: `url(illustration/encuesta_ctci.svg)`,
+      backgroundPosition: 'center',
+    }"
   >
-    <v-container>
-      <span class="block text-sm lg:text-base mt-4">
-        Te damos la bienvenida a la “Encuesta para la Priorización de las
-        Misiones que impulsarán el desarrollo de la CTCI en Biobío”, la cual, es
-        un instrumento generado por la Unidad de Innovación de la Universidad de
-        Concepción, en el marco del desarrollo del proyecto FIC-R “Estrategia de
-        Ciencia, Tecnología, Conocimiento e Innovación”. El objetivo de esta
-        encuesta es Determinar cuáles son, según la ciudadanía, las principales
-        misiones para el futuro del Biobío, y Agruparlas por orden de prioridad.
-      </span>
+    <div class="text-white bg-blue-900/60 h-full py-8">
+      <div class="flex flex-col align-center justify-center h-full">
+        <span class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-6/12">
+          Te damos la bienvenida a la <b>“Encuesta para la priorización de los
+          focos que impulsarán el desarrollo de la CTCI en Biobío”.</b> Este es un
+          instrumento generado por el equipo ejecutor del proyecto FIC-R
+          “Estrategia de Ciencia, Tecnología, Conocimiento e Innovación para la
+          Región del Biobío”.
+        </span>
 
-      <span class="block text-sm lg:text-base mt-4">
-        Las políticas orientadas por misiones (POM) conducen a la acción dentro
-        de un marco audaz de amplia relevancia social, dirección clara y
-        orientada a actividades de innovación ambiciosas. Queremos saber cuáles
-        son, en tu opinión, los desafíos prioritarios que debemos abordar para
-        alcanzar nuestro desarrollo.
-      </span>
+        <span class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-6/12">
+          Para conocer cuáles son en tu opinión, los desafíos prioritarios que
+          debemos abordar para alcanzar un mejor futuro para el Biobío, hemos
+          identificado más de 30 opciones entre las que podrás elegir.
+        </span>
 
-      <span class="block text-sm lg:text-base mt-4">
-        Las respuestas son de carácter anónimo y los datos demográficos son de
-        uso exclusivamente identificativo, con el fin de agrupar las respuestas.
-        Los resultados serán publicados de forma global, conservando el
-        anonimato de los participantes.
-      </span>
+        <span class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-6/12">
+          Las respuestas son de carácter anónimo y los datos demográficos son de
+          uso exclusivamente identificativo, con el fin de agrupar las
+          respuestas. Los resultados serán publicados de forma global,
+          conservando el anonimato de los participantes.
+        </span>
 
-      <span class="block text-sm lg:text-base mt-4">
-        ¿Quieres saber sobre las misiones que se están priorizando? Haz clic
-        <nuxt-link to="/gamificacion/resultados" target="_blank"
-          >aquí</nuxt-link
+        <span class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-6/12">
+          ¿Quiéres saber sobre los focos que se están priorizando? Haz clic
+          <nuxt-link to="/gamificacion/resultados" target="_blank"
+            ><span class="text-yellow-500 font-bold">aquí</span></nuxt-link
+          >
+        </span>
+
+        <span class="block mt-4 text-center w-11/12 lg:w-6/12">
+          Al presionar "comenzar" declaro comprender y aceptar los términos de
+          la siquiente encuesta.
+        </span>
+
+        <v-btn
+          color="#ffac00"
+          to="/gamificacion/iniciar"
+          elevation="0"
+          class="mt-4"
+          >Comenzar</v-btn
         >
-      </span>
-
-      <span class="block mt-4">
-        Al presionar "comenzar" declaro comprender y aceptar los términos de la
-        siquiente encuesta.
-      </span>
-
-      <v-btn
-        color="#ffac00"
-        to="/gamificacion/iniciar"
-        elevation="0"
-        class="mt-4"
-        >Comenzar</v-btn
-      >
-    </v-container>
-  </v-img>
+      </div>
+    </div>
+  </v-card>
   <!-- HERO IMAGE -->
 </template>
 

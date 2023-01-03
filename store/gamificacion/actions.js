@@ -24,7 +24,7 @@ export default {
     async loadRanking({ commit }) {
         await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?fields[]=id, title, skill, mission.label&fields[]=count(wins)&sort[]=-count(wins)`).then(response => {
             if (response.data) {
-                this.ranking = response.data.map((declaration, index) => {
+                let ranking = response.data.map((declaration, index) => {
                     // create an array of objects using the declaration title as a key
                     return {
                         id: declaration.id,
@@ -36,7 +36,7 @@ export default {
                     };
                 }).sort((a, b) => (b.skill[0] - a.skill[0]));
 
-                commit('setRanking', this.ranking);
+                commit('setRanking', ranking);
             }
         })
     }

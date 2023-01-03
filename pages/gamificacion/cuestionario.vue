@@ -12,7 +12,7 @@
       >
         <span
           class="block text-2xl lg:text-4xl font-black text-[#2929c6] text-center"
-          >Como región del Biobío, debemos enfocar nuestros esfuerzos en:</span
+          >Como Región del Biobío, debemos enfocar nuestros esfuerzos en:</span
         >
 
         <!-- OPTIONS -->
