@@ -31,15 +31,14 @@
               target="_blank"
               >True Skill&#8482;</a
             >
-            se utiliza para clasificar jugadores de videojuegos a utilizando
-            como criterio su skill o habilidad para jugar. A partir de este
-            punto el
+            se utiliza para clasificar jugadores en videojuegos utilizando
+            como criterio su skill o habilidad para jugar. Para el caso práctico de las misiones CTCI el
             <b>nivel de aceptación</b>
             <font-awesome-icon
               icon="fa-solid fa-telescope"
               class="w-4 h-4 inline-flex"
             />
-            se ha de utilizar como un criterio de clasificación (priorización de
+            de una propuesta se ha de utilizar como un criterio de clasificación (priorización de
             propuestas) de las misiones que impulsarán el desarrollo en la
             región. Usando la
             <a
@@ -65,12 +64,13 @@
             target="_blank"
             >inferencia bayesiana</a
           >
-          permite clasificar las propuestas en base a la creencias cambiantes,
+          permite clasificar las propuestas en base a las creencias cambiantes,
           por ejemplo, supongamos que tenemos la creencia de que el nivel de
-          aceptación de una propuesta es 25 y el grado de incertidumbre es 8.3,
-          si damos a elegir a los usuarios entre una <b>propuesta A</b> con alto
-          nivel de aceptación frente a una <b>propuesta B</b> con poco nivel de
-          aceptación, existe la posibilidad de que la propuesta B gane y su
+          aceptación de una <b>propuesta A</b> es 40 y el grado de incertidumbre es 4.3,
+          si damos a elegir a los usuarios entre la <b>propuesta A</b> con alto
+          nivel de aceptación frente a una <b>propuesta B</b> con un nivel de aceptación de 25 y grado
+          de incertidumbre de 8.3 lo que refleja un bajo nivel de aceptación, 
+          existe la posibilidad de que la propuesta B gane y su
           nivel de aceptación incremente drásticamente al desfasar a una
           propuesta que creíamos que podía tener alto nivel de aceptación. Sin
           embargo, tras un par más de elecciones de los usuarios los niveles de
