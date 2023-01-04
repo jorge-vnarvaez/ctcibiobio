@@ -7,7 +7,7 @@
       class="py-12 lg:py-0"
     >
       <div
-        v-if="reachingIndex != 0 && reachingIndex != 1 && reachingIndex != 2"
+        v-if="reachingIndex != 0 && reachingIndex != 1 && reachingIndex != 2 && declarationsLoading == false"
         class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto"
       >
         <span
@@ -33,10 +33,6 @@
               >
                 {{ optionsData[firstOption].title }}
               </span>
-
-              <!-- <span v-if="optionsData[firstOption].mission"
-                >{{ optionsData[firstOption].mission.label }}
-              </span> -->
             </v-card>
           </div>
           <!-- OPTION 1 -->
@@ -55,10 +51,6 @@
               >
                 {{ optionsData[secondOption].title }}
               </span>
-
-              <!-- <span v-if="optionsData[secondOption].mission"
-                >{{ optionsData[secondOption].mission.label }}
-              </span> -->
             </v-card>
           </div>
           <!-- OPTION 2 -->
@@ -78,10 +70,16 @@
           <!-- SIN PREFERENCIA -->
 
           <!-- SALIR -->
-          <span class="text-xs text-center" v-if="numberOfAnswers < 15"
+          <span class="text-xs text-center" v-if="numberOfAnswers == 0"
             >Debes seleccionar al menos 15 opciones para ver los
             resultados</span
           >
+
+          <span class="text-xs text-center" v-if="numberOfAnswers > 0 && numberOfAnswers < 15">
+            Haz seleccionado <span class="text-[#2929c6] font-bold">{{
+              numberOfAnswers
+            }}</span> de 15 opciones.
+          </span>
 
           <span class="text-xs text-center" v-if="numberOfAnswers >= 15">
             Ahora tienes
@@ -105,20 +103,34 @@
         </div>
       </div>
 
+      <div v-if="declarationsLoading" class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto">
+        <v-progress-circular
+          indeterminate
+          color="purple darken-4"
+          size="32"></v-progress-circular>
+          <span class="block mt-4">Estamos preparando todo para ti</span>
+      </div>
+
       <div
-        v-else
+        v-if="(reachingIndex == 0 || reachingIndex == 1 || reachingIndex == 2)"
         class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto"
       >
         <span
-          class="block text-2xl lg:text-4xl font-black text-[#2929c6] text-center w-96"
-          >En estos momentos no tenemos más propuestas</span
+          class="block text-2xl lg:text-4xl font-black text-[#2929c6] text-center w-11/12"
+          >Estamos preparando una nueva combinación de propuestas interesantes para ti</span
         >
-        <v-btn
-          color="purple darken-4"
-          class="white--text text-capitalize mt-8"
-          to="/gamificacion/resultados"
-          >Ver Resultados</v-btn
-        >
+        <span class="block mt-4">
+          Por mientras te sugerimos revisar la priorización de los focos.
+        </span>
+
+        <div>
+          <v-btn
+            color="purple darken-4"
+            class="white--text text-capitalize mt-8"
+            to="/gamificacion/resultados"
+            >Ver Resultados</v-btn
+          >
+        </div>
       </div>
     </v-img>
   </div>
@@ -143,11 +155,14 @@ export default {
       matchesData: [],
       user_id: null,
       reachingIndex: 0,
+      loadingNewPair: true,
     };
   },
   async mounted() {
+    this.$store.commit('gamificacion/loadingDeclarations');
     this.$store.commit("gamificacion/setUserId", this.$cookies.get("userID"));
     this.user_id = this.$store.getters["gamificacion/getUserId"];
+
     this.reachingIndex = this.optionsData.length;
 
     await this.$store.dispatch("gamificacion/loadMatchs");
@@ -164,10 +179,13 @@ export default {
     });
   },
   async updated() {
+    await this.$store.dispatch("gamificacion/loadMatchs");
     await this.$store.dispatch("gamificacion/loadDeclarations");
+
     this.optionsData = this.declarations;
 
     this.reachingIndex = this.optionsData.length - this.secondOption;
+
     if (
       this.reachingIndex != 0 &&
       this.reachingIndex != 1 &&
@@ -181,17 +199,11 @@ export default {
         );
       });
 
-      // this.option1 = await this.$axios.$get(this.$config.apiUrlV2 + '/items/declarations/' + this.optionsData[this.firstOption].id).then((response) => {
-      //   return response.data;
-      // })
-      // this.option2 = await this.$axios.$get(this.$config.apiUrlV2 + '/items/declarations/' + this.optionsData[this.secondOption].id).then((response) => {
-      //   return response.data;
-      // });
-
       if (match !== undefined) {
         this.moveToNextPair();
       }
-
+    } else {
+      this.$router.push("/gamificacion/mensaje");
     }
   },
   methods: {
@@ -334,6 +346,9 @@ export default {
     },
     matches() {
       return this.$store.getters["gamificacion/matches"];
+    },
+    declarationsLoading() {
+      return this.$store.getters["gamificacion/declarationsLoading"];
     },
   },
 };

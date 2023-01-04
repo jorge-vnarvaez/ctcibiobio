@@ -2,6 +2,9 @@ export default {
     setDeclarations(state, declarations) {
         state.declarations = declarations;
     },
+    loadingDeclarations(state) {
+        state.declarationsLoading = true;
+    },
     declarationsLoaded(state) {
         state.declarationsLoaded = true;
         state.declarationsLoading = false;

@@ -16,5 +16,8 @@ export default {
     },
     matchesLoaded(state) {
         return state.matchesLoaded;
+    },
+    declarationsLoading(state) {
+        return state.declarationsLoading;
     }
 }
