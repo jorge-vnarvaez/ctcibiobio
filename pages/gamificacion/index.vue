@@ -8,10 +8,10 @@
       backgroundPosition: 'center',
     }"
   >
-    <div class="text-white bg-slate-800/90 h-full py-8">
+    <div class="text-white bg-slate-800/90 h-full py-2">
       <div class="flex flex-col align-center justify-center h-full">
         <span
-          class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-6/12 font-thin"
+          class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-full xl:w-8/12 font-thin"
         >
           <span class="font-black"
             >Te damos la bienvenida a la “Encuesta para la priorización de los
@@ -22,32 +22,30 @@
         </span>
 
         <span
-          class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-6/12"
+          class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-10/12 xl:w-8/12"
         >
-          Para conocer cuáles son en tu opinión, los desafíos prioritarios que
-          debemos abordar para alcanzar un mejor futuro para el Biobío, hemos
-          identificado más de 30 opciones entre las que podrás elegir.
+          Con los resultados de esta encuesta, diseñaremos una estrategia para
+          impulsar el desarrollo de la Región del Biobío en base a la ciencia,
+          la tecnología, el conocimiento y la innovación.
         </span>
 
         <span
-          class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-6/12"
+          class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-10/12 xl:w-6/12"
         >
-          Las respuestas son de carácter anónimo y los datos demográficos son de
-          uso exclusivamente identificativo, con el fin de agrupar las
-          respuestas. Los resultados serán publicados de forma global,
-          conservando el anonimato de los participantes.
-        </span>
-
-        <span
-          class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-6/12"
-        >
-          ¿Quiéres saber sobre los focos que se están priorizando? Haz clic
+          Ya hemos identificado más de 30 posibles focos de actuación ¿quieres
+          conocer los resultados parciales de esta encuesta?, Haz clic
           <nuxt-link to="/gamificacion/resultados" target="_blank"
             ><span class="text-yellow-500 font-black">aquí</span></nuxt-link
           >
         </span>
 
-        <span class="block mt-4 text-center w-11/12 lg:w-6/12">
+        <span class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-4/12 xl:w-6/12">
+          Las respuestas son de carácter anónimo y los resultados serán publicados conservando el anonimato de los participantes.
+        </span>
+
+        <span
+          class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-8/12 xl:w-6/12"
+        >
           Al presionar "comenzar" declaro comprender y aceptar los términos de
           la siquiente encuesta.
         </span>
