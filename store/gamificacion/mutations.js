@@ -5,6 +5,9 @@ export default {
     loadingDeclarations(state) {
         state.declarationsLoading = true;
     },
+    setLengthMatchs(state, length) {
+        state.totalMatchs = length;
+    },
     declarationsLoaded(state) {
         state.declarationsLoaded = true;
         state.declarationsLoading = false;
@@ -24,7 +27,6 @@ export default {
     },
     setMatches(state, matches) {
         state.matches = matches;
-        state.totalMatchs = matches.length;
         state.matchesLoaded = true;
     },
     setMatchesStatus(state, status) {

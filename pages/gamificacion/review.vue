@@ -39,7 +39,7 @@
               class="w-4 h-4 inline-flex"
             />
             de una propuesta se ha de utilizar como un criterio de clasificación (priorización de
-            propuestas) de las misiones que impulsarán el desarrollo en la
+            propuestas) de los focos que impulsarán el desarrollo en la
             región. Usando la
             <a
               href="https://es.wikipedia.org/wiki/Inferencia_bayesiana"
@@ -137,7 +137,7 @@
                 </div>
                 <div class="flex flex-col align-end w-full">
                   <span class="block"
-                    >Porcentaje victorias:
+                    >Porcentaje victorias: 
                     {{ percentageOfVictories(declaration.n_wins) }}%</span
                   >
                   <span>Victorias: {{ declaration.n_wins }}</span>
@@ -205,7 +205,8 @@ export default {
     },
   },
   async fetch() {
-    await this.$store.dispatch("gamificacion/loadMatchs");
+    await this.$store.dispatch("gamificacion/loadMatchsLength");
+    // await this.$store.dispatch("gamificacion/loadMatchs");
     await this.$store.dispatch("gamificacion/loadRanking");
   },
   computed: {

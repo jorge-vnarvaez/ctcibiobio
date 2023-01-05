@@ -7,6 +7,11 @@ export default {
             commit('setMatches', response.data)
         });
     },
+    async loadMatchsLength({ commit }) {
+        await this.$axios.get(`${this.$config.apiUrlV2}/items/matches?fields=id, winner, pairs.*`).then(response => {
+            commit('setLengthMatchs', response.data.data.length);
+        });
+    },
     async loadDeclarations({ commit }) {
         const qs = require('qs');
 

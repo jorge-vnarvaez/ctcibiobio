@@ -4,7 +4,7 @@
     :height="$vuetify.breakpoint.mobile ? 'auto' : '100vh'"
     class="bg-cover bg-fixed"
     :style="{
-      backgroundImage: `url(illustration/encuesta_ctci.svg)`,
+      backgroundImage: `url(/illustration/encuesta_ctci.svg)`,
       backgroundPosition: 'center',
     }"
   >
