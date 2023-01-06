@@ -33,6 +33,9 @@
               >
                 {{ optionsData[firstOption].title }}
               </span>
+              <!-- <span>
+                {{ optionsData[firstOption].wins.length }}
+              </span> -->
             </v-card>
           </div>
           <!-- OPTION 1 -->
@@ -51,6 +54,9 @@
               >
                 {{ optionsData[secondOption].title }}
               </span>
+              <!-- <span>
+                {{ optionsData[secondOption].wins.length }}
+              </span> -->
             </v-card>
           </div>
           <!-- OPTION 2 -->
@@ -252,14 +258,25 @@ export default {
           return res.data;
         });
 
+      const query = this.$objectToQueryString({
+        fields: ["id", "wins.*"],
+        deep: {
+          wins: {
+            _limit: -1
+          }
+        }
+      });
+
       // Obtener las wins de la declaracion ganadora
       let wins = await this.$axios
         .$get(
-          `${this.$config.apiUrlV2}/items/declarations/${this.winner.id}?fields[]=id, wins.*`
+          `${this.$config.apiUrlV2}/items/declarations/${this.winner.id}?${query}`
         )
         .then((res) => {
           return res.data.wins;
         });
+
+        console.log(wins);
 
       // Agregar el nuevo match a la lista de wins de la declaracion ganadora
       wins.push({

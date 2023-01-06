@@ -8,7 +8,15 @@ export default {
         });
     },
     async loadMatchsLength({ commit }) {
-        await this.$axios.get(`${this.$config.apiUrlV2}/items/matches?fields=id, winner, pairs.*`).then(response => {
+
+        const qs = require('qs');
+
+        const query = qs.stringify({
+            fields: ['id'],
+            limit: -1
+        })
+
+        await this.$axios.get(`${this.$config.apiUrlV2}/items/matches?${query}`).then(response => {
             commit('setLengthMatchs', response.data.data.length);
         });
     },
@@ -16,7 +24,12 @@ export default {
         const qs = require('qs');
 
         const query = qs.stringify({
-            fields: ['*, mission.label']
+            fields: ['*, mission.label, wins'],
+            deep: {
+                wins: {
+                    _limit: -1,
+                }
+            }
         })
 
         await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?${query}`).then(response => {
@@ -29,7 +42,7 @@ export default {
         });
     },
     async loadRanking({ commit }) {
-        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?fields[]=id, title, skill, mission.label&fields[]=count(wins)&sort[]=-count(wins)`).then(response => {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?fields[]=id, title, skill, mission.label&fields[]=count(wins)&sort[]=-count(wins)&deep[wins][_limit]=-1`).then(response => {
             if (response.data) {
                 let ranking = response.data.map((declaration, index) => {
                     // create an array of objects using the declaration title as a key

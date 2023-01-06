@@ -8,8 +8,8 @@
           >Resultados</span
         >
         <span class="block text-sm lg:text-xl mt-4">
-          Aquí podrás ver el ranking de priorización de propuestas ordenadas de
-          mayor a menor, el ranking se compone de aquellas propuestas que han
+          Aquí podrás ver el ranking de priorización de focos, ordenados de
+          mayor a menor, el ranking se compone de aquellos focos que han
           obtenido el mejor nivel de aceptación entre todos los usuarios
           participantes utilizando el sistema de clasificación de
           <a
@@ -32,7 +32,7 @@
               >True Skill&#8482;</a
             >
             se utiliza para clasificar jugadores en videojuegos utilizando
-            como criterio su skill o habilidad para jugar. Para el caso práctico de las misiones CTCI el
+            como criterio su skill o habilidad para jugar. Para el caso práctico de los focos CTCI el
             <b>nivel de aceptación</b>
             <font-awesome-icon
               icon="fa-solid fa-telescope"
@@ -48,14 +48,14 @@
             >, el sistema de clasificación está caracterizado por su capacidad
             de adaptarse a los cambios en el nivel de aceptación de las
             propuestas en base a la incertidumbre o imprecisión de la naturaleza
-            estadística, por lo que es posible que el nivel de aceptación de una
+            estadística, debido a que es posible que el nivel de aceptación de una
             propuesta cambie a lo largo del tiempo.
           </span>
         </div>
 
         <span class="block mt-4">
           Sin importar el número o porcentaje de victorias y/o derrotas, el
-          nivel de aceptación de una propuesta varía únicamente en función de
+          nivel de aceptación de una propuesta varía en función de
           dos números. El nivel de aceptación de la propuesta el cual se mide en
           puntos de aceptación <b>(μ)</b> y el grado de incertidumbre en el
           nivel de aceptación de una propuesta <b>(σ)</b>. En este sentido la
