@@ -302,7 +302,7 @@ export default {
       loser.skill = JSON.parse(this.loser.skill);
 
       winner.rank = 1;
-      winner.rank = 2;
+      loser.rank = 2;
 
       trueskill.AdjustPlayers([winner, loser]);
 
