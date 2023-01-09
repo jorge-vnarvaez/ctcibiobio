@@ -36,7 +36,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  async fetch() {
+    this.$store.commit("gamificacion/setUserId", this.$cookies.get("userID"));
+    this.user_id = this.$store.getters["gamificacion/getUserId"];
+  }
+};
 </script>
 
 <style></style>

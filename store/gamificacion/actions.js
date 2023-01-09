@@ -59,5 +59,9 @@ export default {
                 commit('setRanking', ranking);
             }
         })
+    },
+
+    sortRanking({ commit }, filter) {
+        commit('sortRanking', filter);
     }
 }

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+// import classic icons
 import { fas } from '@fortawesome/pro-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 

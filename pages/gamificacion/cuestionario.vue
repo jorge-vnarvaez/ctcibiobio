@@ -7,7 +7,12 @@
       class="py-12 lg:py-0"
     >
       <div
-        v-if="reachingIndex != 0 && reachingIndex != 1 && reachingIndex != 2 && declarationsLoading == false"
+        v-if="
+          reachingIndex != 0 &&
+          reachingIndex != 1 &&
+          reachingIndex != 2 &&
+          loadingNewPair == false
+        "
         class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto"
       >
         <span
@@ -28,9 +33,7 @@
               style="cursor: pointer"
               flat
             >
-              <span
-                class="text-base lg:text-lg text-center text-[#2929c6]"
-              >
+              <span class="text-base lg:text-lg text-center text-[#2929c6]">
                 {{ optionsData[firstOption].title }}
               </span>
               <!-- <span>
@@ -44,14 +47,12 @@
           <div class="rounded-xl shadow-2xl col-span-12 lg:col-span-6">
             <v-card
               @click="optionSelected(optionsData[secondOption].id)"
-              class="px-8 py-8  d-flex align-center justify-center"
+              class="px-8 py-8 d-flex align-center justify-center"
               height="240"
               style="cursor: pointer"
               flat
             >
-              <span
-                class="text-base lg:text-lg text-center text-[#2929c6]"
-              >
+              <span class="text-base lg:text-lg text-center text-[#2929c6]">
                 {{ optionsData[secondOption].title }}
               </span>
               <!-- <span>
@@ -81,10 +82,13 @@
             resultados</span
           >
 
-          <span class="text-xs text-center" v-if="numberOfAnswers > 0 && numberOfAnswers < 15">
-            Haz seleccionado <span class="text-[#2929c6] font-bold">{{
-              numberOfAnswers
-            }}</span> de 15 opciones.
+          <span
+            class="text-xs text-center"
+            v-if="numberOfAnswers > 0 && numberOfAnswers < 15"
+          >
+            Haz seleccionado
+            <span class="text-[#2929c6] font-bold">{{ numberOfAnswers }}</span>
+            de 15 opciones.
           </span>
 
           <span class="text-xs text-center" v-if="numberOfAnswers >= 15">
@@ -109,34 +113,17 @@
         </div>
       </div>
 
-      <div v-if="declarationsLoading" class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto">
+      <div
+        v-if="loadingNewPair"
+        class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto"
+      >
         <v-progress-circular
           indeterminate
           color="purple darken-4"
-          size="32"></v-progress-circular>
-          <span class="block mt-4">Estamos preparando todo para ti</span>
-      </div>
-
-      <div
-        v-if="(reachingIndex == 0 || reachingIndex == 1 || reachingIndex == 2)"
-        class="d-flex flex-column lg:h-full align-center justify-center lg:max-w-screen-2xl lg:mx-auto"
-      >
-        <span
-          class="block text-2xl lg:text-4xl font-black text-[#2929c6] text-center w-11/12"
-          >Estamos preparando una nueva combinación de propuestas interesantes para ti</span
-        >
-        <span class="block mt-4">
-          Por mientras te sugerimos revisar la priorización de los focos.
-        </span>
-
-        <div>
-          <v-btn
-            color="purple darken-4"
-            class="white--text text-capitalize mt-8"
-            to="/gamificacion/resultados"
-            >Ver Resultados</v-btn
-          >
-        </div>
+          size="32"
+        ></v-progress-circular>
+        <!-- <span class="block mt-4">Cargando...</span>   -->
+        <!-- <font-awesome-icon icon="fa-solid fa-alien-8bit" class="h-8 w-8"/> -->
       </div>
     </v-img>
   </div>
@@ -165,8 +152,10 @@ export default {
     };
   },
   async mounted() {
-    this.$store.commit('gamificacion/loadingDeclarations');
+    this.$store.commit("gamificacion/loadingDeclarations");
+
     this.$store.commit("gamificacion/setUserId", this.$cookies.get("userID"));
+
     this.user_id = this.$store.getters["gamificacion/getUserId"];
 
     this.reachingIndex = this.optionsData.length;
@@ -183,36 +172,59 @@ export default {
         }),
       };
     });
-  },
-  async updated() {
-    await this.$store.dispatch("gamificacion/loadMatchs");
-    await this.$store.dispatch("gamificacion/loadDeclarations");
 
-    this.optionsData = this.declarations;
-
-    this.reachingIndex = this.optionsData.length - this.secondOption;
-
-    if (
-      this.reachingIndex != 0 &&
-      this.reachingIndex != 1 &&
-      this.reachingIndex != 2
-    ) {
-      // find in matchesData if the first and second options exists in the pairs array of any match object
-      const match = this.matchesData.find((match) => {
-        return (
-          match.pairs.includes(this.optionsData[this.firstOption].id) &&
-          match.pairs.includes(this.optionsData[this.secondOption].id)
-        );
-      });
-
-      if (match !== undefined) {
-        this.moveToNextPair();
-      }
-    } else {
-      this.$router.push("/gamificacion/mensaje");
-    }
+    await this.checkMatch();
   },
   methods: {
+    async checkMatch() {
+      let res = false;
+
+      await this.$store.dispatch("gamificacion/loadDeclarations");
+      this.optionsData = this.declarations;
+
+      this.reachingIndex = this.optionsData.length - this.secondOption;
+
+      if (
+        this.reachingIndex != 0 &&
+        this.reachingIndex != 1 &&
+        this.reachingIndex != 2
+      ) {
+        // find in matchesData if the first and second options exists in the pairs array of any match object
+
+        const query = this.$objectToQueryString({
+          filter: {
+            user: {
+              _eq: this.user_id,
+            },
+          },
+          fields: ['pairs.*.*']
+        })
+
+        const axiosMatches = this.$axios.get(this.$config.apiUrlV2 + `/items/matches?${query}`)
+
+        const m = await Promise.all([axiosMatches]).then((res) => {
+          return res[0].data.data.find((match) => {
+            return (
+              match.pairs[0].item.id == (this.optionsData[this.firstOption].id) && match.pairs[1].item.id == (this.optionsData[this.secondOption].id)
+            );
+          });
+        }).then((match) => {
+          if (match !== undefined) {
+            this.loadingNewPair = true
+            this.moveToNextPair();
+          } else {
+            this.loadingNewPair = false
+          }
+
+          res = true;
+        });
+
+        return res;
+
+      } else {
+        this.$router.push("/gamificacion/mensaje");
+      }
+    },
     optionSelected(id) {
       this.winner = this.optionsData.find(
         (declaration) => declaration.id == id
@@ -224,6 +236,7 @@ export default {
           : this.optionsData[this.secondOption];
 
       this.registerMatch();
+
       this.optionsSelected++;
       this.optionsData.find((item, index) => {
         if (item.id === id) {
@@ -238,6 +251,8 @@ export default {
       this.numberOfAnswers++;
     },
     async registerMatch() {
+      this.loadingNewPair = true;
+
       // Inserta un nuevo match registrando las 2 opciones que se compararon y la opcion ganadora
       const data = await this.$axios
         .$post(`${this.$config.apiUrlV2}/items/matches`, {
@@ -262,9 +277,9 @@ export default {
         fields: ["id", "wins.*"],
         deep: {
           wins: {
-            _limit: -1
-          }
-        }
+            _limit: -1,
+          },
+        },
       });
 
       // Obtener las wins de la declaracion ganadora
@@ -275,8 +290,6 @@ export default {
         .then((res) => {
           return res.data.wins;
         });
-
-        console.log(wins);
 
       // Agregar el nuevo match a la lista de wins de la declaracion ganadora
       wins.push({
@@ -321,9 +334,11 @@ export default {
         }
       );
 
-      // await this.$store.dispatch("gamificacion/loadDeclarations");
+      this.checkMatch();
     },
     async noPreferences() {
+      this.loadingNewPair = true;
+
       // Registra un match sin ganador
       await this.$axios
         .$post(`${this.$config.apiUrlV2}/items/matches`, {
@@ -350,11 +365,18 @@ export default {
       this.secondOption = this.firstOption + 1;
 
       this.numberOfAnswers++;
+
+      await this.checkMatch();
     },
     moveToNextPair() {
-      this.optionsSelected = this.optionsSelected + 2;
+      let res = this.checkMatch();
+
+      if(res) {
+this.optionsSelected = this.optionsSelected + 2;
       this.firstOption = this.optionsSelected - 1;
       this.secondOption = this.firstOption + 1;
+      }
+
     },
   },
   computed: {
