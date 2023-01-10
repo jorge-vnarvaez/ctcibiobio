@@ -21,7 +21,7 @@
       </v-container>
     </v-img>
     <!-- HERO IMAGE -->
-    <!-- <TypesGramificacionData></TypesGramificacionData> -->
+    <TypesGramificacionData></TypesGramificacionData>
     <TypesGramificacionResultados></TypesGramificacionResultados>
   </div>
 </template>

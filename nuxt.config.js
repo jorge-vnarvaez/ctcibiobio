@@ -125,5 +125,6 @@ export default {
         autoprefixer: {},
       },
     },
+    standalone: true,
   },
 }

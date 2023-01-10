@@ -4,16 +4,19 @@
       <v-responsive :aspect-ratio="16/9" content-class="d-flex align-center justify-center">
         <div class="mb-5 d-flex align-center text-center">
           <div class="d-flex flex-column align-center">
-
             <iframe class="w-full h-96 mb-10" width="560" height="315" src="https://www.youtube.com/embed/YJecjsYgLZ8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="text-h3 text-md-h2 font-weight-black">Estrategia de CTCI Biobío</div>
-            <div class="text-2xl font-weight-light my-10">Una iniciativa colaborativa para sentar las bases del desarrollo en innovación del 2022-2032</div>
-            <div class="flex flex-wrap justify-center align-center gap-10 mb-4">
-              <div><no-ssr><img height="100px" src="/iconos/gore-60x100px.jpg"></no-ssr></div>
-              <div><no-ssr><img height="100px" src="/iconos/udec-280x100px.png"></no-ssr></div>
-              <div><no-ssr><img height="100px" src="/iconos/ucsc-280x100px.png"></no-ssr></div>
-              <div><no-ssr><img height="100px" src="/iconos/ubb-150x100px.png"></no-ssr></div>
-              <!-- <div><no-ssr><img height="60px" style="max-height:60px;" src="/img/udec_color.png"></no-ssr></div> -->
+            <div class="flex lg:flex-row flex-col py-lg-20 align-center">
+              <v-img src="/img/CTCI.png" contain :width="$vuetify.breakpoint.mobile ? 320 : 650" :height="$vuetify.breakpoint.mobile ? 290 : 450"></v-img>
+              <div class="flex flex-col">
+                <div class="text-xl lg:text-3xl font-weight-black mb-lg-6">Estrategia de CTCI para la Región del Biobío</div>
+                <div class="text-base lg:text-2xl font-weight-light my-lg-8">Una iniciativa colaborativa para sentar las bases del desarrollo en Ciencia, Tecnología, Conocimiento e Innovación del 2022-2032</div>
+                 <div class="flex flex-wrap justify-center align-center gap-10 mb-4">
+                <div><no-ssr><img height="100px" src="/iconos/gore-60x100px.jpg"></no-ssr></div>
+                <div><no-ssr><img height="100px" src="/iconos/udec-280x100px.png"></no-ssr></div>
+                <div><no-ssr><img height="100px" src="/iconos/ucsc-280x100px.png"></no-ssr></div>
+                <div><no-ssr><img height="100px" src="/iconos/ubb-150x100px.png"></no-ssr></div>
+            </div>
+              </div>
             </div>
             <!-- <RedesSociales/> -->
           </div>
