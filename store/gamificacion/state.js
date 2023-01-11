@@ -15,5 +15,8 @@ export default () => ({
     matches: [],
     // state of the matches
     matchesLoaded: false,
-    totalMatchs: 0
+    totalMatchs: 0,
+    totalParticipants: 0,
+    tf_participantes: [],
+    tf_provincias: [],
 })

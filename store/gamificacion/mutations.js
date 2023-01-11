@@ -1,8 +1,6 @@
 export default {
     setDeclarations(state, declarations) {
         state.declarations = declarations;
-
-        // usando matches verifica que 
     },
     loadingDeclarations(state) {
         state.declarationsLoading = true;
@@ -45,6 +43,19 @@ export default {
             } else if (filter === 4) {
                 return a.n_wins - b.n_wins;
             } 
+        });
+    },
+    setTotalParticipants(state, total) {
+        state.totalParticipants = total;
+    },
+    setTfParticipantes(state, tf_participantes) {
+        state.tf_participantes = tf_participantes.sort((a, b) => {
+            return Object.values(a)[0] - Object.values(b)[0];
+        });
+    },
+    setTfProvincias(state, tf_provincias) {
+        state.tf_provincias = tf_provincias.sort((a, b) => {
+            return Object.values(a)[0] - Object.values(b)[0];
         });
     }
 }

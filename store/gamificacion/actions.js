@@ -8,16 +8,8 @@ export default {
         });
     },
     async loadMatchsLength({ commit }) {
-
-        const qs = require('qs');
-
-        const query = qs.stringify({
-            fields: ['id'],
-            limit: -1
-        })
-
-        await this.$axios.get(`${this.$config.apiUrlV2}/items/matches?${query}`).then(response => {
-            commit('setLengthMatchs', response.data.data.length);
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/n_matches`).then(response => {
+            commit('setLengthMatchs', response);
         });
     },
     async loadDeclarations({ commit }) {
@@ -60,8 +52,30 @@ export default {
             }
         })
     },
-
     sortRanking({ commit }, filter) {
         commit('sortRanking', filter);
+    },
+    async loadTotalParticipants({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/n_participantes`).then(response => {
+            commit('setTotalParticipants', response);
+        });
+    },
+    async loadTfParticipantes({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/tf_participantes`).then(response => {
+            commit('setTfParticipantes', response);
+        });
+    },
+    async loadTfProvincias({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/tf_provincias`).then(response => {
+            // convierte response en array de objetos
+            response = Object.keys(response).map(key => {
+                return {
+                    name: key,
+                    value: response[key]
+                }
+            });
+
+            commit('setTfProvincias', response);
+        });
     }
 }

@@ -19,5 +19,14 @@ export default {
     },
     declarationsLoading(state) {
         return state.declarationsLoading;
+    },
+    totalParticipants(state) {
+        return state.totalParticipants;
+    },
+    tf_participantes(state) {
+        return state.tf_participantes;
+    },
+    tf_provincias(state) {
+        return state.tf_provincias;
     }
 }
