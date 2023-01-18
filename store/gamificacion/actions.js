@@ -65,6 +65,18 @@ export default {
             commit('setTfParticipantes', response);
         });
     },
+    async loadTfEdadParticipantes({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/tf_edad_participantes`).then(response => {
+            response = Object.keys(response).map(key => {
+                return {
+                    name: key, 
+                    value: response[key]
+                }
+            });
+
+            commit('setTfEdadParticipantes', response);
+        });
+    },
     async loadTfProvincias({ commit }) {
         await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/tf_provincias`).then(response => {
             // convierte response en array de objetos

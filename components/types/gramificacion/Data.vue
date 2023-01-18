@@ -1,41 +1,22 @@
 <template>
-  <div>
-    <v-container class="mt-10">
-      <span class="block text-2xl text-slate-800 font-black mb-4"
+  <div class="py-16 bg-gradient-to-r from-slate-100 to-zinc-100">
+    <v-container>
+      <span class="block text-xl lg:text-4xl text-slate-900 font-black mb-12"
         >Priorización en cifras</span
       >
-      <div class="grid grid-cols-12 lg:gap-x-8 gap-y-6 mb-8" v-if="loading == false">
-        <!-- TOTAL PRIORIZATIONS -->
-        <v-card :class="col_span + ' p-4'">
-          <div class="flex align-center space-x-2">
-            <font-awesome-icon
-              icon="fa-sharp fa-solid fa-booth-curtain"
-              class="h-8 w-8"
-            />
-            <div class="flex flex-col">
-              <span class="font-black">{{ totalMatchs }}</span>
-              <span class="text-xs">Priorizaciones</span>
-            </div>
-          </div>
-        </v-card>
-        <!-- TOTAL PRIORIZATIONS -->
-
-        <!-- TOTAL USERS -->
-        <v-card :class="col_span + ' p-4'">
-          <div class="flex align-center space-x-2">
-            <font-awesome-icon icon="fa-solid fa-user" class="h-8 w-8" />
-            <div class="flex flex-col">
-              <span class="font-black">{{ totalParticipants }}</span>
-              <span class="text-xs">Participantes</span>
-            </div>
-          </div>
-        </v-card>
-        <!-- TOTAL USERS -->
-      </div>
 
       <div class="grid grid-cols-12 lg:gap-x-8 gap-y-8" v-if="loading == false">
+        <span class="col-span-12 text-sm lg:text-xl lg:leading-loose">
+          <span class="font-semibold">a. Participantes por género:</span> La distribución de participantes en la priorización de focos
+          según su género (masculino, femenino, otro, prefiere no decirlo). 
+          <span class="font-semibold">b. Participantes por provincia:</span> La distribución de participantes en la priorización de 
+          focos de acuerdo a la provincia en la que reside. <span class="font-semibold">c.
+          Participantes por rango de edad:</span> La distribución de participantes en
+          la priorización de focos en determinados rangos de edad.
+        </span>
         <TypesGramificacionTfParticipantes></TypesGramificacionTfParticipantes>
         <TypesGramificacionTfProvincias></TypesGramificacionTfProvincias>
+        <TypesGramificacionTfParticipantesEdad></TypesGramificacionTfParticipantesEdad>
       </div>
     </v-container>
   </div>
@@ -47,47 +28,42 @@ export default {
     return {
       loading: true,
       attrs: {
-        class: 'mb-6',
+        class: "mb-6",
         boilerplate: true,
         elevation: 2,
       },
-    }
+    };
   },
   async fetch() {
     await Promise.all([
       this.$store.dispatch("gamificacion/loadTotalParticipants"),
       this.$store.dispatch("gamificacion/loadMatchsLength"),
       this.$store.dispatch("gamificacion/loadTfParticipantes"),
+      this.$store.dispatch("gamificacion/loadTfEdadParticipantes"),
       this.$store.dispatch("gamificacion/loadTfProvincias"),
     ]).then((res) => {
-      if(res) {
-        this.loading = false
+      if (res) {
+        this.loading = false;
       } else {
-        this.loading = true
+        this.loading = true;
       }
-    })
+    });
   },
   computed: {
-    totalParticipants() {
-      return this.$store.getters["gamificacion/totalParticipants"];
-    },
-    totalMatchs() {
-      return this.$store.getters["gamificacion/totalMatchs"];
-    },
     col_span() {
-        switch(this.$vuetify.breakpoint.name) {
-            case 'xs':
-                return 'col-span-12';
-            case 'sm':
-                return 'col-span-12';
-            case 'md':
-                return 'col-span-3';
-            case 'lg':
-                return 'col-span-3';
-            case 'xl':
-                return 'col-span-2';
-        }
-    }
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return "col-span-12";
+        case "sm":
+          return "col-span-12";
+        case "md":
+          return "col-span-3";
+        case "lg":
+          return "col-span-3";
+        case "xl":
+          return "col-span-2";
+      }
+    },
   },
 };
 </script>

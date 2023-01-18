@@ -18,5 +18,6 @@ export default () => ({
     totalMatchs: 0,
     totalParticipants: 0,
     tf_participantes: [],
+    tf_edad_participantes: [],
     tf_provincias: [],
 })

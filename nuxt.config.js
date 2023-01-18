@@ -45,7 +45,8 @@ export default {
   plugins: [
     { src: '~/plugin/objectToQueryString.js' },
     { src: '~/plugin/fontawesome.js' },
-    { src: '~/plugin/prime-svg/prime-svg.js' }
+    { src: '~/plugin/prime-svg/prime-svg.js' },
+    { src: '~/plugin/tippy.js' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

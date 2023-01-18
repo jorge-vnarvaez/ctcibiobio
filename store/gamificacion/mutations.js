@@ -53,6 +53,9 @@ export default {
             return Object.values(a)[0] - Object.values(b)[0];
         });
     },
+    setTfEdadParticipantes(state, tf_edad_participantes) {
+        state.tf_edad_participantes = tf_edad_participantes;
+    },
     setTfProvincias(state, tf_provincias) {
         state.tf_provincias = tf_provincias.sort((a, b) => {
             return Object.values(a)[0] - Object.values(b)[0];

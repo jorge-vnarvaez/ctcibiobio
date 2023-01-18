@@ -1,6 +1,7 @@
 <template>
   <div :class="col_span" v-if="tfProvincias.length > 0">
-    <v-card class="p-6">
+    <v-card class="px-8 py-6">
+      <span class="block mb-8 text-lg">b. Participantes por provincia</span>
       <div class="flex flex-col lg:flex-row space-x-8 align-center">
         <ChartSvg contain :width="plotWidth" heigth="1800">
           <ChartG
@@ -8,7 +9,7 @@
                 colors: {
                   scale: 'scaleLinear',
                   domain: [0, tfProvincias.length - 1],
-                  range: ['#00affe', '#0095d8'],
+                  range: ['#3650a4', '#1d2b58'],
                 }
               }"
           >
@@ -21,6 +22,9 @@
                     :startAngle="index == 0 ? 0 : angles[index - 1]"
                     :endAngle="index == angles.length - 1 ? 360 : angles[index]"
                     :fill="scales.colors(index)"
+                    class="cursor-pointer text-capitalize"
+                    v-tippy
+                    :content="`${tfProvincias[index].name.replace(/_/g, ' ')} (${tfProvincias[index].value})`"
                   >
                </ChartArc>
             </template>
@@ -32,7 +36,7 @@
                 colors: {
                   scale: 'scaleLinear',
                   domain: [0, tfProvincias.length - 1],
-                  range: ['#00affe', '#0095d8'],
+                  range: ['#3650a4', '#1d2b58'],
                 }
               }">
             <template #default="{ scales }" class="flex align-center">
@@ -54,7 +58,7 @@
                 :ty="120"
                 :tx="20"
                 class="text-capitalize"
-                >{{
+                >{{ item.value }} {{
                   // replace _ for white spaces
                   item.name.replace(/_/g, " ")
                 }} ({{ p_participantes(item.value) }}%)</ChartText

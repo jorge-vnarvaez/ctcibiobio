@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-between mb-4">
-    <span class="text-2xl text-slate-800 font-black">Priorizaciones</span>
+  <div class="flex justify-between align-center mb-4">
+    <span class="text-xl lg:text-4xl text-slate-900 font-bold">Priorizaciones</span>
     <div>
         <v-menu offset-y nudge-left="150" nudge-bottom="10" :close-on-content-clic="false">
             <template v-slot:activator="{ on, attrs }">
@@ -8,16 +8,14 @@
             </template>
             <v-list>
                 <v-list-item>
-                <v-radio-group v-model="activeFilter">
-                    <v-radio
-                    v-for="item in filters" :key="item.id"
-                    :label="item.name"
-                    :value="item.id"
-                    @click="sortRanking()"
-                    ></v-radio>
-
-                
-                </v-radio-group>
+                  <v-radio-group v-model="activeFilter">
+                      <v-radio
+                      v-for="item in filters" :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
+                      @click="sortRanking()"
+                      ></v-radio>
+                  </v-radio-group>
                 </v-list-item>
             </v-list>
         </v-menu>

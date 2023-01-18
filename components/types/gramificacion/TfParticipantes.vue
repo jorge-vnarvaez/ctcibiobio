@@ -1,20 +1,27 @@
 <template>
   <div :class="col_span">
-    <v-card class="p-6">
+    <v-card class="px-8 py-6">
+      <span class="block mb-8 text-lg">a. Participantes por género</span>
       <div class="flex flex-col lg:flex-row space-x-8 align-center">
         <ChartSvg contain :width="plotWidth" heigth="1800">
           <ChartG>
             <template>
-               <ChartArc
-                    v-for="(item, index) in angles"
-                    :key="index + 'arc'"
-                    :bx="150"
-                    :by="110"
-                    :startAngle="index == 0 ? 0 : angles[index - 1]"
-                    :endAngle="index == angles.length - 1 ? 360 : angles[index]"
-                    :fill="colors[index]"
-                  >
-               </ChartArc>
+              <ChartArc
+                v-for="(item, index) in angles"
+                :key="index + 'arc'"
+                :bx="150"
+                :by="110"
+                :startAngle="index == 0 ? 0 : angles[index - 1]"
+                :endAngle="index == angles.length - 1 ? 360 : angles[index]"
+                :fill="colors[index]"
+                class="cursor-pointer stroke-none"
+                v-tippy
+                :content="`${Object.keys(tfParticipantes[index])[0].replace(
+                  /_/g,
+                  ' '
+                )} (${Object.values(tfParticipantes[index])[0]})`"
+              >
+              </ChartArc>
             </template>
           </ChartG>
         </ChartSvg>
@@ -40,10 +47,10 @@
                 :ty="140"
                 :tx="20"
                 class="text-capitalize"
-                >{{
-                  // replace _ for white spaces
-                  Object.keys(item)[0].replace(/_/g, " ")
-                }} ({{ p_participantes(Object.values(item)[0]) }}%)</ChartText
+                >{{ Object.values(item)[0] }}
+                {{ Object.keys(item)[0].replace(/_/g, " ") }} ({{
+                  p_participantes(Object.values(item)[0])
+                }}%)</ChartText
               >
             </template>
           </ChartG>
@@ -59,7 +66,7 @@ export default {
     return {
       acum: 0,
       angles: [],
-      colors: ["#ffac00", "#f25d5d", "#006dff", "#2525b9"],
+      colors: ["#3e5cbd", "#3333ff", "#ff6469", "#253771"],
     };
   },
   methods: {
@@ -67,8 +74,8 @@ export default {
       return (total * 360) / this.totalParticipants;
     },
     p_participantes(total) {
-        return Math.round((total * 100) / this.totalParticipants);
-    }
+      return Math.round((total * 100) / this.totalParticipants);
+    },
   },
   mounted() {
     this.tfParticipantes.forEach((value) => {
@@ -96,19 +103,19 @@ export default {
       }, 0);
     },
     col_span() {
-        switch(this.$vuetify.breakpoint.name) {
-            case 'xs':
-                return 'col-span-12';
-            case 'sm':
-                return 'col-span-12';
-            case 'md':
-                return 'col-span-6';
-            case 'lg':
-                return 'col-span-6';
-            case 'xl':
-                return 'col-span-4'
-        }
-    }
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return "col-span-12";
+        case "sm":
+          return "col-span-12";
+        case "md":
+          return "col-span-6";
+        case "lg":
+          return "col-span-6";
+        case "xl":
+          return "col-span-4";
+      }
+    },
   },
 };
 </script>
