@@ -40,7 +40,7 @@
         </span>
 
         <span class="block text-sm lg:text-base mt-4 text-center w-11/12 lg:w-4/12 xl:w-6/12">
-          Las respuestas son de carácter anónimo y los resultados serán publicados conservando el anonimato de los participantes.
+          Los resultados serán publicados conservando el anonimato de los participantes.
         </span>
 
         <span

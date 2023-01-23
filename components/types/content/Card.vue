@@ -3,7 +3,7 @@
     <v-img
       v-if="content.featured_image"
       height="250px"
-      :src="$config.apiUrlV2 + '/assets/' + content.featured_image"
+      :src="$config.apiUrlV2 + '/assets/' + content.featured_image + '?quality=80'"
     ></v-img>
     <div class="p-4">
       <div class="text-md font-bold text-slate-500">{{ content.title }}</div>

@@ -7,7 +7,7 @@
 
       <CoolLightBox
         :items="infographics.map((infographic) => {
-          return $config.apiUrlV2 + '/assets/' + infographic.image
+          return $config.apiUrlV2 + '/assets/' + infographic.image + '?quality=80';
         })"
         :index="index"
         :fullScreen="true"
@@ -24,7 +24,7 @@
         <v-img
           v-for="(infographic, infographicIndex) in infographics"
           :key="infographic.id"
-          :src="$config.apiUrlV2 + '/assets/' + infographic.image"
+          :src="$config.apiUrlV2 + '/assets/' + infographic.image + '?quality=80'"
           @click="index = infographicIndex"
           class="cursor-pointer h-full w-full"
         ></v-img>
