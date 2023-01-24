@@ -6,15 +6,21 @@ export default {
         const query = qs.stringify({
             fields: [
                 'id',
+                'parent_document',
                 'title',
-                'description',
+                'excerpt',
                 'featured_image',
                 'file'
-            ]
+            ],
         })
 
-        const { data } = await fetch(route).then(res => res.json())
+        let { data } = await fetch(`${route}?${query}`).then(res => res.json())
+
+        const parent_document = data.filter(item => item.parent_document === true)
+
+        data = data.filter(item => item.parent_document === false)
 
         commit('setDocuments', data)
+        commit('setParentDocument', parent_document[0])
     }
 }

@@ -4,17 +4,22 @@
       <div class="flex flex-col align-center justify-center">
         <span class="block text-3xl lg:text-5xl">Documento</span>
         <span
-          class="block text-center mt-8 text-sm lg:text-base w-full lg:w-7/12"
+          class="block text-center my-8 text-sm lg:text-base w-full lg:w-7/12"
         >
-          ¡Bienvenido al repositorio del proyecto CTCI de ciencia, tecnología,
-          conocimiento e innovación! Aquí encontrará un documento detallado que
-          describe las etapas más relevantes del proyecto. Desde la
-          investigación inicial y el diseño del proyecto hasta la implementación
-          y evaluación de los resultados, nuestro documento le brindará una
-          visión completa y detallada del proceso completo del proyecto CTCI en
-          ciencia, tecnología, conocimiento e innovación de la Región del
-          Biobío.
+          ¡Bienvenido al documento oficial de la Estrategia de CTCI (ciencia,
+          tecnología, conocimiento e innovación) para la Región del Biobío! Aquí
+          encontrarás un informe detallado que describe los capítulos de este
+          gran proyecto. Abordamos el contexto, la metodología, revisiones
+          bibliográficas, campañas de sociabilización y más. Nuestro documento
+          te brindará una visión completa y detallada del proceso completo de
+          esta estrategia para la octava región.
         </span>
+
+        <v-btn color="red darken-1">
+          <a :href="$config.apiUrlV2 + '/assets/' + parent_document.file + '?download'">
+            <span class="text-white">Ver documento aquí</span>
+          </a>
+        </v-btn>
       </div>
 
       <div
@@ -24,7 +29,13 @@
         <div v-for="document in documents" :key="document.id" :class="col_span">
           <v-card class="p-6" flat>
             <!-- FEATURED IMAGE -->
-            <v-img v-if="document.featured_image"> </v-img>
+            <v-img
+              v-if="document.featured_image"
+              :src="$config.apiUrlV2 + '/assets/' + document.featured_image"
+              height="250"
+              width="100%"
+            >
+            </v-img>
 
             <div
               v-if="!document.featured_image"
@@ -59,12 +70,22 @@
         </div>
       </div>
 
-      <div v-if="documents.length == 0" class="flex flex-col align-center justify-center mt-12">
-        <font-awesome-icon icon="fa-solid fa-hourglass-start" class="w-12 h-12" style="color: #9ca3af"/>
-        <span class="block text-center text-xs lg:text-base font-thin text-gray-400 w:full lg:w-5/12 mt-8">
-          ¡Mantente atento! Dentro de muy poco estaremos disponibilizando un documento
-          detallado con las etapas más relevantes del proyecto en Ciencia,
-          Tecnología, Conocimiento e Innovación en la Región del Biobío.
+      <div
+        v-if="documents.length == 0"
+        class="flex flex-col align-center justify-center mt-12"
+      >
+        <font-awesome-icon
+          icon="fa-solid fa-hourglass-start"
+          class="w-12 h-12"
+          style="color: #9ca3af"
+        />
+        <span
+          class="block text-center text-xs lg:text-base font-thin text-gray-400 w:full lg:w-5/12 mt-8"
+        >
+          ¡Mantente atento! Dentro de muy poco estaremos disponibilizando un
+          documento detallado con las etapas más relevantes del proyecto en
+          Ciencia, Tecnología, Conocimiento e Innovación en la Región del
+          Biobío.
         </span>
       </div>
     </v-container>
@@ -79,6 +100,9 @@ export default {
   computed: {
     documents() {
       return this.$store.getters["documento/getDocuments"];
+    },
+    parent_document() {
+      return this.$store.getters["documento/getParentDocument"];
     },
     col_span() {
       switch (this.$vuetify.breakpoint.name) {
