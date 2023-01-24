@@ -9,7 +9,7 @@
               colors: {
                 scale: 'scaleLinear',
                 domain: [0, tfEdadParticipantes.length - 1],
-                range: ['#3650a4', '#1d2b58'],
+                range: ['#31435e', '#6b94d0'],
               },
             }"
           >
@@ -39,7 +39,7 @@
               colors: {
                 scale: 'scaleLinear',
                 domain: [0, tfEdadParticipantes.length - 1],
-                range: ['#3650a4', '#1d2b58'],
+                range: ['#31435e', '#6b94d0'],
               },
             }"
           >

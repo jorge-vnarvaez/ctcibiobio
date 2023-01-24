@@ -47,9 +47,8 @@
                 ><span class="text-xl">/{{ ranking.length }}</span>
               </div>
 
-              <span class="text-body-1 d-block h-20">{{
-                declaration.title
-              }}</span>
+              <span class="text-body-1 d-block h-20">
+                {{ declaration.sort }}.-{{ declaration.title }}</span>
             </div>
 
             <div class="flex space-x-2 align-end">
@@ -57,7 +56,7 @@
                 icon="fa-solid fa-stars"
                 class="w-5 h-5"
               /><span class="inline-flex align-end font-black text-sm">{{
-                ((Math.ceil(declaration.skill[0]) * 1) / 40).toFixed(2)
+                ((Math.ceil(declaration.skill[0]) * 1) / Math.ceil(maxSkill)).toFixed(2)
               }}</span>
             </div>
           </v-card>
@@ -103,6 +102,10 @@ export default {
     },
   },
   computed: {
+    maxSkill() {
+      // using ranking get max skill
+      return Math.max(...this.ranking.map((declaration) => declaration.skill[0]))
+    },
     ranking() {
       return this.$store.getters["gamificacion/ranking"];
     },

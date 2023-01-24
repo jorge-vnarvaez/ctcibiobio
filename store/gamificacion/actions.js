@@ -34,7 +34,20 @@ export default {
         });
     },
     async loadRanking({ commit }) {
-        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?fields[]=id, title, skill, mission.label&fields[]=count(wins)&sort[]=-count(wins)&deep[wins][_limit]=-1`).then(response => {
+        const qs = require('qs');
+
+        const query = qs.stringify({
+            fields: ['*, mission.label, wins, count(wins), sort'],
+            deep: {
+                wins: {
+                    _limit: -1,
+                }
+            },
+            sort: ['-count(wins)'],
+        })
+        // fields=*&fields[]=count(wins)&sort[]=-count(wins)&deep[wins][_limit]=-1
+
+        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?${query}`).then(response => {
             if (response.data) {
                 let ranking = response.data.map((declaration, index) => {
                     // create an array of objects using the declaration title as a key
@@ -44,7 +57,7 @@ export default {
                         skill: JSON.parse(declaration.skill),
                         rank: index + 1,
                         n_wins: declaration.wins_count,
-                        mission: declaration.mission.label
+                        sort: declaration.sort,
                     };
                 }).sort((a, b) => (b.skill[0] - a.skill[0]));
 
