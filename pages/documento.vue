@@ -1,10 +1,10 @@
 <template>
-  <div class="py-10">
+  <div class="py-10 h-full">
     <v-container>
       <div class="flex flex-col align-center justify-center">
         <span class="block text-3xl lg:text-5xl">Documento</span>
         <span
-          class="block text-center mt-8 text-xs lg:text-base w-full lg:w-7/12"
+          class="block text-center mt-8 text-sm lg:text-base w-full lg:w-7/12"
         >
           ¡Bienvenido al repositorio del proyecto CTCI de ciencia, tecnología,
           conocimiento e innovación! Aquí encontrará un documento detallado que
@@ -44,13 +44,28 @@
             <!-- EXCERPT -->
 
             <!-- BUTTON -->
-            <div class="flex justify-end">
-              <v-btn outlined color="red" class="mt-6">Descargar PDF</v-btn>
+            <div class="flex justify-end" v-if="document.file">
+              <a
+                :href="
+                  $config.apiUrlV2 + '/assets/' + document.file + '?download'
+                "
+              >
+                <v-btn outlined color="red" class="mt-6"> Descargar PDF </v-btn>
+              </a>
             </div>
 
             <!-- BUTTON -->
           </v-card>
         </div>
+      </div>
+
+      <div v-if="documents.length == 0" class="flex flex-col align-center justify-center mt-12">
+        <font-awesome-icon icon="fa-solid fa-hourglass-start" class="w-12 h-12" style="color: #9ca3af"/>
+        <span class="block text-center text-xs lg:text-base font-thin text-gray-400 w:full lg:w-5/12 mt-8">
+          ¡Mantente atento! Dentro de muy poco estaremos disponibilizando un documento
+          detallado con las etapas más relevantes del proyecto en Ciencia,
+          Tecnología, Conocimiento e Innovación en la Región del Biobío.
+        </span>
       </div>
     </v-container>
   </div>
