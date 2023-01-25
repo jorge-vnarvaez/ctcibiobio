@@ -1,4 +1,7 @@
 export default {
+  capitulos(state){
+    return state.capitulos
+  },
   activeCapitulo(state){
     if(state.capitulos){
       return state.capitulos.find(el=> el.sort == state.capituloActivo)

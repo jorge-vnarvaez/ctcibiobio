@@ -1,432 +1,302 @@
-<template lang="">
-  <div class="p-3" id="page-wrapper">
-    <!-- v-if: se encuentran capítulos |INICIO| -->
-    <div v-if="capitulos" ref="top">
-      <!-- v-if: el capítulo tiene datos |INICIO| -->
-      <!-- Layout de capítulos |INICIO| -->
-      <div id="capitulos-layout">
-        <!-- Selector de capitulo |INICIO| -->
-        <div id="capitulos-index-wrapper">
-          <!-- Tarjeta de Capítulo |INICIO| -->
-          <div
-            :class="`${$store.getters['capitulos/activeCapitulo'].sort === capitulo.sort ? 'capitulo-card-active' : 'capitulo-card'}` + ' cursor-pointer'"
-            v-for="(capitulo, indexCapitulo) in capitulos"
-            :key="indexCapitulo"
-            @click="capituloSeleccionado(capitulo.sort)"
-          >
-            <div>
-              <div class="text-xs font-black">Capítulo {{ capitulo.sort  }}</div>
-              <div class="text-base font-bold">{{ capitulo.title }}</div>
-            </div>
-            <div class="text-xs">{{ capitulo.excerpt }}</div>
-          </div>
-          <!-- Tarjeta de Capítulo |FIN| -->
-        </div>
-        <!-- Selector de capitulo |FIN| -->
+<template>
+  <div class="bg-gray-100" id="wrapper">
+    <div class="grid grid-cols-12">
+      <!-- NAVIGATION -->
+      <div class="bg-white col-span-12 lg:col-span-2 px-4 py-8" id="nav-wrapper">
+        <!-- TABS -->
+        <span
+          v-for="tab in tabs"
+          :key="tab.name"
+          @click="activeTab = tab.name"
+          :class="
+            activeTab == tab.name
+              ? 'block mb-2 border-separate border-spacing-2 border-l-4 border-pink-600 font-bold px-4'
+              : '' + ' block px-5 cursor-pointer mb-2'
+          "
+          >{{ tab.label }}</span
+        >
+        <!-- TABS -->
 
-        <!-- Layout contenido y selector |INICIO| -->
-        <div id="layout-estrategia-content">
-          <!-- Selector de contenidos |INICIO| -->
-          <div id="layout-slides-navigation" class="slides-wrapper">
-            <!-- MENU DESPLEGABLE FOR SMALL AND MEDIUM DEVICES -->
-              <div class="mt-4"> 
-                  <span class="font-bold">Contenidos</span>
-              </div>
-            <!-- MENU DESPLEGABLE FOR SMALL AND MEDIUM DEVICES -->
+        <!-- ACTIVE CAPITULO -->
+        <div class="mt-12" v-if="activeTab == 'contenidos'">
+         <div v-if="activeCapitulo">
+          <span class="block text-lg font-bold">Capitulo {{ activeCapitulo.sort }}</span>
+          <v-divider class="my-2 w-9/12"></v-divider>
+          <span class="text-xs font-light">{{ activeCapitulo.title }}</span>
+          <!-- CONTENIDOS -->
+          <div class="mt-12">
+            <span class="font-bold text-xs">Contenidos</span>
 
+            <div v-if="activeCapitulo.contents.length > 0" class="mt-4 flex flex-col space-y-8">
+              <div
+                v-for="(content, index) in activeCapitulo.contents"
+                :key="content.id"
+                class="flex items-center cursor-pointer"
+                @click="$store.commit('capitulos/updateContenidoActivo', content.id)"
+              >
+                <div :class="`${activeContenido.id == content.id ? 'outline-blue-500' : 'outline-slate-200'}` + ' relative w-11/12 h-[200px] outline outline-2 rounded-md'">
+                    
+                    <!-- FOTO REFERENCIAL -->
+                    <v-img v-if="content.file" :src="$config.apiUrlV2 + '/assets/' + content.file.id +`?width=${width}&height=${height}&quality=80`"></v-img>
+                    <!-- FOTO REFERENCIAL -->
 
-            <!-- Slide card |INICIO| -->
-            <div
-              v-for="(contenidoCapitulo, index) in $store.getters[
-                'capitulos/activeCapitulo'
-              ].contents"
-              :key="index"
-              :class="`${
-                $store.getters['capitulos/activeContenido'].id ===
-                contenidoCapitulo.id
-                  ? 'contenido-card-active'
-                  : contenidoCapitulo.featured === true
-                  ? 'contenido-card-featured'
-                  : 'contenido-card'
-              }`"
-              @click="contenidoSeleccionado(contenidoCapitulo.id, index)"
-            >
-              <div>
-                <div class="flex lg:justify-between lg:align-center lg:space-x-4">
-                  <div class="flex flex-col justify-end">
-                    <div class="flex align-center space-x-2">
-                      <span class="block text-2xl font-black"
-                        >{{ contenidoCapitulo.sort < 9 ? "0" : ""
-                        }}{{ contenidoCapitulo.sort + 1  }}</span
-                      >
-                      <font-awesome-icon
-                        v-if="contenidoCapitulo.featured"
-                        icon="fa-solid fa-circle-star"
-                        class="w-4 h-4"
-                        fixed-width
-                      />
-
-                      <!-- ICONO [VIDEO, CODIGO EMBEDIDO, PDF] -->
-                      <font-awesome-icon 
-                      v-if="['Presentación PDF'].includes(contenidoCapitulo.format)" 
-                      icon="fa-solid fa-file-pdf"  
-                      class="w-4 h-4"
-                      fixed-width />
-
-                      <font-awesome-icon
-                        v-if="['Video Online'].includes(contenidoCapitulo.format)"
-                        icon="fa-solid fa-video"
-                        class="w-4 h-4"
-                        fixed-width />
-
-                      <font-awesome-icon
-                        v-if="['Código embedido'].includes(contenidoCapitulo.format)"
-                        icon="fa-solid fa-presentation-screen"
-                        class="w-4 h-4"
-                        fixed-width />
-                      <!-- ICONO [VIDEO, CODIGO EMBEDIDO, PDF] -->
-
+                    <!-- WITHOUT FOTO REFERENCIAL -->
+                    <div v-if="['Foto referencial'].includes(content.format) && !content.file">
+                      <font-awesome-icon icon="fa-solid fa-image" class="w-8 h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                     </div>
-                    <div class="flex flex-col">
-                      <div class="font-black text-xs lg:text-sm">{{ contenidoCapitulo.title }}</div>
-                      <div class="text-xs font-thin">
-                        {{ contenidoCapitulo.excerpt }}
-                      </div>
-                    </div>
-                  </div>
+                    <!-- WITHOUT FOTO REFERENCIAL -->
 
-                  <div>
-                    <!-- THUMBNAIL [FOTO REFERENCIAL, INFOGRAFIAS] -->
-                    <v-img
-                      v-if="contenidoCapitulo.file && !$vuetify.breakpoint.mobile"
-                      class="rounded-lg"
-                      :src="$config.apiUrlV2 +'/assets/' +contenidoCapitulo.file.id + '?fit=cover&width=120&height=80&quality=25&withoutEnlargement'"
-                      contain
-                    ></v-img>
-                    <!-- THUMBNAIL [FOTO REFERENCIAL, INFOGRAFIAS] -->
-                  </div>
+                    <!-- VIDEO ONLINE -->
+                    <div v-if="['Video Online'].includes(content.format)">
+                      <font-awesome-icon icon="fa-solid fa-play" class="w-8 h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                    </div>
+                    <!-- VIDEO ONLINE -->
+
+                    <!-- PDF -->
+                    <div v-if="['Presentación PDF'].includes(content.format)">
+                      <font-awesome-icon icon="fa-solid fa-file-pdf" class="w-8 h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                    </div>
+                    <!-- PDF -->
+
+                    <!-- CODIGO EMBED -->
+                    <div v-if="content.format == null">
+                      <font-awesome-icon icon="fa-solid fa-align-left" class="w-8 h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                    </div>
+                    <!-- CODIGO EMBED -->
+
+
+                    <div :class="`${activeContenido.id == content.id ? 'bg-blue-600 text-white ' : 'bg-slate-200 '}` +  inset_x + ' absolute w-8 h-6 rounded-lg -top-4 flex align-center justify-center'">
+                      <span class="text-xs font-bold">
+                        {{ index + 1}}
+                      </span>
+                    </div>
                 </div>
+
               </div>
             </div>
-            <!-- Slide card |INICIO| -->
           </div>
-          <!-- Selector de contenidos |FIN| -->
-
-          <!-- Capítulo > Contenido activo |INICIO| -->
-          <UtilitariosContenidoCard />
-          <!-- Capítulo > Contenido activo |FIN| -->
+         </div>
+        <!-- CONTENIDOS -->
         </div>
-        <!-- Layout contenido y selector |FIN| -->
+        <!-- ACTIVE CAPITULO -->
       </div>
+      <!-- NAVIGATION -->
 
-      <!-- v-if: el capítulo tiene datos |FIN| -->
-    </div>
-    <!-- v-if: se encuentran capítulos |FIN| -->
+      <!-- CHAPTERS -->
+      <div class="col-span-10 p-8" v-if="activeTab == 'capitulos'">
+       <div class="grid grid-cols-12 gap-8">
+         <div v-for="(capitulo, index) in capitulos" :key="capitulo.id" class=" bg-slate-200 p-4 col-span-6 rounded-md shadowm-md">
+          <div class="flex flex-col">
+            <span>Capitulo {{ index + 1 }}</span><span class="block font-bold">{{ capitulo.title }}</span>
+          </div>
 
+          <div class="text-sm h-12">
+            <span class="block w-10/12">{{ capitulo.excerpt }}</span>
+          </div>
 
-
-    <div class="mt-20" ref="moreContent">
-      <div id="section-content" class="my-12 h-4/12" v-for="contenido in $store.getters['capitulos/activeCapitulo'].contents.slice(sliceIndex, contentsNumber)" :key="contenido.id">
-        <UtilitariosContenidoCardDetail :contenido="contenido" />
-      </div>
-    </div>
-
-    <div class="absolute bottom-24 w-full flex">
-      <v-btn
-        fab
-        dark
-        color="#0c92cc"
-        @click="scrollToTop"
-      >
-        <v-icon>mdi-arrow-up</v-icon>
-      </v-btn>
-
-      <!-- <div v-if="text" class="w-full flex justify-center align-center">
-        <v-btn
-          v-if="$store.getters['capitulos/activeCapitulo'].contents.length > 1"
-          color="primary"
-          outlined
-          @click="keepReading"
-          >
-            <span class="font-bold">Continuar leyendo</span>
-          </v-btn>
+          <div class="mt-8 flex align-center space-x-2 cursor-pointer" @click="$store.commit('capitulos/updateCapituloActivo', capitulo.sort); activeTab = 'contenidos'">
+            <span class="text-sm">Ver contenidos</span>
+            <font-awesome-icon icon="fa-solid fa-arrow-right" class="w-4 h-4" />
+          </div>
         </div>
-      </div> -->
-    </div>
+       </div>
+      </div>
+      <!-- CHAPTERS -->
 
+      <!-- CONTENT -->
+      <div class="col-span-10 p-8" v-if="activeTab == 'contenidos'" id="content-wrapper">
+        <span class="block mb-8 text-2xl font-bold">{{ activeContenido.title }}</span>
+        <!-- FOTOS REFERENCALES -->
+           <UtilitariosLightBox 
+           v-if="['Foto referencial'].includes(activeContenido.format) && activeContenido.file"
+           :images="[$config.apiUrlV2 + '/assets/' + activeContenido.file.id]"
+           :description="activeContenido.file.description">
+           </UtilitariosLightBox>
+        <!-- FOTOS REFERENCALES -->
+
+        <!-- VIDEOS ONLINE -->
+        <div v-if="['Video Online'].includes(activeContenido.format)">
+          <iframe
+             v-if="activeContenido.url"
+            :src="get_video_params.outputUrl"
+            width="100%"
+            height="600"
+          ></iframe>
+        </div>
+        <!-- VIDEOS ONLINE -->
+
+        <!-- PRESENTACION PDF -->
+        <div v-if="['Presentación PDF'].includes(activeContenido.format)">
+          <iframe
+            :src="$config.apiUrlV2 + '/assets/' + activeContenido.file.id"
+            width="100%"
+            height="800"
+          ></iframe>
+        </div>
+        <!-- PRESENTACION PDF -->
+
+        <!-- DESCRIPTION -->
+        <span v-html="activeContenido.body"></span>
+        <!-- DESCRIPTION -->
+      </div>
+      <!-- CONTENT -->
+    </div>
   </div>
 </template>
-<script>
 
+<script>
 export default {
   data() {
     return {
-      text: true,
-      windowTop: 0,
-      sliceIndex: 1,
-    }
+      activeTab: "capitulos",
+      tabs: [
+        { name: "contenidos", label: "Contenidos" },
+        { name: "capitulos", label: "Capítulos" },
+      ],
+    };
   },
-  mounted() {
-     let that = this;
-     window.addEventListener("wheel", function(){
-           that.windowTop = window.pageYOffset;
-      });
-  },
-  methods: {
-    capituloSeleccionado(sort) {
-      this.text = true;
-      this.$store.commit('capitulos/updateCapituloActivo', sort)
-    },
-    contenidoSeleccionado(id, index) {
-      this.$store.commit('capitulos/updateContenidoActivo', id)
-
-      if(this.sliceIndex <= this.contentsNumber) {
-        this.sliceIndex = index + 1;
-      } else {
-        this.sliceIndex = index;
-      }
-
-    },
-    scrollToTop() {
-      // scroll to top the div with id="top"
-      this.text = true;
-      this.$refs.top.scrollIntoView({ behavior: "smooth" });
-    },
-    keepReading() {
-      // scroll to top the div with id="top"
-      this.text = false;
-      this.$refs.moreContent.scrollIntoView({ behavior: "smooth" });
-    }
+  async fetch() {
+    await this.$store.dispatch("capitulos/loadCapitulos");
   },
   computed: {
-    capitulos() {
-      return this.$store.state.capitulos.capitulos;
+    get_video_params() {
+      let res = {
+        provider: null,
+        params: {
+          v: null,
+          h: null,
+          list: null,
+        },
+        inputUrl: null,
+        outputUrl: null,
+      };
+
+      res.inputUrl = this.activeContenido.url;
+
+      // get provider of the url (youtube or youtu.be) and set the provider
+      if (res.inputUrl.includes("youtube.com")) {
+        res.provider = "youtube";
+      } else if (res.inputUrl.includes("youtu.be")) {
+        res.provider = "youtu.be";
+      }
+
+      switch (res.provider) {
+        case "youtube":
+          res.params.v = res.inputUrl.split("v=")[1].split("&")[0];
+          res.outputUrl = `https://www.youtube.com/embed/${res.params.v}`;
+          break;
+        case "youtu.be":
+          res.params.v = res.inputUrl.split("youtu.be/")[1].split("&")[0];
+          res.outputUrl = `https://www.youtube.com/embed/${res.params.v}`;
+          break;
+      }
+
+      /**
+       * Casos youtube
+       * Ej1 - Default: https://www.youtube.com/watch?v=Iu3Vez0StvM
+       * Ej2 - Lista: https://www.youtube.com/watch?v=kSVMHdtylns&list=PLPBuBFdoK1doZSP8LkjXwOtcTMqLHQKj4
+       * Ej3 - Short: https://youtu.be/kSVMHdtylns
+       * Embed: https://www.youtube.com/embed/Iu3Vez0StvM
+       *
+       */
+
+      /**
+       * Casos Vimeo
+       * Ej1 - Default: https://vimeo.com/393528399/326ab2ad8a
+       * Ej2 - embed: https://player.vimeo.com/video/393528399?h=326ab2ad8a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479
+       *
+       */
+
+      return res;
     },
-    contentsNumber() {
-      return this.$store.getters['capitulos/activeCapitulo'].contents.length;
+    inset_x() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 'inset-x-20';
+        case 'sm':
+          return 'inset-x-20';
+        case 'md':
+          return 'inset-x-20';
+        case 'lg':
+          return 'inset-x-14';
+        case 'xl':
+          return 'inset-x-20';
+        default:
+          return 'inset-x-20';
+      }
+    },
+    width() {
+      return this.$vuetify.breakpoint.mobile ? '180' : '230';
+    },
+    height() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return '240';
+        case 'sm':
+          return '220';
+        case 'md':
+          return '180';
+        case 'lg':
+          return '260';
+        case 'xl':
+          return '180';
+        default:
+          return '200';
+      }
+    },
+    activeCapitulo() {
+      return this.$store.getters["capitulos/activeCapitulo"];
+    },
+    activeContenido() {
+      return this.$store.getters["capitulos/activeContenido"];
+    },
+    capitulos() {
+      return this.$store.getters["capitulos/capitulos"];
     }
-  },
-};
+  }
+}
 </script>
-<style lang="postcss">
-/* Layout general de sección de capítulos */
-#capitulos-layout {
-  grid-template-columns: minmax(0, 1fr);
-}
 
-/* Estilos de selector de capítulos */
-#capitulos-index-wrapper {
-  @apply scroll-pl-10 snap-x;
-  display: flex;
-  overflow-x: scroll;
-}
-
-#capitulos-index-wrapper::-webkit-scrollbar {
-  height: 10px;
-}
-
-#capitulos-index-wrapper::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-#capitulos-index-wrapper::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 5px;
-  max-width: 100px;
-}
-
-.capitulo-card {
-  @apply p-4 m-2 bg-slate-200 text-slate-800 rounded-xl cursor-pointer;
-  min-width: 400px; 
-  width: 400px; 
-  max-width: 400px;
-}
-
-.capitulo-card-active {
-  @apply p-4 m-2 bg-neutral-700 text-white rounded-xl cursor-pointer;
-  min-width: 400px;
-  width: 400px;
-  max-width: 400px;
-}
-
-/* Contenedor de slides y contenido  */
-#layout-estrategia-content {
-  @apply grid mt-4;
-  grid-template-columns: 400px 1fr;
-  height: 50vh;
-}
-
-@media screen and (max-width: 768px) {
-  #layout-estrategia-content {
-    @apply flex flex-col-reverse;
-    height: 100%;
-  }
-}
-
-/* Estilos de slides para selección de contenido */
-#layout-slides-navigation {
-  @apply grid justify-items-start content-start shadow-inner gap-3 rounded-sm;
-  grid-template-columns: repeat(2, minmax(1, 1fr));
-  height: 50vh;
-}
-
-.slide-preview {
-  @apply bg-slate-200 rounded-2xl;
-}
-
-.slides-wrapper {
-   @apply snap-y scroll-mt-4;
-   width: 400px;
-   overflow-y: scroll;
-}
-
-@media only screen and (max-width: 420px) {
-  .slides-wrapper {
-    @apply snap-y scroll-mt-8;
-    width: 320px;
-    overflow-y: scroll;
-  }
-}
-
-.slides-wrapper::-webkit-scrollbar {
-  width: 10px;
-}
-
-.slides-wrapper::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-.slides-wrapper::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 5px;
-  max-width: 100px;
-}
-
-/* Estilos de contenido */
-.contenido-content {
-  @apply lg:pl-8 pl-0 grid;
-}
-
-.contenido-card {
-  @apply p-4 bg-slate-200 text-slate-800 rounded-xl cursor-pointer;
-  min-width: 380px;
-  width: 380px;
-  max-width: 380px;
-}
-
-.contenido-card-active {
-  @apply p-4 bg-slate-800 text-white rounded-xl cursor-pointer;
-  min-width: 380px;
-  width: 380px;
-  max-width: 380px;
-}
-
-.contenido-card-featured {
-  @apply p-4 bg-slate-400 text-white rounded-xl cursor-pointer;
-  min-width: 380px;
-  width: 380px;
-  max-width: 380px;
-}
-
-/* Resize card width for extra small and small devices */
-@media only screen and (max-width: 420px) {
-  .contenido-card {
-    @apply p-4 bg-slate-200 text-slate-800 rounded-xl cursor-pointer;
-    min-width: 310px;
-    width: 310px;
-    max-width: 310px;
-  }
-
-  .contenido-card-active {
-    @apply p-4 bg-slate-800 text-white rounded-xl cursor-pointer;
-    min-width: 310px;
-    width: 310px;
-    max-width: 310px;
-  }
-
-  .contenido-card-featured {
-    @apply p-4 bg-slate-400 text-white rounded-xl cursor-pointer;
-    min-width: 310px;
-    width: 310px;
-    max-width: 310px;
-  }
-}
-
-/* #contenido-body {
-  @apply flex space-x-0 flex-col lg:flex-row mb-4 lg:mb-0;
-  /* grid-template-columns: repeat(1, minmax(0, 1fr) minmax(0, 1fr)); 
-} */
-
-#c-title {
-  @apply mb-5 text-slate-700;
-}
-
-.marked {
-  @apply font-sans px-0;
-}
-
-#marked-wrapper {
-  @apply scroll-py-10 snap-y;
+<style>
+#wrapper {
+  height: 100vh;
   overflow-y: scroll;
-  height: 50vh;
 }
 
-#marked-wrapper::-webkit-scrollbar {
+#wrapper::-webkit-scrollbar {
   width: 10px;
+  background: transparent;
 }
 
-#marked-wrapper::-webkit-scrollbar-track {
-  background: #f1f5f9;
+#wrapper::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
-#marked-wrapper::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 5px;
-  max-width: 100px;
-}
-
-.image-wrapper {
-  @apply snap-x;
-  overflow-x: scroll;
-}
-
-.image-wrapper::-webkit-scrollbar {
-  height: 10px;
-}
-
-.image-wrapper::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-.image-wrapper::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 5px;
-  max-width: 100px;
-}
-
-/* Scroll behavior for general component */
-#page-wrapper {
-  @apply snap-y scroll-smooth;
+#nav-wrapper {
+  height: 100vh;
   overflow-y: scroll;
-  height: 50vh;
 }
 
-#page-wrapper::-webkit-scrollbar {
+#nav-wrapper::-webkit-scrollbar {
   width: 10px;
+  background: transparent;
 }
 
-#page-wrapper::-webkit-scrollbar-track {
-  background: #f1f5f9;
+#nav-wrapper::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
-#page-wrapper::-webkit-scrollbar-thumb {
-  background: #ffb204;
-  border-radius: 5px;
-  max-width: 100px;
+#content-wrapper {
+  height: 100vh;
+  overflow-y: scroll;
 }
 
-#section-content {
-  @apply snap-start;
+#content-wrapper::-webkit-scrollbar {
+  width: 10px;
+  background: transparent;
 }
 
+#content-wrapper::-webkit-scrollbar-thumb {
+  background: #888;
+}
 </style>

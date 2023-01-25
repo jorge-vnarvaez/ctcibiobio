@@ -11,14 +11,16 @@
     </CoolLightBox>
 
     <div v-if="!is_infografia">
-      <v-img
-        v-for="(image, imageIndex) in images"
-        :key="imageIndex"
-        @click="index = imageIndex"
-        :src="image"
-        class="cursor-pointer h-full w-full"
-        contain
-      ></v-img>
+      <span class="text-xs text-slate-500 font-thin block text-left mb-2">Haga clic sobre la imagen para obtener más detalles.</span>
+      <div>
+        <v-img
+          v-for="(image, imageIndex) in images"
+          :key="imageIndex"
+          @click="index = imageIndex"
+          :src="image"
+          class="cursor-pointer h-[400px] w-[600px]"
+        ></v-img>
+      </div>
       <span class="block mt-4 mb-4 lg:mb-0 text-xs font-thin text-slate-500">{{
         description !== '' ? description : $store.getters["capitulos/activeContenido"].file.description
       }}</span>
