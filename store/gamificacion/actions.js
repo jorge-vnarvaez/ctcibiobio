@@ -26,7 +26,7 @@ export default {
 
         await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?${query}`).then(response => {
             if (response.data) {
-                commit('setDeclarations', response.data);
+                commit('setDeclarations', response.data.sort((a, b) => (b.skill[0] - a.skill[0])));
                 setTimeout(() => {
                     commit('declarationsLoaded');
                 }, 5000)

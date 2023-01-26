@@ -28,14 +28,17 @@
           <div class="rounded-xl shadow-2xl col-span-12 lg:col-span-6">
             <v-card
               @click="optionSelected(optionsData[firstOption].id)"
-              class="px-8 py-8 d-flex align-center justify-center"
+              class="px-8 py-8 d-flex flex-column align-center justify-center"
               height="240"
               style="cursor: pointer"
               flat
             >
-              <span class="text-base lg:text-lg text-center text-[#2929c6]">
+              <span class="block text-base lg:text-lg text-center text-[#2929c6]">
                 {{ optionsData[firstOption].title }}
               </span>
+              <!-- <span class="block">
+                {{ optionsData[firstOption].skill }}
+              </span> -->
               <!-- <span>
                 {{ optionsData[firstOption].wins.length }}
               </span> -->
@@ -47,7 +50,7 @@
           <div class="rounded-xl shadow-2xl col-span-12 lg:col-span-6">
             <v-card
               @click="optionSelected(optionsData[secondOption].id)"
-              class="px-8 py-8 d-flex align-center justify-center"
+              class="px-8 py-8 d-flex flex-column align-center justify-center"
               height="240"
               style="cursor: pointer"
               flat
@@ -55,6 +58,9 @@
               <span class="text-base lg:text-lg text-center text-[#2929c6]">
                 {{ optionsData[secondOption].title }}
               </span>
+              <!-- <span class="block">
+                {{ optionsData[secondOption].skill }}
+              </span> -->
               <!-- <span>
                 {{ optionsData[secondOption].wins.length }}
               </span> -->
