@@ -100,12 +100,17 @@
           En este estudio, se analiza cómo la aceptación de un foco no
           depende solo del número de victorias o derrotas, sino también de dos
           factores: el "nivel de aceptación" (μ) y el grado de incertidumbre en
-          la aceptación de un foco. Para entender esto, utilizamos un
+          la aceptación de un foco de cada uno de los usuarios participantes. 
+          Tenemos siempre presente que cada usuario tiene criterios y preferencias
+          sobre los focos que se deben priorizar en la región, es por esto que
+          cada votación se individualiza para posteriormente, crear
+          una ponderación general en base a la votación de todos los participantes.
+          Para entender esto, utilizamos un
           método llamado "inferencia bayesiana", que nos permite clasificar los 
           focos basándonos en cómo cambian nuestras creencias sobre ellas.
           Por ejemplo, si creemos que un foco A tiene un alto nivel de
-          aceptación (1 punto) y un bajo grado de incertidumbre (4.3), pero lo
-          comparamos con un foco B con un nivel de aceptación más bajo (0.5
+          aceptación (90 puntos) y un bajo grado de incertidumbre (4.3), pero lo
+          comparamos con un foco B con un nivel de aceptación más bajo (50
           puntos) y un mayor grado de incertidumbre (8.3), es posible que el
           foco B gane en popularidad y su aceptación aumente drásticamente.
           Sin embargo, al continuar haciendo elecciones y comparando los focos, 

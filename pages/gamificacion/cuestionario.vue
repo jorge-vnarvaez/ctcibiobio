@@ -184,10 +184,13 @@ export default {
   methods: {
     async checkMatch() {
       let res = false;
+      
+      // await this.$store.dispatch("gamificacion/loadDeclarations");
+      // this.optionsData = this.declarations;
 
-      await this.$store.dispatch("gamificacion/loadDeclarations");
-      this.optionsData = this.declarations;
-
+      // reaching index represent the number of options that are left to be compared
+      // i.e: the optionsData length is always 32, to check if the user has already compared all the options
+      // or if there a few options left to be compared, we check the reachingIndex
       this.reachingIndex = this.optionsData.length - this.secondOption;
 
       if (
@@ -195,8 +198,8 @@ export default {
         this.reachingIndex != 1 &&
         this.reachingIndex != 2
       ) {
-        // find in matchesData if the first and second options exists in the pairs array of any match object
 
+       
         const query = this.$objectToQueryString({
           filter: {
             user: {
@@ -206,8 +209,10 @@ export default {
           fields: ['pairs.*.*']
         })
 
+        // get all the matches from the current user
         const axiosMatches = this.$axios.get(this.$config.apiUrlV2 + `/items/matches?${query}`)
 
+        // check if the current pair of options has already been compared
         const m = await Promise.all([axiosMatches]).then((res) => {
           return res[0].data.data.find((match) => {
             return (
@@ -215,6 +220,8 @@ export default {
             );
           });
         }).then((match) => {
+          // if the current pair of options has already been compared, move to the next pair
+          // if not then load the pair of options
           if (match !== undefined) {
             this.loadingNewPair = true
             this.moveToNextPair();
@@ -229,7 +236,8 @@ export default {
 
       } else {
         this.$router.push("/gamificacion/mensaje");
-      }
+      } // this line is used to redirect the user to the previus result page, indicating
+      // that reaching index is 0, 1 or 2, which means that the user has already compared all the options
     },
     optionSelected(id) {
       this.winner = this.optionsData.find(
@@ -276,6 +284,7 @@ export default {
           ],
         })
         .then((res) => {
+          this.loadingNewPair = false;
           return res.data;
         });
 
@@ -311,35 +320,54 @@ export default {
         }
       );
 
-      const trueskill = require("trueskill");
+      // Agregar el nuevo match a la lista de matches del usuario
+      await this.$axios.$post(
+        `${this.$config.apiUrlV2}/items/declarations_directus_users`,
+        {
+          declarations_id: this.winner.id,
+          directus_users_id: this.user_id,
+          skill: [25.0, 25.0 / 3.0],
+          individualized: false,
+        }
+      ).then((res) => {
+        this.loadingNewPair = false
+      });
 
       // Update skill of the winner and loser declarations
-      let winner = {};
-      let loser = {};
+      // This set of lines are commented because the trueskill library is not working properly in general 
+      // ranking clasification  This library was encapsulated in a custom endpoint to adjust 
+      // the skill of the winner and loser declarations by user
 
-      winner.skill = JSON.parse(this.winner.skill);
-      loser.skill = JSON.parse(this.loser.skill);
+      // const trueskill = require("trueskill");
 
-      winner.rank = 1;
-      loser.rank = 2;
+      // let winner = {};
+      // let loser = {};
 
-      trueskill.AdjustPlayers([winner, loser]);
+      // winner.skill = JSON.parse(this.winner.skill);
+      // loser.skill = JSON.parse(this.loser.skill);
 
-      await this.$axios.$patch(
-        `${this.$config.apiUrlV2}/items/declarations/${this.winner.id}`,
-        {
-          skill: JSON.stringify(winner.skill),
-        }
-      );
+      // winner.rank = 1;
+      // loser.rank = 2;
 
-      // Actualizar las skills de la declaracion perdedora
-      await this.$axios.$patch(
-        `${this.$config.apiUrlV2}/items/declarations/${this.loser.id}`,
-        {
-          skill: JSON.stringify(loser.skill),
-        }
-      );
+      // trueskill.AdjustPlayers([winner, loser]);
 
+      // Update winner skill
+      // await this.$axios.$patch(
+      //   `${this.$config.apiUrlV2}/items/declarations/${this.winner.id}`,
+      //   {
+      //     skill: JSON.stringify(winner.skill),
+      //   }
+      // );
+
+      // // Update loser skill
+      // await this.$axios.$patch(
+      //   `${this.$config.apiUrlV2}/items/declarations/${this.loser.id}`,
+      //   {
+      //     skill: JSON.stringify(loser.skill),
+      //   }
+      // );
+
+      // Check new match
       this.checkMatch();
     },
     async noPreferences() {
@@ -365,6 +393,19 @@ export default {
           return res.data;
         });
 
+      // Registra un match sin declaracion ganadora para el usuario
+      await this.$axios.$post(
+        `${this.$config.apiUrlV2}/items/declarations_directus_users`,
+        {
+          declarations_id: null,
+          directus_users_id: this.user_id,
+          skill: null,
+          individualized: true,
+        }
+      ).then(() => {
+        this.loadingNewPair = false
+      });
+
       // Pasa al siguiente set de opciones
       this.optionsSelected = this.optionsSelected + 2;
       this.firstOption = this.optionsSelected - 1;
@@ -375,12 +416,13 @@ export default {
       await this.checkMatch();
     },
     moveToNextPair() {
+      // this.loadingNewPair = false;
       let res = this.checkMatch();
 
       if(res) {
-this.optionsSelected = this.optionsSelected + 2;
-      this.firstOption = this.optionsSelected - 1;
-      this.secondOption = this.firstOption + 1;
+        this.optionsSelected = this.optionsSelected + 2;
+        this.firstOption = this.optionsSelected - 1;
+        this.secondOption = this.firstOption + 1;
       }
 
     },

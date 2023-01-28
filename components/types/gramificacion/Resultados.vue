@@ -55,9 +55,10 @@
               <font-awesome-icon
                 icon="fa-solid fa-stars"
                 class="w-5 h-5"
-              /><span class="inline-flex align-end font-black text-sm">{{
-                ((Math.ceil(declaration.skill[0]) * 1) / Math.ceil(maxSkill)).toFixed(2)
-              }}</span>
+              />
+              <span class="text-sm">
+                {{ Math.round(declaration.skill) }}
+              </span>
             </div>
           </v-card>
         </div>
@@ -102,10 +103,6 @@ export default {
     },
   },
   computed: {
-    maxSkill() {
-      // using ranking get max skill
-      return Math.max(...this.ranking.map((declaration) => declaration.skill[0]))
-    },
     ranking() {
       return this.$store.getters["gamificacion/ranking"];
     },

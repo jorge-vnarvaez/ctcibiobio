@@ -26,41 +26,16 @@ export default {
 
         await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?${query}`).then(response => {
             if (response.data) {
-                commit('setDeclarations', response.data.sort((a, b) => (b.skill[0] - a.skill[0])));
-                setTimeout(() => {
-                    commit('declarationsLoaded');
-                }, 5000)
+                commit('setDeclarations', response.data);
+                commit('declarationsLoaded');
             }
         });
     },
     async loadRanking({ commit }) {
-        const qs = require('qs');
-
-        const query = qs.stringify({
-            fields: ['*, mission.label, wins, count(wins), sort'],
-            deep: {
-                wins: {
-                    _limit: -1,
-                }
-            },
-            sort: ['-count(wins)'],
-        })
-        // fields=*&fields[]=count(wins)&sort[]=-count(wins)&deep[wins][_limit]=-1
-
-        await this.$axios.$get(`${this.$config.apiUrlV2}/items/declarations?${query}`).then(response => {
-            if (response.data) {
-                let ranking = response.data.map((declaration, index) => {
-                    // create an array of objects using the declaration title as a key
-                    return {
-                        id: declaration.id,
-                        title: declaration.title,
-                        skill: JSON.parse(declaration.skill),
-                        rank: index + 1,
-                        n_wins: declaration.wins_count,
-                        sort: declaration.sort,
-                    };
-                }).sort((a, b) => (b.skill[0] - a.skill[0]));
-
+        console.log('loading ranking')
+        await this.$axios.$get(`${this.$config.apiUrlV2}/ranking`).then(response => {
+            if (response) {
+                let ranking = response;
                 commit('setRanking', ranking);
             }
         })

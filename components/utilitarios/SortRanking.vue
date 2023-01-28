@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between align-center mb-4">
     <span class="text-xl lg:text-4xl text-slate-900 font-bold">Priorizaciones</span>
-    <div>
+    <!-- <div>
         <v-menu offset-y nudge-left="150" nudge-bottom="10" :close-on-content-clic="false">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn v-bind="attrs" v-on="on" icon><font-awesome-icon icon="fa-sharp fa-solid fa-bars-sort" :class="activeColor + ' w-5 h-5'" /></v-btn>
@@ -19,7 +19,7 @@
                 </v-list-item>
             </v-list>
         </v-menu>
-    </div>
+    </div> -->
   </div>
 </template>
 
