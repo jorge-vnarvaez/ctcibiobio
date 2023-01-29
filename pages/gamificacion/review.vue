@@ -205,7 +205,7 @@ export default {
     },
   },
   async fetch() {
-    await this.$store.dispatch("gamificacion/loadMatchsLength");
+    // await this.$store.dispatch("gamificacion/loadMatchsLength");
     // await this.$store.dispatch("gamificacion/loadMatchs");
     await this.$store.dispatch("gamificacion/loadRanking");
   },

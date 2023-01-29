@@ -1,12 +1,4 @@
 export default {
-    async loadMatchs({ commit }) {
-        // check if userId isnt null using ternary operator
-        const query = this.$cookies.get('userID') ? `${this.$config.apiUrlV2}/items/matches?fields=id, winner, pairs.*, user&filter[user][_eq]=${this.$cookies.get('userID')}` : `${this.$config.apiUrlV2}/items/matches?fields=id, winner, pairs.*`;
-
-        await this.$axios.$get(query).then(response => {
-            commit('setMatches', response.data)
-        });
-    },
     async loadMatchsLength({ commit }) {
         await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/n_matches`).then(response => {
             commit('setLengthMatchs', response);
@@ -32,7 +24,6 @@ export default {
         });
     },
     async loadRanking({ commit }) {
-        console.log('loading ranking')
         await this.$axios.$get(`${this.$config.apiUrlV2}/ranking`).then(response => {
             if (response) {
                 let ranking = response;

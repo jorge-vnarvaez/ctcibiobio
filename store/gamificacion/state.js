@@ -12,7 +12,7 @@ export default () => ({
     // id of the current user
     userId: null,
     // list of matches played
-    matches: [],
+    matchs: [],
     // state of the matches
     matchesLoaded: false,
     totalMatchs: 0,

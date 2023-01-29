@@ -25,12 +25,11 @@ export default {
     setUserId(state, userId) {
         state.userId = userId;
     },
-    setMatches(state, matches) {
-        state.matches = matches;
-        state.matchesLoaded = true;
-    },
-    setMatchesStatus(state, status) {
-        state.matchesLoaded = status;
+    setMatchs(state, matchs) {
+        console.log(matchs)
+        state.matchs = matchs;
+        console.log(state.matchs)
+        // state.matchesLoaded = true;
     },
     sortRanking(state, filter) {
         state.ranking = state.ranking.sort((a, b) => {

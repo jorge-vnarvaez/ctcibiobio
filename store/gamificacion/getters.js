@@ -8,8 +8,8 @@ export default {
     getUserId(state) {
         return state.userId;
     },
-    matches(state) {
-        return state.matches;
+    matchs(state) {
+        return state.matchs;
     },
     totalMatchs(state) {
         return state.totalMatchs;
