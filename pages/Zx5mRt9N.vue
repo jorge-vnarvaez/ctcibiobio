@@ -1,11 +1,9 @@
 <template>
-<div>
-  <!-- This page is used to fix the skill of users -->
-</div>
-  <!-- <div>
-    <v-btn @click="getskills">Get skills</v-btn>
-    {{ means }}
-  </div> -->
+  <div>
+    <!-- <v-btn @click="getskills">Get skills</v-btn> -->
+    <!-- <v-btn @click="fix">Fix</v-btn>
+    {{ i }} -->
+  </div>
 </template>
 
 <script>
@@ -61,7 +59,6 @@ export default {
 
         this.means = mean
     },
-
     async fix() {
       const qs = require("qs");
 
@@ -83,7 +80,9 @@ export default {
         .$get(this.$config.apiUrlV2 + "/users?" + query_users)
         .then((res) => res.data);
 
-      let ruts = users.map((user) => user.rut);
+      // let ruts = users.map((user) => user.rut);
+
+      let ruts = ['10556559-3']
 
       const query = qs.stringify({
         fields: ["id", "user", "winner", "pairs.*.*", "date_created"],
@@ -91,7 +90,7 @@ export default {
         filter: {
           user: {
             rut: {
-              _in: ruts.slice(this.i, this.i + 10),
+              _in: ruts,
             },
           },
         },
@@ -125,7 +124,7 @@ export default {
 
       data = data.map((match) => {
         match.date_created = moment(match.date_created).format(
-          "MM/DD/YYYY HH:mm:ss"
+          "YYYY-MM-DDTHH:mm:ss.SSSZ"
         );
         return match;
       });
@@ -159,32 +158,51 @@ export default {
             trueskill.AdjustPlayers([current_winner, current_loser]);
           }
         }
-
-         
-
         return current_match;
       });
 
           const pairs = data.map((match) => {
             return {
               user: match.user,
+              date_created: match.date_created,
               ...match.pairs.filter((pair) => pair.rank == 1)[0],
             };
           });
 
-          pairs.forEach(async (pair) => {
+          for (let i = 0; i < pairs.length; i++) {
+            const pair = pairs[i];
             await this.$axios.post(
               this.$config.apiUrlV2 + "/items/declarations_directus_users",
               {
                 declarations_id: pair.id,
                 directus_users_id: pair.user,
                 skill: JSON.stringify(pair.skill),
+                date_created: pair.date_created,
+                individualized: i == 0 || i == 1 ? true : false,
               }
             );
-          });
+          }
+
+
+          // pairs.forEach(async (pair) => {
+          //   await this.$axios.post(
+          //     this.$config.apiUrlV2 + "/items/declarations_directus_users",
+          //     {
+          //       declarations_id: pair.id,
+          //       directus_users_id: pair.user,
+          //       skill: JSON.stringify(pair.skill),
+          //       date_created: pair.date_created,
+          //     }
+          //   );
+          // });
 
       this.i += 10;
     },
+    // async fixofix() {
+      
+    //   const query 
+
+    // }
   },
 };
 </script>

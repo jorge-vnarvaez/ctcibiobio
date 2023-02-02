@@ -264,29 +264,42 @@ export default {
       this.numberOfAnswers++;
     },
     registerMatch() {
-      this.auxMatchs.push({
-        user: this.user_id,
-        winner: this.winner.id,
-        pairs: [
-          {
-            collection: "declarations",
-            item: this.optionsData[this.firstOption].id,
-          },
-          {
-            collection: "declarations",
-            item: this.optionsData[this.secondOption].id,
-          },
-        ],
+      // check if the current pair of options has already been compared
+      const m = this.matchesData.find((match) => {
+        return (
+          (match.pair1 == this.optionsData[this.firstOption].id &&
+            match.pair2 == this.optionsData[this.secondOption].id) ||
+          (match.pair1 == this.optionsData[this.secondOption].id &&
+            match.pair2 == this.optionsData[this.firstOption].id)
+        );
       });
+
+      if (!m) {
+        this.auxMatchs.push({
+          user: this.user_id,
+          winner: this.winner.id,
+          individualized: false,
+          pairs: [
+            {
+              collection: "declarations",
+              item: this.optionsData[this.firstOption].id,
+            },
+            {
+              collection: "declarations",
+              item: this.optionsData[this.secondOption].id,
+            },
+          ],
+        });
+      }
 
       this.checkMatch();
     },
     async postMatchs() {
       this.loadingNewPair = true;
 
-      this.$store.commit('gamificacion/setMatchs', this.auxMatchs)
+      this.$store.commit("gamificacion/setMatchs", this.auxMatchs);
 
-      let matchs = this.matchs
+      let matchs = this.matchs;
 
       matchs.forEach(async (match) => {
         await this.$axios
@@ -296,36 +309,48 @@ export default {
           });
 
         // Agregar el nuevo match a la lista de matches del usuario
-        await this.$axios
-          .$post(`${this.$config.apiUrlV2}/items/declarations_directus_users`, {
-            declarations_id: match.winner,
-            directus_users_id: match.user,
-            skill: match.winner != null ? [25.0, 25.0 / 3.0] : null,
-            individualized: match.winner != null ? false : true,
-          })
-          .then((res) => {
-            this.loadingNewPair = false;
-          });
+        // await this.$axios
+        //   .$post(`${this.$config.apiUrlV2}/items/declarations_directus_users`, {
+        //     declarations_id: match.winner,
+        //     directus_users_id: match.user,
+        //     skill: match.winner != null ? [25.0, 25.0 / 3.0] : null,
+        //     individualized: match.winner != null ? false : true,
+        //   })
+        //   .then((res) => {
+        //     this.loadingNewPair = false;
+        //   });
       });
-
     },
     async noPreferences() {
       this.loadingNewPair = true;
 
-      this.auxMatchs.push({
-        user: this.user_id,
-        winner: null,
-        pairs: [
-          {
-            collection: "declarations",
-            item: this.optionsData[this.firstOption].id,
-          },
-          {
-            collection: "declarations",
-            item: this.optionsData[this.secondOption].id,
-          },
-        ],
+      // check if the current pair of options has already been compared
+      const m = this.matchesData.find((match) => {
+        return (
+          (match.pair1 == this.optionsData[this.firstOption].id &&
+            match.pair2 == this.optionsData[this.secondOption].id) ||
+          (match.pair1 == this.optionsData[this.secondOption].id &&
+            match.pair2 == this.optionsData[this.firstOption].id)
+        );
       });
+
+      if (!m) {
+        this.auxMatchs.push({
+          user: this.user_id,
+          winner: null,
+          individualized: false,
+          pairs: [
+            {
+              collection: "declarations",
+              item: this.optionsData[this.firstOption].id,
+            },
+            {
+              collection: "declarations",
+              item: this.optionsData[this.secondOption].id,
+            },
+          ],
+        });
+      }
 
       this.loadingNewPair = false;
 
