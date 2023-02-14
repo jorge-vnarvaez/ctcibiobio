@@ -147,15 +147,11 @@ export default {
       loser: null,
       firstOption: 0,
       secondOption: 1,
-      option1: {},
-      option1loaded: false,
-      option2: {},
       optionsSelected: 1,
       numberOfAnswers: 0,
-      dataStatus: false,
       optionsData: [],
       matchesData: [],
-      auxMatchs: [],
+      queueMatchs: [], // this is to store the matches that are going to be sent to the API
       user_id: null,
       reachingIndex: 0,
       loadingNewPair: true,
@@ -164,14 +160,13 @@ export default {
   },
   async mounted() {
     this.$store.commit("gamificacion/loadingDeclarations");
+    await this.$store.dispatch("gamificacion/loadDeclarations");
 
     this.$store.commit("gamificacion/setUserId", this.$cookies.get("userID"));
 
     this.user_id = this.$store.getters["gamificacion/getUserId"];
 
     this.reachingIndex = this.optionsData.length;
-
-    await this.$store.dispatch("gamificacion/loadDeclarations");
 
     this.optionsData = this.declarations;
 
@@ -203,10 +198,13 @@ export default {
       }
     });
 
+    // check first match
     await this.checkMatch();
   },
   methods: {
     async checkMatch() {
+      let response = false;
+
       // reaching index represent the number of options that are left to be compared
       // i.e: the optionsData length is always 32, to check if the user has already compared all the options
       // or if there a few options left to be compared, we check the reachingIndex
@@ -218,26 +216,35 @@ export default {
         this.reachingIndex != 2
       ) {
         // check if the current pair of options has already been compared
-        const m = this.matchesData.find((match) => {
+        const currentPairIsCompared = this.matchesData.find((match) => {
           return (
-            match.pair1 == this.optionsData[this.firstOption].id &&
-            match.pair2 == this.optionsData[this.secondOption].id
+            (match.pair1 == this.optionsData[this.firstOption].id &&
+              match.pair2 == this.optionsData[this.secondOption].id) ||
+            (match.pair1 == this.optionsData[this.secondOption].id &&
+              match.pair2 == this.optionsData[this.firstOption].id)
           );
         });
 
-        if (m) {
+        if (currentPairIsCompared) {
           this.loadingNewPair = true;
           this.moveToNextPair();
-        } else {
+        }
+
+        if (!currentPairIsCompared) {
           this.loadingNewPair = false;
         }
+        response = currentPairIsCompared;
       } else {
         await this.postMatchs();
         this.$router.push("/gamificacion/mensaje");
-      } // this line is used to redirect the user to the previus result page, indicating
-      // that reaching index is 0, 1 or 2, which means that the user has already compared all the options
+      }
+
+      return response;
     },
     optionSelected(id) {
+      this.optionsSelected++;
+      this.numberOfAnswers++;
+
       this.winner = this.optionsData.find(
         (declaration) => declaration.id == id
       );
@@ -249,8 +256,6 @@ export default {
 
       this.registerMatch();
 
-      this.optionsSelected++;
-
       this.optionsData.find((item, index) => {
         if (item.id === id) {
           this.firstOption = index;
@@ -260,25 +265,18 @@ export default {
         this.optionsSelected == this.firstOption
           ? this.firstOption + 1
           : this.optionsSelected;
-
-      this.numberOfAnswers++;
     },
     registerMatch() {
       // check if the current pair of options has already been compared
-      const m = this.matchesData.find((match) => {
-        return (
-          (match.pair1 == this.optionsData[this.firstOption].id &&
-            match.pair2 == this.optionsData[this.secondOption].id) ||
-          (match.pair1 == this.optionsData[this.secondOption].id &&
-            match.pair2 == this.optionsData[this.firstOption].id)
-        );
-      });
+      const currentPairIsCompared = this.checkMatch();
 
-      if (!m) {
-        this.auxMatchs.push({
+      if (!currentPairIsCompared) {
+        this.queueMatchs.push({
           user: this.user_id,
           winner: this.winner.id,
           individualized: false,
+          normalized: false,
+          normalized_skill: null,
           pairs: [
             {
               collection: "declarations",
@@ -292,12 +290,13 @@ export default {
         });
       }
 
+      // check if the new pair of options has already been compared
       this.checkMatch();
     },
     async postMatchs() {
       this.loadingNewPair = true;
 
-      this.$store.commit("gamificacion/setMatchs", this.auxMatchs);
+      this.$store.commit("gamificacion/setMatchs", this.queueMatchs);
 
       let matchs = this.matchs;
 
@@ -307,38 +306,21 @@ export default {
           .then((res) => {
             return res.data;
           });
-
-        // Agregar el nuevo match a la lista de matches del usuario
-        // await this.$axios
-        //   .$post(`${this.$config.apiUrlV2}/items/declarations_directus_users`, {
-        //     declarations_id: match.winner,
-        //     directus_users_id: match.user,
-        //     skill: match.winner != null ? [25.0, 25.0 / 3.0] : null,
-        //     individualized: match.winner != null ? false : true,
-        //   })
-        //   .then((res) => {
-        //     this.loadingNewPair = false;
-        //   });
       });
     },
     async noPreferences() {
       this.loadingNewPair = true;
 
-      // check if the current pair of options has already been compared
-      const m = this.matchesData.find((match) => {
-        return (
-          (match.pair1 == this.optionsData[this.firstOption].id &&
-            match.pair2 == this.optionsData[this.secondOption].id) ||
-          (match.pair1 == this.optionsData[this.secondOption].id &&
-            match.pair2 == this.optionsData[this.firstOption].id)
-        );
-      });
+      // check if the new pair of options has already been compared
+      const newPairIsCompared = this.checkMatch();
 
-      if (!m) {
-        this.auxMatchs.push({
+      if (!newPairIsCompared) {
+        this.queueMatchs.push({
           user: this.user_id,
           winner: null,
           individualized: false,
+          normalized: false,
+          normalized_skill: null,
           pairs: [
             {
               collection: "declarations",
@@ -361,6 +343,8 @@ export default {
 
       this.numberOfAnswers++;
 
+      // after the user has selected no preferences, we had to check
+      // the new pair of options to see if it has already been compared
       await this.checkMatch();
     },
     moveToNextPair() {
@@ -370,6 +354,8 @@ export default {
       this.firstOption = this.optionsSelected - 1;
       this.secondOption = this.firstOption + 1;
 
+      // after the first and second options have been updated, we had to check
+      // the new pair of options to see if it has already been compared
       this.checkMatch();
     },
     async verResultados() {

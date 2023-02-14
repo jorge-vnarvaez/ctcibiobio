@@ -4,6 +4,7 @@
     :class="$vuetify.breakpoint.mobile ? 'py-20 px-8' : 'h-screen'"
   >
     <div class="d-flex h-full align-center justify-center px-8">
+
       <div class="rounded-lg shadow-xl">
         <v-card
           class="bg-white p-8 rounded-lg"
@@ -11,13 +12,13 @@
           :width="$vuetify.breakpoint.mobile ? 300 : 520"
           flat
         >
-          <v-card-text>
+          <v-card-text v-if="!has_answered">
             <v-form ref="form" v-model="validado" lazy-validation>
               <v-text-field
                 v-model="user.rut"
                 label="Indicanos tu RUT"
                 placeholder="Ejemplo: 123456789"
-                :rules="[reglas.reglaRut, reglas.rut_valido, reglas.rut_mask]"
+                :rules="[reglas.rutNotNull, reglas.validRut, reglas.maskRut]"
               ></v-text-field>
 
               <v-text-field
@@ -31,21 +32,21 @@
                 v-model="user.genero"
                 label="¿Cuál es tu género?"
                 :items="generos"
-                :rules="reglas.notNull"
+                :rules="[reglas.notNull]"
               ></v-select>
 
               <v-select
                 v-model="user.provincia"
                 label="¿De qué provincia eres?"
                 :items="provincias"
-                :rules="reglas.notNull"
+                :rules="[reglas.notNull]"
               ></v-select>
 
               <v-select
                 v-model="user.birthyear"
                 label="¿En qué año naciste?"
                 :items="years"
-                :rules="reglas.notNull"
+                :rules="[reglas.notNull]"
               ></v-select>
 
               <v-btn
@@ -57,6 +58,27 @@
                 >Comenzar</v-btn
               >
             </v-form>
+          </v-card-text>
+
+          <v-card-text v-if="has_answered">
+            <h2 class="text-center font-bold">
+             Nuestros registros indican que ya haz comenzado a participar
+            </h2>
+
+            <p class="mt-8 text-center font-light">Para obtener tu opinión acerca
+              de los focos que debemos enfrentar en la Región del Biobío, nos 
+              interesa enormemente que puedas seguir priorizando</p>
+
+            <div class="flex justify-center">
+              <v-btn outlined
+                  color="orange darken-1"
+                  medium
+                  class="text-capitalize mt-4">
+                <nuxt-link to="/gamificacion/cuestionario">
+                  Continuar priorizando
+                </nuxt-link>
+              </v-btn>
+            </div>
           </v-card-text>
         </v-card>
       </div>
@@ -91,14 +113,14 @@ export default {
       // create an array for years between 1930 and 2022
       years: Array.from(new Array(93), (val, index) => 2000 - index),
       reglas: {
-        reglaRut: (v) => !!v || "El RUT es obligatorio",
+        rutNotNull: (v) => !!v || "El RUT es obligatorio",
         validEmail: (v) => /.+@.+\..+/.test(v) || "Correo inválido",
         notNull: (v) => !!v || "Este campo es obligatorio",
-        rut_valido: (v) => {
+        validRut: (v) => {
           return (!!v && !this.validateRut(v)) || "Rut invalido";
         },
         //
-        rut_mask: (v) => {
+        maskRut: (v) => {
           const rutPattern = new RegExp(
             "^[0-9]{1,2}.[0-9]{3}.[0-9]{3}(-|)[0-9kK]{1}$"
           );
@@ -128,16 +150,16 @@ export default {
       if (this.$refs.form.validate()) {
         const cookie_token = window.btoa(this.user.rut);
 
-        const data = await this.$axios
+        const current_user = await this.$axios
           .$get(
             `${this.$config.apiUrlV2}/users?filter[rut][_eq]=${this.user.rut}`
           )
           .then((res) => res.data);
 
-        if (data.length > 0) {
-          this.$cookies.set("userID", data[0].id);
-          this.$cookies.set("userRUT", data[0].rut);
-          this.$cookies.set("cookie_token", data[0].cookie_token);
+        if (current_user.length > 0) {
+          this.$cookies.set("userID", current_user[0].id);
+          this.$cookies.set("userRUT", current_user[0].rut);
+          this.$cookies.set("cookie_token", current_user[0].cookie_token);
         } else {
           this.$cookies.remove("userID");
           this.$cookies.remove("userRUT");
@@ -146,7 +168,7 @@ export default {
           if (this.$cookies.get("cookie_token") === undefined) {
             const data = await this.$axios
               .$post(`${this.$config.apiUrlV2}/users`, {
-                role: "2f5d20a2-c287-49a4-be3e-5c2160e8476e",
+                role: "2f5d20a2-c287-49a4-be3e-5c2160e8476e", // this is the role for 'contestant'
                 cookie_token: cookie_token,
                 rut: this.user.rut,
                 response_email: this.user.correo,
