@@ -13,6 +13,8 @@ export default () => ({
     userId: null,
     // list of matches played
     matchs: [],
+    // queue of matches played before post to the api
+    matchsQueue: [],
     // state of the matches
     matchesLoaded: false,
     totalMatchs: 0,

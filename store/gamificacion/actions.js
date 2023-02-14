@@ -1,4 +1,7 @@
 export default {
+    setMatches({ commit }, matches) {
+        commit('setMatches', matches);
+    },
     async loadMatchsLength({ commit }) {
         await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/n_matches`).then(response => {
             commit('setLengthMatchs', response);
