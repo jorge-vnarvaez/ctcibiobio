@@ -57,7 +57,7 @@
                 class="w-5 h-5"
               />
               <span class="text-sm">
-                {{ Math.round(declaration.skill) }}
+                {{ Math.round(declaration.normalized_skill) }}
               </span>
             </div>
           </v-card>
