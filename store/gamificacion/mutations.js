@@ -13,23 +13,13 @@ export default {
         state.declarationsLoading = false;
     },
     setRanking(state, ranking) {
-        let rankingSorted = ranking.sort((a, b) => {
-            return b.skill[0] - a.skill[0];
-        }).map((declaration, index) => {
-            return {
-                ...declaration,
-                rank: index + 1
-            }});
-        state.ranking = rankingSorted 
+        state.ranking = ranking 
     },
     setUserId(state, userId) {
         state.userId = userId;
     },
     setMatchs(state, matchs) {
-        console.log(matchs)
         state.matchs = matchs;
-        console.log(state.matchs)
-        // state.matchesLoaded = true;
     },
     sortRanking(state, filter) {
         state.ranking = state.ranking.sort((a, b) => {
