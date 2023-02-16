@@ -24,8 +24,8 @@
                 :fill="scales.colors(index)"
                 class="cursor-pointer text-capitalize"
                 v-tippy
-                :content="`${tfEdadParticipantes[index].name.replace(/_/g, ' ')} (${
-                  tfEdadParticipantes[index].value
+                :content="`${tfEdadParticipantes[index].value.label.replace(/_/g, ' ')} (${
+                  tfEdadParticipantes[index].value.total
                 })`"
               >
               </ChartArc>
@@ -62,14 +62,14 @@
                 :ty="150"
                 :tx="20"
                 >
-                {{ item.value }} entre
+                {{ item.value.total }} entre
                 {{
                     // replace first underscore with space, it is suposed after that
                     // is going to be two spaces, so we replace the second one with
                     // a dash - 
-                    item.name.replace(/_/g, ' ').replace('  ', ' - ')
+                    item.value.label.replace(/_/g, ' ').replace('  ', ' - ')
                 }}
-                ({{ p_participantes(item.value) }}%)</ChartText
+                ({{ p_participantes(item.value.total) }}%)</ChartText
               >
             </template>
           </ChartG>
@@ -90,7 +90,7 @@ export default {
   },
   mounted() {
     this.tfEdadParticipantes.forEach((item) => {
-      const p_arc = this.p_radius(item.value);
+      const p_arc = this.p_radius(item.value.total);
       this.acum += p_arc;
       this.angles.push(this.acum);
     });

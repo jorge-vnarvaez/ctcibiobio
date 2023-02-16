@@ -14,9 +14,9 @@
           Participantes por rango de edad:</span> La distribución de participantes en
           la priorización de focos en determinados rangos de edad.
         </span>
-        <TypesGramificacionTfParticipantes></TypesGramificacionTfParticipantes>
-        <TypesGramificacionTfProvincias></TypesGramificacionTfProvincias>
-        <TypesGramificacionTfParticipantesEdad></TypesGramificacionTfParticipantesEdad>
+        <TypesGramificacionDataVisualizationSegmentsParticipantes></TypesGramificacionDataVisualizationSegmentsParticipantes>
+        <TypesGramificacionDataVisualizationSegmentsProvincias></TypesGramificacionDataVisualizationSegmentsProvincias>
+        <TypesGramificacionDataVisualizationSegmentsParticipantesEdad></TypesGramificacionDataVisualizationSegmentsParticipantesEdad>
       </div>
     </v-container>
   </div>
