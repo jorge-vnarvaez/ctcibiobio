@@ -67,9 +67,24 @@ export default {
                     name: key,
                     value: response[key]
                 }
-            });
+            })
 
             commit('setTfProvincias', response);
         });
-    }
+    },
+    async loadTfMissionsByProvince({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/tf_priorizaciones_mission_by_province`).then(response => {
+            commit('setTfMissionsByProvince', response);
+        });
+    },
+    async loadTfMissionsByGender({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/tf_priorizaciones_mission_by_gender`).then(response => {
+            commit('setTfMissionsByGender', response);
+        });
+    },
+    async loadRankingByGender({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/ranking/ranking_by_gender`).then(response => {
+            commit('setRankingByGender', response);
+        });
+    },
 }

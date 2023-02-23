@@ -31,5 +31,14 @@ export default {
     },
     tf_provincias(state) {
         return state.tf_provincias;
+    },
+    tf_missions_by_province(state) {
+        return state.tf_missions_by_province;
+    },
+    tf_missions_by_gender(state) {
+        return state.tf_missions_by_gender;
+    },
+    ranking_by_gender(state) {
+        return state.ranking_by_gender;
     }
 }

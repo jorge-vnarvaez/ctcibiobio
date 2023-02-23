@@ -1,7 +1,7 @@
 <template>
-  <div :class="col_span">
+  <div :class="$gridColsTransformer($vuetify.breakpoint.name)">
     <v-card class="px-8 py-6">
-      <span class="block mb-8 text-lg">c. Participantes por rango de edad</span>
+      <span class="block mb-8 text-lg">c. Participantes según rango de edad</span>
       <div class="flex flex-col lg:flex-row  justify-center space-y-8 lg:space-y-0 lg:space-x-8 align-center">
         <ChartSvg contain :width="plotWidth" heigth="1800">
           <ChartG
@@ -9,7 +9,7 @@
               colors: {
                 scale: 'scaleLinear',
                 domain: [0, tfEdadParticipantes.length - 1],
-                range: ['#31435e', '#6b94d0'],
+                range: ['#1d2c58', '#6b94d0'],
               },
             }"
           >

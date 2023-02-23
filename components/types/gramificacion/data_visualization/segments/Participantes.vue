@@ -1,9 +1,12 @@
 <template>
-  <div :class="col_span">
+  <div :class="$gridColsTransformer($vuetify.breakpoint.name)">
     <v-card class="px-8 py-6">
-      <span class="block mb-8 text-lg">a. Participantes por género</span>
-      <div class="flex flex-col lg:flex-row space-x-8 align-center">
-        <ChartSvg contain :width="plotWidth" heigth="1800">
+      <span class="block mb-8 text-lg">a. Participantes según género</span>
+
+      <div
+        class="flex flex-col lg:flex-row space-x-8 align-center"
+      >
+        <ChartSvg :width="plotWidth" heigth="1800" contain>
           <ChartG>
             <template>
               <ChartArc
@@ -69,6 +72,13 @@ export default {
       colors: ["#3e5cbd", "#3333ff", "#ff6469", "#253771"],
     };
   },
+  mounted() {
+    this.tfParticipantes.forEach((value) => {
+      const p_arc = this.p_radius(Object.values(value)[0]);
+      this.acum += p_arc;
+      this.angles.push(this.acum);
+    });
+  },
   methods: {
     p_radius(total) {
       return (total * 360) / this.totalParticipants;
@@ -76,13 +86,6 @@ export default {
     p_participantes(total) {
       return Math.round((total * 100) / this.totalParticipants);
     },
-  },
-  mounted() {
-    this.tfParticipantes.forEach((value) => {
-      const p_arc = this.p_radius(Object.values(value)[0]);
-      this.acum += p_arc;
-      this.angles.push(this.acum);
-    });
   },
   computed: {
     plotWidth() {

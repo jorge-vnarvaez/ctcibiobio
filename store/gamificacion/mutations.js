@@ -49,5 +49,14 @@ export default {
         state.tf_provincias = tf_provincias.sort((a, b) => {
             return Object.values(a)[0] - Object.values(b)[0];
         });
+    },
+    setTfMissionsByProvince(state, tf_missions_by_province) {
+        state.tf_missions_by_province = tf_missions_by_province;
+    },
+    setTfMissionsByGender(state, tf_missions_by_gender) {
+        state.tf_missions_by_gender = tf_missions_by_gender;
+    },
+    setRankingByGender(state, ranking_by_gender) {
+        state.ranking_by_gender = ranking_by_gender;
     }
 }

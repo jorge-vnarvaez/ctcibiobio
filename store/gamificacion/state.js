@@ -22,4 +22,7 @@ export default () => ({
     tf_participantes: [],
     tf_edad_participantes: [],
     tf_provincias: [],
+    tf_missions_by_province: [],
+    tf_missions_by_gender: [],
+    ranking_by_gender: []
 })

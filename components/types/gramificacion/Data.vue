@@ -5,18 +5,22 @@
         >Priorización en cifras</span
       >
 
-      <div class="grid grid-cols-12 lg:gap-x-8 gap-y-8" v-if="loading == false">
+      <div class="grid grid-cols-12 lg:gap-x-8 gap-y-8" >
         <span class="col-span-12 text-sm lg:text-xl lg:leading-loose">
-          <span class="font-semibold">a. Participantes por género:</span> La distribución de participantes en la priorización de focos
-          según su género (masculino, femenino, otro, prefiere no decirlo). 
-          <span class="font-semibold">b. Participantes por provincia:</span> La distribución de participantes en la priorización de 
+          <span class="font-semibold">a. Participantes según género:</span> La distribución de participantes en la priorización de focos
+          según su género (masculino, femenino, otro, prefiere no decirlo).
+          <span class="font-semibold">b. Participantes según provincia:</span> La distribución de participantes en la priorización de
           focos de acuerdo a la provincia en la que reside. <span class="font-semibold">c.
-          Participantes por rango de edad:</span> La distribución de participantes en
+          Participantes según rango de edad:</span> La distribución de participantes en
           la priorización de focos en determinados rangos de edad.
         </span>
-        <TypesGramificacionDataVisualizationSegmentsParticipantes></TypesGramificacionDataVisualizationSegmentsParticipantes>
-        <TypesGramificacionDataVisualizationSegmentsProvincias></TypesGramificacionDataVisualizationSegmentsProvincias>
-        <TypesGramificacionDataVisualizationSegmentsParticipantesEdad></TypesGramificacionDataVisualizationSegmentsParticipantesEdad>
+
+         <TypesGramificacionDataVisualizationSegmentsParticipantes v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsParticipantes>
+         <TypesGramificacionDataVisualizationSegmentsProvincias v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsProvincias>
+         <TypesGramificacionDataVisualizationSegmentsParticipantesEdad v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsParticipantesEdad>
+         <!-- <TypesGramificacionDataVisualizationStackedBarsMissionsByGender></TypesGramificacionDataVisualizationStackedBarsMissionsByGender>
+         <TypesGramificacionDataVisualizationStackedBarsMissionsByProvince></TypesGramificacionDataVisualizationStackedBarsMissionsByProvince>
+         <TypesGramificacionDataVisualizationDispersionsGenderDispersion></TypesGramificacionDataVisualizationDispersionsGenderDispersion> -->
       </div>
     </v-container>
   </div>
@@ -27,12 +31,16 @@ export default {
   data() {
     return {
       loading: true,
+      loadingChartsVisualizations: true,
       attrs: {
         class: "mb-6",
         boilerplate: true,
         elevation: 2,
       },
     };
+  },
+  mounted() {
+      this.loadingChartsVisualizations = false;
   },
   async fetch() {
     await Promise.all([
@@ -41,13 +49,7 @@ export default {
       this.$store.dispatch("gamificacion/loadTfParticipantes"),
       this.$store.dispatch("gamificacion/loadTfEdadParticipantes"),
       this.$store.dispatch("gamificacion/loadTfProvincias"),
-    ]).then((res) => {
-      if (res) {
-        this.loading = false;
-      } else {
-        this.loading = true;
-      }
-    });
+    ])
   },
   computed: {
     col_span() {
