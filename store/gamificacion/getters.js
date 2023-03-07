@@ -40,5 +40,11 @@ export default {
     },
     ranking_by_gender(state) {
         return state.ranking_by_gender;
+    },
+    provinces(state) {
+        return state.provinces;
+    },
+    activeProvince(state) {
+        return state.activeProvince;
     }
 }

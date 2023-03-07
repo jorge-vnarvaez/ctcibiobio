@@ -58,5 +58,8 @@ export default {
     },
     setRankingByGender(state, ranking_by_gender) {
         state.ranking_by_gender = ranking_by_gender;
+    },
+    setActiveProvince(state, province_id) {
+        state.activeProvince = state.provinces.find(province => province.id === province_id);
     }
 }

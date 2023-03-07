@@ -1,6 +1,6 @@
 <template>
   <div :class="$gridLargeColsTransformer($vuetify.breakpoint.name)">
-    <v-card class="px-8 py-8">
+    <v-card class="px-8 py-8" v-if="chartVisualizationLoaded">
       <div>
         <span class="block mb-8 text-lg">Priorizaciones según provincia</span>
       </div>
@@ -25,7 +25,7 @@
             <template #default="{ scales }">
               <ChartG
                 v-for="(item, index) in Object.keys(tf_missions_by_province)"
-                :key="index + '_mission_label'"
+                :key="index + '_mission_label_graph_province'"
               >
                 <ChartText
                   :bx="0"
@@ -82,14 +82,14 @@
             <template #default="{ scales }">
               <ChartG
                 v-for="(value, index) in 4"
-                :key="index + '_stack'"
+                :key="index + '_stack_graph_province'"
                 :ty="scales.missions(index)"
                 :tx="$vuetify.breakpoint.mobile ? 350 : 200"
                 :by="scales.missions.bandwidth() * 1.55"
               >
                 <ChartRect
                   v-for="(item, key) in 3"
-                  :key="item + '_rect'"
+                  :key="item + '_rect_graph_province'"
                   :width="getWidthOfBar(index, key)"
                   :tx="key == 0 ? 0 : getWidthOfBar(index, key - 1)"
                   :height="$vuetify.breakpoint.mobile ? 25 : 40"
@@ -108,7 +108,7 @@
         </ChartSvg>
       </div>
 
-       <ChartSvg :width="$vuetify.breakpoint.mobile ? 250 : 400" :height="100" contain>
+       <ChartSvg :width="$vuetify.breakpoint.mobile ? 250 : 400" :height="90" contain>
           <ChartG v-for="(province, index) in provinces" :key="province">
             <ChartRect :fill="colors[index]" :width="$vuetify.breakpoint.mobile ? 8 : 4" :height="$vuetify.breakpoint.mobile ? 8 : 4" :tx="txOfProvinceBarColor(index)">
             </ChartRect>
@@ -129,7 +129,11 @@ export default {
       colors: ['#ffac00', '#ffbd00', '#ffdf00'],
       provinces: ['Arauco', 'Bio Bio', 'Concepción'],
       max: 0,
+      chartVisualizationLoaded: false,
     };
+  },
+  mounted() {
+    this.chartVisualizationLoaded = true;
   },
   async fetch() {
     await this.$store.dispatch("gamificacion/loadTfMissionsByProvince");

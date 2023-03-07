@@ -46,10 +46,9 @@
                 v-for="(item, index) in tfParticipantes"
                 :key="index + 'text'"
                 :by="index * 30 + 10"
-                :font-size="18"
+                :font-size="$vuetify.breakpoint.mobile ? 12 : 19"
                 :ty="140"
                 :tx="20"
-                class="text-capitalize"
                 >{{ Object.values(item)[0] }}
                 {{ Object.keys(item)[0].replace(/_/g, " ") }} ({{
                   p_participantes(Object.values(item)[0])

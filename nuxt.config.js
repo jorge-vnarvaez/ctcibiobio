@@ -43,6 +43,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugin/google_analitycs.js', mode: 'client' },
     { src: '~/plugin/gridColsTransformer.js' },
     { src: '~/plugin/objectToQueryString.js' },
     { src: '~/plugin/fontawesome.js' },

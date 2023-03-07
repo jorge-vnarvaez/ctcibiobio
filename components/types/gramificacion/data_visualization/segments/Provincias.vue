@@ -1,76 +1,33 @@
 <template>
-  <div
-    :class="$gridColsTransformer($vuetify.breakpoint.name)"
-    v-if="tfProvincias.length > 0"
-  >
+  <div class="col-span-12" v-if="tfProvincias.length > 0">
     <v-card class="px-8 py-6">
-      <span class="block mb-8 text-lg">b. Participantes según provincia</span>
-      <div class="flex flex-col lg:flex-row space-x-8 align-center">
-        <ChartSvg contain :width="plotWidth" heigth="1800">
-          <ChartG :scales="{
-              colors: {
-                scale: 'scaleLinear',
-                domain: [0, tfProvincias.length - 1],
-                range: ['#ffac00', '#ffce00'],
-              }
-            }">
-            <template #default="{ scales }">
-              <ChartArc
-                v-for="(item, index) in angles"
-                :key="index + 'arc'"
-                :bx="150"
-                :by="110"
-                :startAngle="index == 0 ? 0 : angles[index - 1]"
-                :endAngle="index == angles.length - 1 ? 360 : angles[index]"
-                :fill="scales.colors(index)"
-                class="cursor-pointer text-capitalize"
-                v-tippy
-                :content="`${tfProvincias[index].name.replace(/_/g, ' ')} (${
-                  tfProvincias[index].value
-                })`"
-              >
-              </ChartArc>
-            </template>
-          </ChartG>
-        </ChartSvg>
+      <span class="block text-lg">b. Participantes según provincia</span>
 
-        <ChartSvg>
-          <ChartG :scales="{
-              colors: {
-                scale: 'scaleLinear',
-                domain: [0, tfProvincias.length - 1],
-                range: ['#ffac00', '#ffce00'],
-              }
-            }">
-            <template #default="{ scales }">
-              <ChartRect
-                v-for="(item, index) in tfProvincias"
-                :key="index + 'rect'"
-                :width="15"
-                :height="15"
-                :by="index * 30 + 10"
-                :ty="120"
-                :fill="scales.colors(index)"
-              ></ChartRect>
+      <div class="grid grid-cols-12 gap-y-12 lg:gap-y-0">
+        <div
+          class="col-span-12 md:col-span-5 lg:col-span-4 flex flex-col lg:flex-row justify-center align-center lg:space-x-4 mt-4"
+          v-for="province in provinces"
+          :key="province.id"
+        >
+          <div>
+            <v-img
+              :src="`/provinces/${province.img}`"
+              width="150"
+              height="150"
+              contain
+            >
+            </v-img>
+          </div>
 
-              <ChartText
-                v-for="(item, index) in tfProvincias"
-                :key="index + 'text'"
-                :by="index * 30 + 10"
-                :font-size="18"
-                :ty="120"
-                :tx="20"
-                class="text-capitalize"
-                >{{ item.value }}
-                {{
-                  // replace _ for white spaces
-                  item.name.replace(/_/g, " ")
-                }}
-                ({{ p_participantes(item.value) }}%)</ChartText
-              >
-            </template>
-          </ChartG>
-        </ChartSvg>
+          <div v-if="getTotalParticipants(province.slug)">
+            <span class="block text-center font-black text-xl">{{ province.name }}</span>
+            <div class="flex">
+              <font-awesome-icon icon="fa-solid fa-person" class="h-8 w-8" />
+              <span class="text-3xl font-bold">{{ getTotalParticipants(province.slug).value }}</span>
+            </div>
+            <span class="block text-center text-sm font-ligth">Participantes</span>
+          </div>
+        </div>
       </div>
     </v-card>
   </div>
@@ -78,27 +35,13 @@
 
 <script>
 export default {
-  data() {
-    return {
-      acum: 0,
-      angles: [],
-      colors: ["#2DB372", "#8524B3", "#FFAC00"],
-    };
+  mounted() {
+    this.$store.commit("gamificacion/setActiveProvince", 3);
   },
   methods: {
-    p_radius(total) {
-      return (total * 360) / this.totalParticipants;
+    getTotalParticipants(province_slug) {
+      return this.tfProvincias.find((item) => item.name === province_slug);
     },
-    p_participantes(total) {
-      return Math.round((total * 100) / this.totalParticipants);
-    },
-  },
-  mounted() {
-    this.tfProvincias.forEach((item) => {
-      const p_arc = this.p_radius(item.value);
-      this.acum += p_arc;
-      this.angles.push(this.acum);
-    });
   },
   computed: {
     plotWidth() {
@@ -107,16 +50,19 @@ export default {
     plotHeight() {
       return this.$vuetify.breakpoint.mobile ? 150 : 300;
     },
-    totalParticipants() {
-      return this.$store.getters["gamificacion/totalParticipants"];
-    },
     tfProvincias() {
       return this.$store.getters["gamificacion/tf_provincias"];
     },
-    maxValue() {
-      return this.tfProvincias.reduce((max, item) => {
-        return Math.max(max, item.value);
-      }, 0);
+    participantsActiveProvince() {
+      return this.tfProvincias.find(
+        (item) => item.name === this.activeProvince.slug
+      );
+    },
+    provinces() {
+      return this.$store.getters["gamificacion/provinces"];
+    },
+    activeProvince() {
+      return this.$store.getters["gamificacion/activeProvince"];
     },
   },
 };

@@ -87,4 +87,5 @@ export default {
             commit('setRankingByGender', response);
         });
     },
+
 }

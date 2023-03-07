@@ -24,5 +24,29 @@ export default () => ({
     tf_provincias: [],
     tf_missions_by_province: [],
     tf_missions_by_gender: [],
-    ranking_by_gender: []
+    ranking_by_gender: [],
+    provinces: [
+        {
+            id: 1,
+            name: 'Arauco',
+            slug: 'arauco',
+            color: '#FF0000',
+            img: 'arauco.png',
+        },
+        {
+            id: 2,
+            name: 'Bio-Bio',
+            slug: 'biobío',
+            color: '#FF0000',
+            img: 'biobio.png',
+        },
+        {
+            id: 3,
+            name: 'Concepción',
+            slug: 'concepción',
+            color: '#FF0000',
+            img: 'concepcion.png',
+        },
+    ],
+    activeProvince: {}
 })

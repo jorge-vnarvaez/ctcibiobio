@@ -18,7 +18,7 @@
         </span>
         <div v-if="isUserSet">
           <span
-            class="block text-sm lg:text-2xl mt-8 mb-4 text-zinc-100 font-black"
+            class="block text-sm lg:text-2xl mt-8 mb-4 text-zinc-100 font-bold"
             >¿Te interesa seguir priorizando?</span
           >
           <v-btn
@@ -131,7 +131,7 @@
           >
             <div>
               <span
-                ><span class="text-2xl lg:text-5xl font-black text-[#ffac00]">{{
+                ><span class="text-2xl lg:text-5xl font-bold text-[#ffac00]">{{
                   totalParticipants
                 }}</span>
                 participantes</span
@@ -139,7 +139,7 @@
             </div>
 
             <div>
-              <span class="text-2xl lg:text-5xl font-black text-[#ffac00]">{{
+              <span class="text-2xl lg:text-5xl font-bold text-[#ffac00]">{{
                 totalMatchs
               }}</span>
               priorizaciones

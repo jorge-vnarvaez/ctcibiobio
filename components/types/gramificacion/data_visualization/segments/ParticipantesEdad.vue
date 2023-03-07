@@ -9,7 +9,7 @@
               colors: {
                 scale: 'scaleLinear',
                 domain: [0, tfEdadParticipantes.length - 1],
-                range: ['#1d2c58', '#6b94d0'],
+                range: ['#272f82', '#3d4ace'],
               },
             }"
           >
@@ -39,7 +39,7 @@
               colors: {
                 scale: 'scaleLinear',
                 domain: [0, tfEdadParticipantes.length - 1],
-                range: ['#31435e', '#6b94d0'],
+                range: ['#272f82', '#3d4ace'],
               },
             }"
           >
@@ -58,7 +58,7 @@
                 v-for="(item, index) in tfEdadParticipantes"
                 :key="index + 'text'"
                 :by="index * 25 + 10"
-                :font-size="19"
+                :font-size="$vuetify.breakpoint.mobile ? 12 : 19"
                 :ty="150"
                 :tx="20"
                 >

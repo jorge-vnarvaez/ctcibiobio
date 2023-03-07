@@ -10,7 +10,7 @@ export default ({ app }, inject) => {
             case 'lg':
                 return 'col-span-6';
             case 'xl':
-                return 'col-span-4'
+                return 'col-span-6'
         }
     })
 
