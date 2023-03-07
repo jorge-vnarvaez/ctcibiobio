@@ -82,14 +82,14 @@
                 :key="index + '_stack_graph_gender'"
                 :ty="scales.missions(index)"
                 :tx="$vuetify.breakpoint.mobile ? 350 : 200"
-                :by="scales.missions.bandwidth() * 1.55"
+                :by="scales.missions.bandwidth() * 1.58"
               >
                 <ChartRect
                   v-for="(item, key) in 4"
                   :key="item + '_rect_graph_gender'"
                   :width="getWidthOfBar(index, key)"
                   :tx="key == 0 ? 0 : getWidthOfBar(index, key - 1)"
-                  :height="$vuetify.breakpoint.mobile ? 20 : 40"
+                  :height="$vuetify.breakpoint.mobile ? 25 : 40"
                   :fill="colors[key]"
                   v-tippy
                   :content="
@@ -198,9 +198,11 @@ export default {
       return percentage;
     },
     txOfGenderBarColor(index) {
-      const tx = this.$vuetify.breakpoint.mobile ? 30 : 50;
-      const prefiero_no_decirlo_tx = this.$vuetify.breakpoint.mobile ? 50 : 110;
-      return index == 2 ? prefiero_no_decirlo_tx : index * tx;
+      const tx_mutiplier = this.$vuetify.breakpoint.mobile ? 40 : 50;
+      const tx_prefiero_no_decirlo = 110;
+      const tx = index == 2 ? tx_prefiero_no_decirlo : index * tx_mutiplier;
+      const tx_mobile = index * tx_mutiplier;
+      return this.$vuetify.breakpoint.mobile ? tx_mobile : tx;
     },
     txOfGenderTitle(index) {
       switch (index) {
@@ -209,9 +211,9 @@ export default {
         case 1:
           return this.$vuetify.breakpoint.mobile ? 50 : 60;
         case 2: 
-          return this.$vuetify.breakpoint.mobile ? 70 : 120;
+          return this.$vuetify.breakpoint.mobile ? 90 : 120;
         case 3:
-          return 160;
+          return this.$vuetify.breakpoint.mobile ? 130 : 160;
       }
     },
   },
@@ -231,9 +233,9 @@ export default {
         case "md":
           return 400;
         case "lg":
-          return 400;
+          return 700;
         case "xl":
-          return 400;
+          return 700;
       }
     },
     height() {

@@ -113,7 +113,7 @@
             <ChartRect :fill="colors[index]" :width="$vuetify.breakpoint.mobile ? 8 : 4" :height="$vuetify.breakpoint.mobile ? 8 : 4" :tx="txOfProvinceBarColor(index)">
             </ChartRect>
 
-            <ChartText :font-size="5" :tx="txOfProvinceTitle(index)">
+            <ChartText :font-size="$vuetify.breakpoint.mobile ? 8 : 5" :tx="txOfProvinceTitle(index)">
               {{ province }}
             </ChartText>
           </ChartG>
@@ -200,7 +200,7 @@ export default {
         case 'lg':
           return 700;
         case 'xl':
-          return 600;
+          return 700;
       }
     },
     height() {

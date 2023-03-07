@@ -21,13 +21,13 @@
             :opposite="false"
           >
             <v-card flat>
-              <div class="flex flex-col lg:flex-row justify-between lg:align-center">
+              <div class="flex flex-col lg:flex-row justify-between lg:align-center space-y-4 lg:space-y-0">
                 <div class="flex flex-col">
                   <span :class="milestone.parent_milestone ? 'text-overline text-lg-subtitle-2' : 'text-h6 text-lg-h6'">
                       {{ milestone.title }}
                   </span>
 
-                  <span v-if="milestone.id != 5">{{ milestone.activities.length }} actividades</span>
+                  <span v-if="milestone.id != 5" class="text-xs text-slate-500 font-thin">{{ milestone.activities.length }} actividades</span>
                 </div>
                 
                 <div v-if="milestone.id != 5">
