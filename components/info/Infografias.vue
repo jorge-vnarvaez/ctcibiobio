@@ -1,35 +1,43 @@
 <template>
-  <div class="max-w-screen-xl mx-auto py-12" v-if="infographics.length > 0">
-    <v-container>
-      <span class="block text-h4 font-weight-bold text-slate-800 mb-5"
-        >Infografías</span
-      >
+  <div v-if="infographics.length > 0">
+    <div class="max-w-screen-xl mx-auto py-12">
+      <v-container>
+        <span
+          class="block text-blue-900 text-lg lg:text-3xl font-bold lg:text-center"
+          :style="{ padding: $vuetify.breakpoint.mobile ? '5% 10%' : '3% 7%' }"
+          >Infografías</span
+        >
+      </v-container>
+    </div>
 
-      <CoolLightBox
-        :items="infographics.map((infographic) => {
-          return $config.apiUrlV2 + '/assets/' + infographic.image + '?quality=80';
-        })"
-        :index="index"
-        :fullScreen="true"
-        useZoomBar
-        closeOnClickOutsideMobile
-        @close="index = null"
-      >
-      </CoolLightBox>
+    <CoolLightBox
+      :items="
+        infographics.map((infographic) => {
+          return (
+            $config.apiUrlV2 + '/assets/' + infographic.image + '?quality=80'
+          );
+        })
+      "
+      :index="index"
+      :fullScreen="true"
+      useZoomBar
+      closeOnClickOutsideMobile
+      @close="index = null"
+    >
+    </CoolLightBox>
 
-      <VueSlickCarousel
-        v-bind="settings"
-        :slidesToShow="$vuetify.breakpoint.mobile ? 1 : 3"
-      >
-        <v-img
-          v-for="(infographic, infographicIndex) in infographics"
-          :key="infographic.id"
-          :src="$config.apiUrlV2 + '/assets/' + infographic.image + '?quality=80'"
-          @click="index = infographicIndex"
-          class="cursor-pointer h-full w-full"
-        ></v-img>
-      </VueSlickCarousel>
-    </v-container>
+    <VueSlickCarousel
+      v-bind="settings"
+      :slidesToShow="$vuetify.breakpoint.mobile ? 1 : 3"
+    >
+      <v-img
+        v-for="(infographic, infographicIndex) in infographics"
+        :key="infographic.id"
+        :src="$config.apiUrlV2 + '/assets/' + infographic.image + '?quality=80'"
+        @click="index = infographicIndex"
+        class="cursor-pointer h-full w-full"
+      ></v-img>
+    </VueSlickCarousel>
   </div>
 </template>
 
@@ -62,9 +70,9 @@ export default {
     };
   },
   activated() {
-      if (this.$fetchState.timestamp <= Date.now() - 30000) {
-        this.$fetch()
-      }
+    if (this.$fetchState.timestamp <= Date.now() - 30000) {
+      this.$fetch();
+    }
   },
   async fetch() {
     const { data } = await fetch(
@@ -76,5 +84,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,9 +1,7 @@
 export default {
     async loadDocuments({ commit }) {
-
-        const qs = require('qs')
         const route = this.$config.apiUrlV2 + '/items/documents'
-        const query = qs.stringify({
+        const query = this.$objectToQueryString({
             fields: [
                 'id',
                 'parent_document',

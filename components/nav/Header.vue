@@ -1,5 +1,5 @@
 <template>
-<v-app-bar elevation="0" height="90px">
+<v-app-bar elevation="0" height="90px" color="white">
   <v-container fluid class="d-flex justify-space-between align-center">
 
     <div class="d-flex">
@@ -10,13 +10,11 @@
       </nuxt-link>
     </div>
     <div class="d-none d-md-block mx-auto">
-      <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/estrategia">Estrategia</v-btn>
+      <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey" medium to="/acerca_del_proyecto">Acerca del proyecto</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/documento">Documento</v-btn>
-      <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/hoja_de_ruta">Hoja de ruta</v-btn>
+      <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/comunidad">Comunidad</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/noticias">Noticias</v-btn>
-      <!-- <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/eventos">Eventos</v-btn> -->
-      <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/equipo">Equipo gestor</v-btn>
-      <!-- <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/datos">Datos</v-btn> -->
+      <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/equipo">Equipo</v-btn>
     </div>
     
       <div>
@@ -52,27 +50,21 @@
         <v-card rounded="lg" width="200" outlined color="grey lighten-4" class="elevation-0">
           <v-list dense class="pa-0">
             <v-list-item-group>
-              <v-list-item to="/estrategia" class="px-3 text-body-2 grey--text text--darken-3">
-                Estrategia
+              <v-list-item to="/acerca_del_proyecto" class="px-3 text-body-2 grey--text text--darken-3">
+                Acerca del proyecto
               </v-list-item>
-              <v-list-item to="/equipo" class="px-3 text-body-2 grey--text text--darken-3">
+              <v-list-item to="/documento" class="px-3 text-body-2 grey--text text--darken-3">
                 Documento
               </v-list-item>
-              <v-list-item to="/hoja_de_ruta" class="px-3 text-body-2 grey--text text--darken-3">
-                Hoja de Ruta
+              <v-list-item to="/comunidad" class="px-3 text-body-2 grey--text text--darken-3">
+                Comunidad
               </v-list-item>
               <v-list-item to="/noticias" class="px-3 text-body-2 grey--text text--darken-3">
                 Noticias
               </v-list-item>
-              <v-list-item to="/eventos" class="px-3 text-body-2 grey--text text--darken-3">
+              <v-list-item to="/equipo" class="px-3 text-body-2 grey--text text--darken-3">
                 Equipo
               </v-list-item>
-              <!-- <v-list-item to="/equipo" class="px-3 text-body-2 grey--text text--darken-3">
-                Evento
-              </v-list-item> -->
-              <!-- <v-list-item to="/datos" class="px-3 text-body-2 grey--text text--darken-3">
-                Datos
-              </v-list-item> -->
             </v-list-item-group>
           </v-list>
 

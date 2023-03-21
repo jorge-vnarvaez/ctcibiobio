@@ -1,28 +1,20 @@
-<template lang="">
-  <div class="max-w-screen-xl mx-auto pt-[35px]">
-    <div v-if="noticias">
-      <!-- Data noticias -->
+<template>
+  <div class="grey lighten-4">
+    <div class="max-w-screen-xl mx-auto py-[25px]">
       <div v-if="noticias">
         <v-container>
-          <div id="noticias-wrapper">
+          <v-row>
             <!-- Tarjeta Noticia -->
-            <TypesNoticiaCard
+            <TypesNoticiaFeaturedCard
               v-for="(noticia, index) in noticias"
               :key="index"
               :noticia="noticia"
-            ></TypesNoticiaCard>
+            ></TypesNoticiaFeaturedCard>
             <!-- Tarjeta Noticia -->
-          </div>
+          </v-row>
         </v-container>
-        <!-- <pre>{{noticias.data}}</pre> -->
       </div>
-      <!-- Data noticias -->
-
-      <!-- No hay noticias con los parámetros solicitados -->
-      <div v-else>Error</div>
-      <!-- No hay noticias con los parámetros solicitados -->
     </div>
-    <div v-else>No noticias</div>
   </div>
 </template>
 <script>
@@ -57,16 +49,4 @@ export default {
   // }
 };
 </script>
-<style lang="scss">
-#noticias-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-    display: flex;
-    flex-direction: column;
-  }
-}
-</style>
+<style lang="scss"></style>

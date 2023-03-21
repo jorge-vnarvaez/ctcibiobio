@@ -1,5 +1,5 @@
-<template lang="">
-  <div class="grey lighten-4 pt-[35px]">
+<template>
+  <div class="grey lighten-4">
     <InfoJumbo />
 
     <v-container>

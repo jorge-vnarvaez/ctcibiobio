@@ -1,34 +1,19 @@
 <template>
-  <div>
-    <div v-if="!reverse" class="grid grid-cols-12 content-center gap-x-0 lg:gap-x-8">
+  <v-card class="pa-6 drop-shadow-xl" elevation="0" rounded="xl" :width="$vuetify.breakpoint.mobile ? 320 : 800">
+    <div class="flex flex-col">
       <iframe
         :src="src"
         :height="height"
         :width="width"
-        class="col-span-6 mb-4 lg:mb-0"
+        class="col-span-6 mb-4 lg:mb-0 rounded-lg"
       ></iframe>
-       <div
-        class="col-span-12 lg:col-span-6 text-xl lg:text-2xl text-slate-800  mb-4 lg:mb-0 flex align-center"
-      >
-        <span v-html="txt"> </span>
-      </div>
-    </div>
-
-    <div v-if="reverse" class="grid grid-cols-12 content-center gap-x-0 lg:gap-x-8">
       <div
-        class="col-span-12 lg:col-span-6 text-xl lg:text-2xl text-slate-800  mb-4 lg:mb-0 flex align-center"
+        class="col-span-12 lg:col-span-6 text-xl lg:text-2xl text-slate-800 mb-4 lg:mb-0 flex align-center"
       >
-        <span v-html="txt"> </span>
+        <span v-html="txt" class="text-[14px] lg:text-[21px] leading-snug"> </span>
       </div>
-
-      <iframe
-        :src="src"
-        :height="height"
-        :width="width"
-        class="col-span-6"
-      ></iframe>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -42,18 +27,14 @@ export default {
       type: String,
       required: true,
     },
-    reverse: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
     height() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 280;
+          return 220;
         case "sm":
-          return 300;
+          return 220;
         case "md":
           return 400;
         case "lg":
@@ -65,15 +46,15 @@ export default {
     width() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 320;
+          return 270;
         case "sm":
-          return 340;
+          return 270;
         case "md":
           return 400;
         case "lg":
-          return 550;
+          return 750;
         case "xl":
-          return 600;
+          return 750;
       }
     },
   },

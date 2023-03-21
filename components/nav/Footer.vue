@@ -1,23 +1,8 @@
 <template lang="">
-<v-footer elevation="0" class="white" >
+<v-footer elevation="0" color="#354393" >
   <v-container fluid>
-    <div class="d-flex justify-space-between px-3 h-full align-center">
-      <div class="text-caption blue-grey--text">Estrategia de CTCI, Región del Biobío.</div>
-      <v-spacer></v-spacer>
-      <div>
-        <v-btn class="" icon href="https://www.linkedin.com/company/estrategia-de-ctci-biobio/" target="_blank">
-          <font-awesome-icon style="height:20px;" :icon="['fab','linkedin']" />
-        </v-btn>
-        <v-btn class="" icon href="https://www.youtube.com/channel/UCT98_1_L2v10ry5Ezfl0wGA" target="_blank">
-          <font-awesome-icon style="height:20px;" :icon="['fab','youtube']" />
-        </v-btn>
-        <v-btn class="" icon href="https://www.instagram.com/ctcibiobio/" target="_blank">
-          <font-awesome-icon style="height:20px;" :icon="['fab','instagram']" />
-        </v-btn>
-        <v-btn class="" icon href="https://www.facebook.com/ctcibiobio" target="_blank">
-          <font-awesome-icon style="height:20px;" :icon="['fab','facebook']" />
-        </v-btn>
-      </div>
+    <div class="flex justify-center px-3 h-full align-center">
+      <div class="text-white text-xs lg:text-base">Estrategia de CTCI, Región del Biobío.</div>
     </div>
   </v-container>
 </v-footer>

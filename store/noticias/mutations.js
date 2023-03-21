@@ -9,4 +9,7 @@ export default {
   updateFeaturedNoticias(state, {data}){
     state.featuredNoticias = data
   },
+  updateLatestNoticias(state, {data}){
+    state.latestNoticias = data
+  }
 }
