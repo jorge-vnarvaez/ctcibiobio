@@ -4,31 +4,31 @@
     class="h-fit"
   >
     <span
-      class=" text-gray-500 text-lg lg:text-3xl font-bold mb-8 lg:text-center"
+      class="block text-gray-500 text-lg lg:text-3xl font-bold mb-8 lg:text-center"
       >Etapas</span
     >
 
     <v-card rounded="xl" color="#078BC7" class="pa-6" elevation="0">
       <div class="text-white flex flex-col">
-        <span class="block font-black text-3xl lg:text-6xl">
+        <span class="block font-black text-3xl lg:text-4xl">
           {{ activeComponent.id }}
         </span>
 
-        <span class="block mb-4 text-xl lg:text-3xl font-black">
+        <span class="block mb-4 text-xl lg:text-2xl font-black">
           {{ activeComponent.title }}
         </span>
 
-        <span class="block font-bold text-sm lg:text-2xl mb-4">
+        <span class="block font-bold text-sm lg:text-xl mb-4">
           {{ activeComponent.sub_title }}
         </span>
 
-        <span class="block text-[14px] lg:text-xl">
+        <span class="block text-[14px] lg:text-lg">
           {{ activeComponent.description }}
         </span>
       </div>
     </v-card>
 
-    <div class="flex justify-center mt-6 space-x-4">
+    <div class="flex justify-center mt-8 space-x-4">
       <div v-for="component in components" :key="'etapa' + component.id">
         <v-icon
           :class="
@@ -94,6 +94,15 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    setInterval(() => {
+      if (this.activeComponentKey == this.components.length) {
+        this.activeComponentKey = 1;
+      } else {
+        this.activeComponentKey++;
+      }
+    }, 5000);
   },
   computed: {
     activeComponent() {

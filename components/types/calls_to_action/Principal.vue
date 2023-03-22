@@ -25,8 +25,8 @@
             de la CTCI en la Región del Biobío</span
           >
           <div class="mt-4">
-            <v-btn rounded :small="$vuetify.breakpoint.mobile" color="#8DCEFF" elevation="0" to="/gamificacion" class="px-2 py-2 px-lg-6 py-lg-6">
-              <span class="block pa-4 text-[10px] lg:text-xs text-white uppercase">Participar</span>
+            <v-btn rounded :small="$vuetify.breakpoint.mobile" color="#fbbf24" elevation="0" to="/gamificacion" class="px-2 py-2 px-lg-6 py-lg-6">
+              <span class="block pa-4 text-[10px] lg:text-xs text-blue-900 font-bold uppercase">Participar</span>
             </v-btn>
           </div>
         </div>

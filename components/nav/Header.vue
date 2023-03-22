@@ -10,6 +10,7 @@
       </nuxt-link>
     </div>
     <div class="d-none d-md-block mx-auto">
+      <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey" medium to="/">Inicio</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey" medium to="/acerca_del_proyecto">Acerca del proyecto</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/documento">Documento</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey" medium to="/comunidad">Comunidad</v-btn>

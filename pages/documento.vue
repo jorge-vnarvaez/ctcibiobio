@@ -38,22 +38,24 @@
           v-for="document in documents"
           :key="document.id"
           cols="12"
-          lg="4"
+          md="6"
+          lg="6"
+          xl="4"
         >
           <v-card
             elevation="0"
-            :height="$vuetify.breakpoint.mobile ? 218 : 260"
+            :height="height"
             rounded="xl"
             class="drop-shadow-xl"
           >
-            <div class="flex space-x-2">
+            <div class="flex space-x-4">
               <!-- FEATURED IMAGE -->
               <v-img
                 v-if="document.featured_image"
                 :src="$config.apiUrlV2 + '/assets/' + document.featured_image"
                 class="rounded-l-xl"
                 width="50%"
-                :height="$vuetify.breakpoint.mobile ? 218 : 260"
+                :height="height"
               >
               </v-img>
               <!-- FEATURED IMAGE -->
@@ -61,7 +63,7 @@
               <div class="flex flex-col">
                 <!-- TITLE -->
                 <span
-                  class="block mt-4 font-bold text-[12px] lg:text-sm w-10/12 text-blue-900 h-10"
+                  class="block mt-4 font-bold text-[12px] lg:text-sm w-10/12 text-blue-900 h-10 lg:h-16"
                   >{{ document.title }}</span
                 >
                 <!-- TITLE -->
@@ -69,7 +71,7 @@
                 <!-- EXCERPT -->
                 <span
                   v-html="document.excerpt.slice(0, 80)"
-                  class="text-[10px] lg:text-sm block h-20 lg:h-28 mt-2 w-11/12"
+                  class="text-[10px] lg:text-sm block h-20 lg:h-24 mt-2 w-11/12 leading-tight"
                 ></span>
                 <!-- EXCERPT -->
 
@@ -147,6 +149,20 @@ export default {
     parent_document() {
       return this.$store.getters["documento/getParentDocument"];
     },
+    height() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 200
+        case 'sm':
+          return 250
+        case 'md':
+          return 300
+        case 'lg':
+          return 280
+        case 'xl':
+          return 280
+      }
+    }
   },
 };
 </script>

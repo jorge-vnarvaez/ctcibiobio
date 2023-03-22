@@ -18,9 +18,9 @@
         </v-img>
         <div
           class="flex flex-col justify-between"
-          :style="{ padding: $vuetify.breakpoint.mobile ? '5% 6% 3% 2%' : '3% 6% 3% 2%' }"
+          :style="{ padding: $vuetify.breakpoint.mobile ? '5% 6% 3% 2%' : '5% 6% 3% 2%' }"
         >
-          <span class="block text-[12px] lg:text-sm text-blue-900 font-bold leading-tight">{{
+          <span class="block text-[12px] lg:text-[15px] text-blue-900 font-bold leading-tight">{{
             noticia.title
           }}</span>
 

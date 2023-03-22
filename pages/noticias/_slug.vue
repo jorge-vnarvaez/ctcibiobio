@@ -9,6 +9,12 @@
     </div>
 
     <v-container v-if="noticia" :style="{  padding: $vuetify.breakpoint.mobile ? '15% 7%' : '3% 0%' }">
+      <div class="mb-6 flex space-x-2" v-if="noticia.date_published">
+        <font-awesome-icon :icon="['fas', 'calendar-days']" style="color: #00bfff;"  class="w-6 h-6"/>
+        <span class="text-slate-600">
+          {{ $moment(noticia.date_published).format('DD MMMM YYYY') }}
+        </span>
+      </div>
       <div class="text-[20px] lg:text-3xl text-blue-900 font-bold mb-2">
         {{ noticia.title }}
       </div>
