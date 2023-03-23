@@ -4,9 +4,11 @@
     class="h-fit"
   >
     <span
-      class="block text-gray-500 text-lg lg:text-3xl font-bold mb-8 lg:text-center"
+      class="block text-gray-500 text-lg lg:text-3xl font-bold mb-6 lg:text-center"
       >Etapas</span
     >
+        
+    <div style="border-bottom: 1px dashed #6b7280" class="mb-16"></div>
 
     <v-card rounded="xl" color="#078BC7" class="pa-6" elevation="0">
       <div class="text-white flex flex-col">

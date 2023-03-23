@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   content: [
     "./components/**/*.{js,vue,ts}",
@@ -8,7 +10,11 @@ module.exports = {
     "./nuxt.config.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'sans': ['Titillium+Web', 'sans-serif']
+      }
+    },
   },
   plugins: [],
 }

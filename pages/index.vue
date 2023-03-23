@@ -5,11 +5,13 @@
 
     <LazyInfoNoticiasEventos></LazyInfoNoticiasEventos>
 
-    <InfoCifras></InfoCifras>
+    <transition appear>
+    <LazyInfoCifras></LazyInfoCifras>
+    </transition>
 
     <v-overlay
       :value="overlay"
-      :style="{ padding: $vuetify.breakpoint.mobile ? '5% 7%' : '3% 7%', 'z-index': 1000 }"
+      :style="{ display: 'flex', flexDirection: 'column', padding: $vuetify.breakpoint.mobile ? '5% 7%' : '3% 7%', 'z-index': 1000 }"
     >
       <div
         class="bg-white drop-shadow-xl rounded-full h-8 w-8 flex align-center justify-center absolute z-50 -top-4 -right-2 cursor-pointer"
@@ -21,7 +23,7 @@
         class="bg-white rounded-2xl flex flex-col drop-shadow-2xl w-full lg:w-[800px]"
         :style="{ padding: $vuetify.breakpoint.mobile ? '15% 10%' : '8% 7%' }"
       >
-        <span class="block text-gray-500 text-[18px] lg:text-3xl text-center font-bold"
+        <span class="block text-gray-500 text-[18px] lg:text-xl text-center font-bold"
           >¿Qué focos impulsarán el desarrollo de la ciencia, tecnología,
           conocimiento e innovación en la Región del Biobío?</span
         >
@@ -34,7 +36,7 @@
           <v-img src="/illustration/22.svg" v-if="$vuetify.breakpoint.mobile" height="200" contain></v-img>
 
           <div>
-            <v-img src="/illustration/22.svg" width="200" height="300" contain v-if="!$vuetify.breakpoint.mobile"></v-img>
+            <v-img src="/illustration/22.svg" width="200" height="200" contain v-if="!$vuetify.breakpoint.mobile"></v-img>
           </div>
         </div>
 
@@ -71,4 +73,6 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+
+</style>

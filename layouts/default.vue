@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <div v-if="!contentWasRendered">
+    <div v-if="!contentWasRendered" class="app">
       <PageLoader />
     </div>
 
-    <v-main v-if="contentWasRendered">
+    <v-main v-if="contentWasRendered" class="app">
       <NavHeader />
       <div>
         <Nuxt />
@@ -33,6 +33,8 @@ export default {
   }
 }
 </script>
-<style lang="">
-  
+<style>
+.app {
+  font-family: 'Titillium Web', sans-serif;
+}
 </style>

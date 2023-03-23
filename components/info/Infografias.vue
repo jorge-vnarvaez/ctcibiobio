@@ -1,12 +1,14 @@
 <template>
   <div v-if="infographics.length > 0">
-    <div class="max-w-screen-xl mx-auto py-12">
+    <div class="max-w-screen-xl mx-auto py-12" :style="{ padding: $vuetify.breakpoint.mobile ? '5% 10%' : '3% 7%' }">
       <v-container>
         <span
-          class="block text-blue-900 text-lg lg:text-3xl font-bold lg:text-center"
-          :style="{ padding: $vuetify.breakpoint.mobile ? '5% 10%' : '3% 7%' }"
+          class="block text-blue-900 text-lg lg:text-3xl mb-6 font-bold lg:text-center"
           >Infografías</span
         >
+
+        <div style="border-bottom: 1px dashed #1e3a8a"></div>
+        
       </v-container>
     </div>
 

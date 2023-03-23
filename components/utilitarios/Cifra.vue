@@ -1,33 +1,58 @@
 <template>
-  <div>
+  <div class="flex align-center lg:justify-center space-x-0 lg:space-x-4">
     <div
-      name="icon"
-      class="bg-blue-900 rounded-full h-[40px] w-[40px] z-10 relative top-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      class="bg-blue-900 border-8 border-white rounded-full h-[80px] lg:h-[113px] w-[80px] lg:w-[113px] z-10"
     >
       <div class="flex h-full align-center justify-center">
         <font-awesome-icon
           :icon="item.icon"
-          class="w-4 h-4 text-white"
+          class="w-8 lg:w-10 h-8 lg:h-10 text-white"
         />
       </div>
     </div>
-    <div class="bg-amber-400 drop-shadow-xl h-[116px] w-[272px] rounded-xl">
-      <div class="flex flex-col align-center justify-center text-white h-full">
-        <span class="text-4xl font-bold">{{ item.value }}</span>
-        <span class="text-sm font-bold">{{ item.label }}</span>
+
+    <div>
+      <div class="flex flex-col justify-center">
+        <div class="flex">
+          <span class="text-white text-3xl lg:text-5xl font-bold">
+            +
+          </span>
+          <animated-number
+              :value="item.value"
+              :duration="2500"
+              :delay="10"
+              :formatValue="formatValue"
+              round
+              class="text-white text-3xl lg:text-5xl font-bold"
+            />
+        </div>
+        
+        <span class="text-white text-sm ml-4 font-bold">{{ item.label }}</span>
       </div>
     </div>
+    
   </div>
 </template>
 
 <script>
+
+import AnimatedNumber from "animated-number-vue";
+
 export default {
+  components: {
+    AnimatedNumber,
+  },
   props: {
     item: {
       type: Object,
       required: true,
     },
   },
+  methods: {
+    formatValue(value) {
+      return value.toFixed(0);
+    },
+  }
 };
 </script>
 

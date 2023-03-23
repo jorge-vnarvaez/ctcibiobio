@@ -30,7 +30,6 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter&display=swap' }
     ]
   },
   // 
@@ -83,6 +82,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxt/http',
     'cookie-universal-nuxt',
+    '@nuxtjs/google-fonts'
     // '@nuxt/content',
   ],
 
@@ -131,4 +131,10 @@ export default {
     },
     standalone: true,
   },
+
+  googleFonts: {
+    families: {
+      'Titillium Web': [300, 400, 500, 600, 700],
+    }
+  }
 }
