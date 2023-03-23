@@ -5,9 +5,8 @@
 
     <LazyInfoNoticiasEventos></LazyInfoNoticiasEventos>
 
-    <transition appear>
     <LazyInfoCifras></LazyInfoCifras>
-    </transition>
+
 
     <v-overlay
       :value="overlay"

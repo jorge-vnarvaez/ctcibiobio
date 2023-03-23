@@ -20,5 +20,22 @@ export default {
 
         commit('setDocuments', data)
         commit('setParentDocument', parent_document[0])
+    },
+    async loadMaterials({ commit }) {
+        const route = this.$config.apiUrlV2 + '/items/materials'
+        const query = this.$objectToQueryString({
+            fields: [
+                'id',
+                'tag',
+                'title',
+                'excerpt',
+                'featured_image',
+                'file'
+            ],
+        })
+
+        let { data } = await fetch(`${route}?${query}`).then(res => res.json())
+
+        commit('setMaterials', data)
     }
 }

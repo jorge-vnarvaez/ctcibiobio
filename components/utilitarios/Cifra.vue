@@ -18,13 +18,18 @@
             +
           </span>
           <animated-number
+              v-if="can_run"
               :value="item.value"
-              :duration="2500"
-              :delay="10"
+              :duration="3000"
+              :delay="1000"
               :formatValue="formatValue"
               round
               class="text-white text-3xl lg:text-5xl font-bold"
             />
+
+            <span v-if="!can_run" class="text-white text-3xl lg:text-5xl font-bold">
+              {{ item.value }}
+            </span>
         </div>
         
         <span class="text-white text-sm ml-4 font-bold">{{ item.label }}</span>
@@ -47,6 +52,10 @@ export default {
       type: Object,
       required: true,
     },
+    can_run: {
+      type: Boolean,
+      required: true,
+    }
   },
   methods: {
     formatValue(value) {

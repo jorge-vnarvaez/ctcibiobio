@@ -1,23 +1,33 @@
 <template>
-  <div :style="[bg_config, padding_config, height]">
-    <span
-      class="block text-white text-lg lg:text-3xl font-bold mb-6 lg:text-center"
-      >CTCI en cifras</span
-    >
-    <div style="border-bottom: 1px dashed white"></div>
+  <intersect @enter="showCifras = true" @leave="showCifras = false">
+    <div :style="[bg_config, padding_config, height]">
+      <span
+        class="block text-white text-lg lg:text-3xl font-bold mb-6 lg:text-center"
+        >CTCI en cifras</span
+      >
+      <div style="border-bottom: 1px dashed white"></div>
 
-    <div
-      class="flex flex-col lg:flex-row lg:justify-center space-y-4 lg:space-y-0"
-    >
-      <UtilitariosCifra v-for="cifra in cifras" :key="cifra.id" :item="cifra" />
+      <div
+        class="flex flex-col lg:flex-row lg:justify-center space-y-4 lg:space-y-0"
+      >
+        <UtilitariosCifra
+          v-for="cifra in cifras"
+          :key="cifra.id"
+          :item="cifra"
+          :can_run="showCifras"
+        />
+      </div>
     </div>
-  </div>
+  </intersect>
 </template>
 
 <script>
+import Intersect from "vue-intersect";
 export default {
+  components: { Intersect },
   data() {
     return {
+      showCifras: false,
       bg_config: {
         backgroundImage: `
         linear-gradient(rgba(235, 100, 107, 1), rgba(235, 100, 107, 1)), 
@@ -62,9 +72,9 @@ export default {
     },
     height() {
       return {
-        height: this.$vuetify.breakpoint.mobile ? "100vh" : "70vh"
+        height: this.$vuetify.breakpoint.mobile ? "100vh" : "70vh",
       };
-    }
+    },
   },
 };
 </script>

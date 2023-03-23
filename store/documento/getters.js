@@ -4,5 +4,8 @@ export default {
     },
     getParentDocument(state) {
         return state.parent_document
+    },
+    getMaterials(state) {
+        return state.materials
     }
 }
