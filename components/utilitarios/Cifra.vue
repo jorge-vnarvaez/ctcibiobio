@@ -1,5 +1,5 @@
 <template>
-  <div class="flex align-center lg:justify-center space-x-0 lg:space-x-4">
+  <div class="flex align-center lg:justify-center space-x-4">
     <div
       class="bg-blue-900 border-8 border-white rounded-full h-[80px] lg:h-[113px] w-[80px] lg:w-[113px] z-10"
     >
