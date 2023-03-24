@@ -40,6 +40,12 @@
         class="cursor-pointer h-full w-full"
       ></v-img>
     </VueSlickCarousel>
+
+    <div class="flex justify-center mt-12">
+      <v-btn rounded outlined color="#1e3a8a" to="/infografias">
+        Ver más infografías
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -67,7 +73,6 @@ export default {
         autoplaySpeed: 3000,
         cssEase: "ease-out",
       },
-      infographics: [],
       index: null,
     };
   },
@@ -77,12 +82,13 @@ export default {
     }
   },
   async fetch() {
-    const { data } = await fetch(
-      this.$config.apiUrlV2 + "/items/infographics"
-    ).then((res) => res.json());
-
-    this.infographics = data;
+    await this.$store.dispatch("infografias/loadFeatured");
   },
+  computed: {
+    infographics() {
+      return this.$store.getters["infografias/getFeatured"];
+    },
+  }
 };
 </script>
 
