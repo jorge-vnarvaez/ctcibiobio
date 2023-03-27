@@ -26,6 +26,7 @@ export default {
                 'activities.*.*',
                 'activities.files.*.*',
                 'activities.gallery.*.*',
+                'hidden_activities_fields',
             ],
         })
 

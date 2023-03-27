@@ -42,13 +42,10 @@
                             <v-icon v-if="childMilestoneOpened == child_milestone.id" @click="childMilestoneOpened = false" class="rounded-full cursor-pointer" :style="{ backgroundColor: milestone.color }" color="white">
                                 mdi-chevron-up
                             </v-icon>
-
-                        
                         </div>
                     </v-card>
 
                     <div v-if="childMilestoneOpened == child_milestone.id" class="mt-4">
-
                             <div class="mb-6">
                                 <span class="text-slate-500 text-[15px] lg:text-[21px] block mb-4">{{ activeChildMilestone.excerpt }}</span>
 
@@ -58,7 +55,13 @@
                             <div v-if="!$vuetify.breakpoint.mobile && activeChildMilestone.activities.length > 0">
                                 <v-row> 
                                     <v-col v-for="label in labels" :key="label.id" :cols="label.cols" :lg="label.lg">
-                                        <span class="font-bold text-[16px]">{{ label.title }}</span>
+                                        <div v-if="activeChildMilestone.hidden_activities_fields">
+                                            <span v-if="!activeChildMilestone.hidden_activities_fields.includes(label.title)" class="font-bold text-[16px]">{{ label.title }}</span>
+                                        </div>
+
+                                        <div v-if="!activeChildMilestone.hidden_activities_fields">
+                                            <span class="font-bold text-[16px]">{{ label.title }}</span>
+                                        </div>
                                     </v-col>
                                 </v-row>
 
@@ -78,13 +81,17 @@
                                     </v-col>
 
                                     <v-col class="flex flex-col text-[12px]" cols="6" lg="3">
-                                        <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Fecha de término</span>
-                                        <span>{{ activity.date_end ? $moment(activity.date_end).format("DD/MM/YY") : '-' }}</span>
+                                        <div v-if="activity.date_end">
+                                            <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Fecha de término</span>
+                                            <span>{{ activity.date_end ? $moment(activity.date_end).format("DD/MM/YY") : '-' }}</span>
+                                        </div>
                                     </v-col>
 
                                     <v-col class="flex flex-col lg:align-end text-[12px]" cols="12" lg="1">
-                                        <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Archivos</span>
-                                        <span>{{ activity.files ? activity.files.length : '' }}</span>
+                                        <div v-if="activity.files.length > 0" >
+                                            <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Archivos</span>
+                                            <span>{{ activity.files ? activity.files.length : '' }}</span>
+                                        </div>
                                     </v-col>
 
                                     <v-col lg="1">
