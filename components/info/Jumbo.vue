@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div>
     <v-container>
       <div class="flex flex-col align-center py-12">
@@ -25,13 +25,29 @@
         </span>
 
         <iframe
+          v-if="activeFrame"
           :width="$vuetify.breakpoint.mobile ? 300 : '70%'"
           :height="$vuetify.breakpoint.mobile ? 200 : 500"
-          src="https://www.youtube.com/embed/YJecjsYgLZ8"
+          :src="activeFrame.url"
           frameborder="0"
           allowfullscreen
           class="rounded-2xl my-16"
         ></iframe>
+
+        
+        <div class="flex justify-center mb-8 space-x-4">
+          <div v-for="video in videos" :key="'etapa' + video.id">
+            <v-icon
+              :class="
+                activeFrameKey == video.id ? 'opacity-100' : 'opacity-25'
+              "
+              small
+              @click="activeFrameKey = video.id"
+              >mdi-circle</v-icon
+            >
+          </div>
+        </div>
+
 
         <InfoOrganizacionesBlack></InfoOrganizacionesBlack>
       </div>
@@ -60,6 +76,11 @@
 export default {
   data() {
     return {
+      activeFrameKey: 0,
+      videos: [
+        { id: 0, url: "https://www.youtube.com/embed/YJecjsYgLZ8" },
+        { id: 1, url: "https://www.youtube.com/embed/qN7EFvrbldw" },
+      ],
       bg_config: {
         backgroundImage: `url(/img/logo_blanco.svg)`,
         backgroundRepeat: "no-repeat",
@@ -75,6 +96,11 @@ export default {
       },
     };
   },
+  computed: {
+    activeFrame() {
+      return this.videos[this.activeFrameKey];
+    },
+  }
 };
 </script>
 <style lang=""></style>
