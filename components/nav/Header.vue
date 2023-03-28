@@ -11,7 +11,7 @@
     </div>
     <div class="d-none d-md-block mx-auto">
       <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey darken-1" medium to="/">Inicio</v-btn>
-      <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey darken-1" medium to="/acerca_del_proyecto">Acerca del proyecto</v-btn>
+      <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey darken-1" medium to="/acerca_del_proyecto">Acerca</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/documento">Documento</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/comunidad">Comunidad</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/noticias">Noticias</v-btn>
@@ -52,7 +52,7 @@
           <v-list dense class="pa-0">
             <v-list-item-group>
               <v-list-item to="/acerca_del_proyecto" class="px-3 text-body-2 grey--text text--darken-3">
-                Acerca del proyecto
+                Acerca
               </v-list-item>
               <v-list-item to="/documento" class="px-3 text-body-2 grey--text text--darken-3">
                 Documento
