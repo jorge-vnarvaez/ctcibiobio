@@ -14,16 +14,18 @@
         <!-- FEATURED IMAGE -->
 
         <div class="flex flex-col">
-          <!-- TITLE -->
-          <span
-            class="block my-2 font-bold text-[12px] lg:text-sm w-10/12 text-blue-900"
-            >{{ material.title }}</span
-          >
-          <!-- TITLE -->
+          <div class="h-16 mb-2">
+            <!-- TITLE -->
+            <span
+              class="block mt-2 font-bold text-[12px] lg:text-sm w-9/12 text-blue-900"
+              >{{ material.title.length > 34 ? material.title.slice(0, 34) + '...' : material.title }}</span
+            >
+            <!-- TITLE -->
 
-          <!-- TAG -->
-            <v-chip label :color="['Elaboración propia'].includes(material.tag) ? '#2929c6' : '#ff6469'" text-color="white" small class="text-[10px] w-fit">{{ material.tag }}</v-chip>
-          <!-- TAG -->
+            <!-- TAG -->
+              <v-chip label :color="['Elaboración propia'].includes(material.tag) ? '#2929c6' : '#ff6469'" text-color="white" small class="text-[10px] w-fit">{{ material.tag }}</v-chip>
+            <!-- TAG -->
+          </div>
 
           <!-- EXCERPT -->
           <span
