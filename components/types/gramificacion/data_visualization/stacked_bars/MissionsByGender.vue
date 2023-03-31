@@ -12,7 +12,7 @@
               missions: {
                 scale: 'scaleBand',
                 bands: Object.keys(tf_missions_by_gender).length,
-                range: [0, height + 260],
+                range: [0, height + 120],
                 clamp: false,
                 round: false,
                 paddingOuter: 0,
@@ -28,19 +28,19 @@
               >
                 <ChartText
                   :bx="0"
-                  :tx="-200"
+                  :tx="-400"
+                  :font-size="18"
                   :ty="scales.missions(index)"
-                  :by="scales.missions.bandwidth() * 1.5"
-                  :font-size="32"
+                  :by="scales.missions.bandwidth() * 3.5"
                 >
                   {{ item }}
                 </ChartText>
 
                 <ChartText
-                  :tx="-200"
-                  :font-size="20"
+                  :tx="-400"
+                  :font-size="16"
                   :ty="scales.missions(index)"
-                  :by="scales.missions.bandwidth() * 1.2"
+                  :by="scales.missions.bandwidth() * 3.2"
                 >
                   Total:
                   {{ Object.values(tf_missions_by_gender)[index].total }}
@@ -51,7 +51,7 @@
           </ChartG>
         </ChartSvg>
 
-        <ChartSvg :width="stacked_width" :height="height" contain>
+         <ChartSvg :width="stacked_width" :height="height" contain>
           <ChartG
             :scales="{
               missions: {
@@ -59,14 +59,14 @@
                 bands: Object.keys(tf_missions_by_gender).length,
                 range: [0, height + 120],
                 clamp: false,
-                round: true,
+                round: false,
                 paddingOuter: 0,
                 paddingInner: 0,
                 align: 0.5,
               },
               genres: {
                 scale: 'scaleBand',
-                bands: 3,
+                bands: 4,
                 range: [0, stacked_width],
                 clamp: false,
                 round: true,
@@ -78,23 +78,23 @@
           >
             <template #default="{ scales }">
               <ChartG
-                v-for="(value, index) in 4"
-                :key="index + '_stack_graph_gender'"
+                v-for="(value, index) in 6"
+                :key="index + '_stack_graph_province'"
                 :ty="scales.missions(index)"
                 :tx="$vuetify.breakpoint.mobile ? 350 : 200"
-                :by="scales.missions.bandwidth() * 1.58"
+                :by="scales.missions.bandwidth() * 3.2"
               >
                 <ChartRect
                   v-for="(item, key) in 4"
-                  :key="item + '_rect_graph_gender'"
+                  :key="item + '_rect_graph_province'"
                   :width="getWidthOfBar(index, key)"
                   :tx="key == 0 ? 0 : getWidthOfBar(index, key - 1)"
-                  :height="$vuetify.breakpoint.mobile ? 25 : 40"
+                  :height="25"
                   :fill="colors[key]"
                   v-tippy
                   :content="
                     getPercentageOfBar(index, key).toFixed(2) +
-                    '% de priorizaciones'
+                    '% de preferencias'
                   "
                   class="cursor-pointer"
                 >
@@ -104,6 +104,7 @@
           </ChartG>
         </ChartSvg>
       </div>
+      
 
       <ChartSvg
         :width="$vuetify.breakpoint.mobile ? 250 : 450"
@@ -222,7 +223,7 @@ export default {
       return this.$store.getters["gamificacion/tf_missions_by_gender"];
     },
     width() {
-      return this.$vuetify.breakpoint.mobile ? 200 : 150;
+      return this.$vuetify.breakpoint.mobile ? 280 : 350;
     },
     stacked_width() {
       switch (this.$vuetify.breakpoint.name) {
@@ -239,7 +240,7 @@ export default {
       }
     },
     height() {
-      return this.$vuetify.breakpoint.mobile ? 200 : 250;
+      return this.$vuetify.breakpoint.mobile ? 280 : 350;
     },
   },
 };

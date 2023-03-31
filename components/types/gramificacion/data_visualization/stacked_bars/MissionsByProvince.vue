@@ -13,7 +13,7 @@
               missions: {
                 scale: 'scaleBand',
                 bands: Object.keys(tf_missions_by_province).length,
-                range: [0, height + 260],
+                range: [0, height + 120],
                 clamp: false,
                 round: false,
                 paddingOuter: 0,
@@ -29,19 +29,20 @@
               >
                 <ChartText
                   :bx="0"
-                  :tx="-200"
+                  :tx="-400"
                   :ty="scales.missions(index)"
-                  :by="scales.missions.bandwidth() * 1.5"
-                  :font-size="32"
+                  :by="scales.missions.bandwidth() * 3.5"
+                  :font-size="18"
                 >
                   {{ item }}
                 </ChartText>
 
                 <ChartText
-                  :tx="-200"
-                  :font-size="20"
+                  :tx="-400"
+                  :font-size="16"
                   :ty="scales.missions(index)"
-                  :by="scales.missions.bandwidth() * 1.2"
+                  :by="scales.missions.bandwidth() * 3.2"
+                  fill="#64748b"
                 >
                   Total:
                   {{
@@ -81,18 +82,18 @@
           >
             <template #default="{ scales }">
               <ChartG
-                v-for="(value, index) in 4"
+                v-for="(value, index) in 6"
                 :key="index + '_stack_graph_province'"
                 :ty="scales.missions(index)"
                 :tx="$vuetify.breakpoint.mobile ? 350 : 200"
-                :by="scales.missions.bandwidth() * 1.55"
+                :by="scales.missions.bandwidth() * 3.2"
               >
                 <ChartRect
                   v-for="(item, key) in 3"
                   :key="item + '_rect_graph_province'"
                   :width="getWidthOfBar(index, key)"
                   :tx="key == 0 ? 0 : getWidthOfBar(index, key - 1)"
-                  :height="$vuetify.breakpoint.mobile ? 25 : 40"
+                  :height="25"
                   :fill="colors[key]"
                   v-tippy
                   :content="
@@ -187,7 +188,7 @@ export default {
       return this.$store.getters["gamificacion/tf_missions_by_province"];
     },
     width() {
-      return this.$vuetify.breakpoint.mobile ? 200 : 150;
+      return this.$vuetify.breakpoint.mobile ? 280 : 350;
     },
     stacked_width() {
       switch(this.$vuetify.breakpoint.name) {
@@ -204,7 +205,7 @@ export default {
       }
     },
     height() {
-      return this.$vuetify.breakpoint.mobile ? 200 : 250;
+      return this.$vuetify.breakpoint.mobile ? 280 : 350;
     }
   },
 };
