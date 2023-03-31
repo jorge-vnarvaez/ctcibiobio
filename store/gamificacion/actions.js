@@ -82,9 +82,9 @@ export default {
             commit('setTfMissionsByGender', response);
         });
     },
-    async loadRankingByGender({ commit }) {
-        await this.$axios.$get(`${this.$config.apiUrlV2}/ranking/ranking_by_gender`).then(response => {
-            commit('setRankingByGender', response);
+    async loadGenderDispersion({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/ranking/gender_dispersion`).then(response => {
+            commit('setGenderDispersion', response);
         });
     },
 

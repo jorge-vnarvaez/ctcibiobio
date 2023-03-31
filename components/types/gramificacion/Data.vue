@@ -18,9 +18,10 @@
          <TypesGramificacionDataVisualizationSegmentsParticipantes v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsParticipantes>
          <TypesGramificacionDataVisualizationSegmentsParticipantesEdad v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsParticipantesEdad>
          <TypesGramificacionDataVisualizationSegmentsProvincias v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsProvincias>
-         <TypesGramificacionDataVisualizationStackedBarsMissionsByGender></TypesGramificacionDataVisualizationStackedBarsMissionsByGender>
-         <TypesGramificacionDataVisualizationStackedBarsMissionsByProvince></TypesGramificacionDataVisualizationStackedBarsMissionsByProvince>
-         <TypesGramificacionDataVisualizationDispersionsGenderDispersion></TypesGramificacionDataVisualizationDispersionsGenderDispersion>
+         <!-- <TypesGramificacionDataVisualizationSegmentsRanking></TypesGramificacionDataVisualizationSegmentsRanking> -->
+         <!-- <TypesGramificacionDataVisualizationStackedBarsMissionsByGender></TypesGramificacionDataVisualizationStackedBarsMissionsByGender>
+         <TypesGramificacionDataVisualizationStackedBarsMissionsByProvince></TypesGramificacionDataVisualizationStackedBarsMissionsByProvince> -->
+         <!-- <TypesGramificacionDataVisualizationDispersionsGenderDispersion></TypesGramificacionDataVisualizationDispersionsGenderDispersion> -->
       </div>
     </v-container>
   </div>

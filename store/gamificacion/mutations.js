@@ -61,5 +61,8 @@ export default {
     },
     setActiveProvince(state, province_id) {
         state.activeProvince = state.provinces.find(province => province.id === province_id);
+    },
+    setGenderDispersion(state, gender_dispersion) {
+        state.gender_dispersion = gender_dispersion
     }
 }

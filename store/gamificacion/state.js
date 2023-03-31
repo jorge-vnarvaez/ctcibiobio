@@ -25,6 +25,7 @@ export default () => ({
     tf_missions_by_province: [],
     tf_missions_by_gender: [],
     ranking_by_gender: [],
+    gender_dispersion: [],
     provinces: [
         {
             id: 1,

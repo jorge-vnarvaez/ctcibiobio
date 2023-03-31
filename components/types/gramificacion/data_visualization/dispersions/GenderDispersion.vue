@@ -247,7 +247,7 @@ export default {
     }, 5000);
   },
   async fetch() {
-    await this.$store.dispatch("gamificacion/loadRankingByGender");
+    await this.$store.dispatch("gamificacion/loadGenderDispersion");
   },
   activated() {
     if (this.$fetchState.timestamp <= Date.now() - 30000) {
@@ -274,7 +274,7 @@ export default {
   },
   computed: {
     ranking_by_gender() {
-      return this.$store.getters["gamificacion/ranking_by_gender"];
+      return this.$store.getters["gamificacion/gender_dispersion"];
     },
     is_mobile() {
       return this.$vuetify.breakpoint.mobile;

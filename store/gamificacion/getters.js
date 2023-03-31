@@ -46,5 +46,8 @@ export default {
     },
     activeProvince(state) {
         return state.activeProvince;
+    },
+    gender_dispersion(state) {
+        return state.gender_dispersion
     }
 }
