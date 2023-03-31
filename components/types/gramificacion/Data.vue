@@ -21,7 +21,7 @@
          <!-- <TypesGramificacionDataVisualizationSegmentsRanking></TypesGramificacionDataVisualizationSegmentsRanking> -->
          <!-- <TypesGramificacionDataVisualizationStackedBarsMissionsByGender></TypesGramificacionDataVisualizationStackedBarsMissionsByGender>
          <TypesGramificacionDataVisualizationStackedBarsMissionsByProvince></TypesGramificacionDataVisualizationStackedBarsMissionsByProvince> -->
-         <!-- <TypesGramificacionDataVisualizationDispersionsGenderDispersion></TypesGramificacionDataVisualizationDispersionsGenderDispersion> -->
+         <TypesGramificacionDataVisualizationDispersionsGenderDispersion></TypesGramificacionDataVisualizationDispersionsGenderDispersion>
       </div>
     </v-container>
   </div>
