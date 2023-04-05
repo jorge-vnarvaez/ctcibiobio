@@ -18,6 +18,10 @@
 
     <InfoYoutubeDeliveries></InfoYoutubeDeliveries>
 
+    <v-divider></v-divider> 
+
+    <InfoGobierno></InfoGobierno>
+
     <v-divider></v-divider>
 
     <InfoComite />
