@@ -1,4 +1,7 @@
 export default {
+    setMissions(state, missions) {
+        state.missions = missions;
+    },
     setDeclarations(state, declarations) {
         state.declarations = declarations;
     },
@@ -56,11 +59,14 @@ export default {
     setTfMissionsByGender(state, tf_missions_by_gender) {
         state.tf_missions_by_gender = tf_missions_by_gender;
     },
-    setRankingByGender(state, ranking_by_gender) {
-        state.ranking_by_gender = ranking_by_gender;
-    },
     setActiveProvince(state, province_id) {
         state.activeProvince = state.provinces.find(province => province.id === province_id);
+    },
+    setRankingByProvince(state, ranking_by_province) {
+        state.ranking_by_province = ranking_by_province;
+    },
+    setRankingByGender(state, ranking_by_gender) {
+        state.ranking_by_gender = ranking_by_gender;
     },
     setGenderDispersion(state, gender_dispersion) {
         state.gender_dispersion = gender_dispersion

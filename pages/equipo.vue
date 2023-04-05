@@ -7,16 +7,23 @@
     </v-card>
 
 
-    <div class="flex justify-center" :style="{ padding: $vuetify.breakpoint.mobile ? '10% 7%' : '5% 0%' }">
+    <div class="flex flex-col align-center justify-center" :style="{ padding: $vuetify.breakpoint.mobile ? '10% 7%' : '4% 0% 2% 0%' }">
       <p class="text-xs text-blue-900 md:text-2xl text-center w-full lg:w-6/12 font-bold">
         Nuestro equipo multidisciplinario está conformado por especialistas y
         expertos en estrategia e innovación
       </p>
+
+      <v-divider></v-divider>
     </div>
 
     <InfoYoutubeDeliveries></InfoYoutubeDeliveries>
 
+    <v-divider></v-divider>
+
     <InfoComite />
+
+    <v-divider></v-divider>
+
     <InfoEquipo />
     <!-- <InfoConvocados /> -->
     <!-- <InfoOrganizaciones /> -->

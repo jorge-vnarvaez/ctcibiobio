@@ -18,7 +18,7 @@
          <TypesGramificacionDataVisualizationSegmentsParticipantes v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsParticipantes>
          <TypesGramificacionDataVisualizationSegmentsParticipantesEdad v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsParticipantesEdad>
          <TypesGramificacionDataVisualizationSegmentsProvincias v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsProvincias>
-         <!-- <TypesGramificacionDataVisualizationSegmentsRanking></TypesGramificacionDataVisualizationSegmentsRanking> -->
+         <!-- <TypesGramificacionDataVisualizationSegmentsRanking v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsRanking> -->
          <!-- <TypesGramificacionDataVisualizationStackedBarsMissionsByGender></TypesGramificacionDataVisualizationStackedBarsMissionsByGender>
          <TypesGramificacionDataVisualizationStackedBarsMissionsByProvince></TypesGramificacionDataVisualizationStackedBarsMissionsByProvince> -->
          <TypesGramificacionDataVisualizationDispersionsGenderDispersion></TypesGramificacionDataVisualizationDispersionsGenderDispersion>
@@ -45,9 +45,12 @@ export default {
   },
   async fetch() {
     await Promise.all([
+      this.$store.dispatch("gamificacion/loadMissions"),
       this.$store.dispatch("gamificacion/loadTotalParticipants"),
       this.$store.dispatch("gamificacion/loadMatchsLength"),
       this.$store.dispatch("gamificacion/loadTfParticipantes"),
+      this.$store.dispatch("gamificacion/loadRankingByProvince"),
+      this.$store.dispatch("gamificacion/loadRankingByGender"),
       this.$store.dispatch("gamificacion/loadTfEdadParticipantes"),
       this.$store.dispatch("gamificacion/loadTfProvincias"),
     ])

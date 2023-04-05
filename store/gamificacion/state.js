@@ -1,4 +1,6 @@
 export default () => ({
+    // list of missions
+    missions: [],
     // list of declarations to match
     declarations: [],
     // list of declarations loading
@@ -25,6 +27,7 @@ export default () => ({
     tf_missions_by_province: [],
     tf_missions_by_gender: [],
     ranking_by_gender: [],
+    ranking_by_province: [],
     gender_dispersion: [],
     provinces: [
         {

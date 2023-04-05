@@ -1,16 +1,36 @@
 <template>
-  <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20" id="equipo">
+  <div
+    class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20"
+    id="equipo"
+  >
     <div class="mx-auto mb-10 lg:max-w-xl sm:text-center">
-      <p  class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-blue-900 uppercase rounded-full w-full text-center">
+      <p
+        class="inline-block px-3 py-px mb-4 text-sm font-bold tracking-wider text-blue-900 uppercase rounded-full w-full text-center"
+      >
         Equipo Ejecutor
       </p>
     </div>
     <v-row>
-      <v-col v-for="(integrante, index) in integrantesApi" :key="index" class="flex flex-col items-center" cols="6" lg="3">
-        <img class="object-cover w-20 h-20 mb-2 rounded-full shadow" v-if="integrante.img" :src="`https://apificr.uinn.cl/assets/${integrante.img.filename_disk}`" alt="Person" />
+      <v-col
+        v-for="(integrante, index) in integrantesApi"
+        :key="index"
+        class="flex flex-col items-center"
+        cols="6"
+        lg="3"
+      >
+        <img
+          class="object-cover w-20 h-20 mb-2 rounded-full shadow"
+          v-if="integrante.img"
+          :src="`https://apificr.uinn.cl/assets/${integrante.img.filename_disk}`"
+          alt="Person"
+        />
         <div class="flex flex-col items-center">
-          <p class="text-sm lg:text-lg text-center text-gray-500 font-bold">{{integrante.title}}</p>
-          <p class="text-[12px] lg:text-sm text-center text-gray-500">{{integrante.job_title}}</p>
+          <p class="text-sm lg:text-lg text-center text-gray-500 font-bold">
+            {{ integrante.title }}
+          </p>
+          <p class="text-[12px] lg:text-sm text-center text-gray-500">
+            {{ integrante.job_title }}
+          </p>
         </div>
       </v-col>
     </v-row>
@@ -18,10 +38,9 @@
 </template>
 <script>
 export default {
-  data(){
+  data() {
     return {
-      integrantesApi: [
-      ],
+      integrantesApi: [],
       integrantes: [
         {
           nombre: "Inti Núñez",
@@ -31,11 +50,9 @@ export default {
           org: "UDEC",
         },
         {
-          nombre: "Alejandra Rojas",
-          cargo: "Asesor Innovación y Emprendimiento",
-          img: "/equipo/AlejandraRojas.jpg",
-          mail: "arojas@ubiobio.cl",
-          org: "UBB",
+          nombre: "Paola Verdugo",
+          cargo: "Coordinadora",
+          img: "/equipo/PaolaVerdugo.jpeg",
         },
         {
           nombre: "Emma Chávez",
@@ -43,6 +60,13 @@ export default {
           img: "/equipo/EmmaChavez.jpeg",
           mail: "echavez@ucsc.cl",
           org: "UCSC",
+        },
+        {
+          nombre: "Alejandra Rojas",
+          cargo: "Asesor Innovación y Emprendimiento",
+          img: "/equipo/AlejandraRojas.jpg",
+          mail: "arojas@ubiobio.cl",
+          org: "UBB",
         },
         {
           nombre: "Christian Schmitz",
@@ -64,11 +88,6 @@ export default {
           img: "/equipo/VicenteHernandez.jpeg",
           mail: "ajelvez@ubiobio.cl",
           org: "UBB",
-        },
-        {
-          nombre: "Paola Verdugo",
-          cargo: "Coordinadora",
-          img: "/equipo/PaolaVerdugo.jpeg",
         },
         {
           nombre: "Camila García",
@@ -100,15 +119,18 @@ export default {
           cargo: "Lead developer",
           img: "http://www.miet.cl/assets/images/profesores/MartinMellado.jpg",
         },
-      ]
-    }
+      ],
+    };
   },
-  async fetch(){
+  async fetch() {
     // GET information from api using axios
-    await this.$axios.$get("https://apificr.uinn.cl/items/team_members?fields[]=title,job_title,sort,img.filename_disk,img.filename_download,*.*&fields[]=parent_organization.title&fields[]=img.id,img.filename_disk&sort[]=sort")
-    .then(response => {
-      this.integrantesApi = response.data
-    })
-  },  
-}
+    await this.$axios
+      .$get(
+        "https://apificr.uinn.cl/items/team_members?fields[]=title,job_title,sort,img.filename_disk,img.filename_download,*.*&fields[]=parent_organization.title&fields[]=img.id,img.filename_disk&sort[]=sort"
+      )
+      .then((response) => {
+        this.integrantesApi = response.data;
+      });
+  },
+};
 </script>

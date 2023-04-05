@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-xl mx-auto pb-20">
+  <div class="max-w-screen-xl mx-auto pb-12">
     <v-container>
       <div class="flex flex-col align-center justify-center">
         <UtilitariosVideo

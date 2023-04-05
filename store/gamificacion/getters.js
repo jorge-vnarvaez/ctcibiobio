@@ -1,4 +1,7 @@
 export default {
+    missions(state) {
+        return state.missions;
+    },
     declarations(state) {
         return state.declarations;
     },
@@ -37,6 +40,9 @@ export default {
     },
     tf_missions_by_gender(state) {
         return state.tf_missions_by_gender;
+    },
+    ranking_by_province(state) {
+        return state.ranking_by_province;
     },
     ranking_by_gender(state) {
         return state.ranking_by_gender;

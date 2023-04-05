@@ -47,6 +47,10 @@
       </div>
     </v-overlay>
 
+    <!-- Podcasts -->
+    <LazyInfoPodcasts></LazyInfoPodcasts>
+    <!-- Podcasts -->
+
     <!-- Infografías -->
     <LazyInfoInfografias></LazyInfoInfografias>
     <!-- Infografías -->

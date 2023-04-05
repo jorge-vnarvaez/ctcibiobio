@@ -7,6 +7,11 @@ export default {
             commit('setLengthMatchs', response);
         });
     },
+    async loadMissions({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/items/missions`).then(response => {
+            commit('setMissions', response.data);
+        });
+    },
     async loadDeclarations({ commit }) {
         const qs = require('qs');
 
@@ -82,10 +87,19 @@ export default {
             commit('setTfMissionsByGender', response);
         });
     },
+    async loadRankingByProvince({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/ranking_by_province`).then(response => {
+            commit('setRankingByProvince', response);
+        });
+    },
+    async loadRankingByGender({ commit }) {
+        await this.$axios.$get(`${this.$config.apiUrlV2}/gamificacion/ranking_by_gender`).then(response => {
+            commit('setRankingByGender', response);
+        });
+    },
     async loadGenderDispersion({ commit }) {
         await this.$axios.$get(`${this.$config.apiUrlV2}/ranking/gender_dispersion`).then(response => {
             commit('setGenderDispersion', response);
         });
     },
-
 }
