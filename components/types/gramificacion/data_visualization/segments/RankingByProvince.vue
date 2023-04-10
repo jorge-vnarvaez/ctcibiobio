@@ -16,7 +16,6 @@
       <!-- MOST RELEVANT -->
 
       <!-- LESS RELEVANT -->
-        md="12"
       <v-col cols="12" lg="6" md="12">
         <span class="text-sm text-blue-900 font-bold">Menos relevantes</span>
         <TypesGramificacionFoco
