@@ -50,9 +50,14 @@ export default {
         },
         {
           nombre: "Iván Valenzuela",
-          cargo: "Jefe División de Fomento e Industria Gore Biobío",
+          cargo: "Jefe División de Fomento e Industria",
           img: "/gobierno/IvanValenzuela.jpeg",
         },
+        {
+          nombre: "Blas Araneda Cea",
+          cargo: "Jefe de División de Planificación y Desarrollo Regional",
+          img: "/gobierno/BlasAraneda.jpg",
+        }
       ],
     };
   },
