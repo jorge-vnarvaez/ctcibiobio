@@ -11,7 +11,7 @@
       </p>
     </div>
 
-     <v-row justify="center">
+    <v-row justify="center">
       <v-col
         v-for="(integrante, index) in integrantes"
         :key="index"
@@ -40,22 +40,22 @@
 
 <script>
 export default {
-    data() {
-        return {
-            integrantes: [
-                {
-                nombre: "Ivan Valenzuela",
-                cargo: "Jefe División de Fomento e Industria Gore Biobío",
-                img: "/gobierno/IvanValenzuela.jpeg",
-                },
-                {
-                nombre: "Rodrigo Díaz Wórner",
-                cargo: "Gobernador Regional de Biobío",
-                img: "/gobierno/RodrigoDiaz.jpeg",
-                },
-            ]
-        }
-    }
+  data() {
+    return {
+      integrantes: [
+        {
+          nombre: "Rodrigo Díaz Wórner",
+          cargo: "Gobernador Regional de Biobío",
+          img: "/gobierno/RodrigoDiaz.jpeg",
+        },
+        {
+          nombre: "Iván Valenzuela",
+          cargo: "Jefe División de Fomento e Industria Gore Biobío",
+          img: "/gobierno/IvanValenzuela.jpeg",
+        },
+      ],
+    };
+  },
 };
 </script>
 
