@@ -50,7 +50,9 @@
             <div v-if="!$vuetify.breakpoint.mobile && activeMilestone.activities.length > 0">
                 <v-row> 
                     <v-col v-for="label in labels" :key="label.id" :cols="label.cols" :lg="label.lg">
-                        <span v-if="!activeMilestone.hidden_activities_fields.includes['Fecha de término', 'Archivos']" class="font-bold text-[16px]">{{ label.title }}</span>
+                           <div v-if="activeMilestone.hidden_activities_fields">
+                                 <span v-if="!activeMilestone.hidden_activities_fields.includes(label.title)" class="font-bold text-[16px]">{{ label.title }}</span>
+                            </div>
                     </v-col>
                 </v-row>
 
@@ -70,13 +72,17 @@
                     </v-col>
 
                     <v-col class="flex flex-col text-[14px]" cols="6" lg="3">
-                        <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Fecha de término</span>
-                        <span>{{ activity.date_end ? $moment(activity.date_end).format("DD/MM/YY") : '-' }}</span>
+                        <div v-if="activity.date_end">
+                            <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Fecha de término</span>
+                            <span>{{ activity.date_end ? $moment(activity.date_end).format("DD/MM/YY") : '-' }}</span>
+                        </div>
                     </v-col>
 
                     <v-col class="flex flex-col lg:align-end text-[14px]" cols="12" lg="1">
-                        <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Archivos</span>
-                        <span>{{ activity.files ? activity.files.length : '' }}</span>
+                        <div v-if="activity.files.length > 0" >
+                            <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Archivos</span>
+                            <span>{{ activity.files ? activity.files.length : '' }}</span>
+                        </div>
                     </v-col>
 
                     <v-col lg="1">
