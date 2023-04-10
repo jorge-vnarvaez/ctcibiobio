@@ -1,5 +1,21 @@
 <template>
-  <div>
+  <div class="mt-8">
+    <div v-if="activeMilestone">
+     <CoolLightBox
+            v-if="activeParentActivity && activeParentActivity.gallery.length > 0"
+            :items="activeParentActivity.gallery.map((image) => {
+                return {
+                    src: $config.apiAssetsV2 + image.directus_files_id.filename_disk,
+                    alt: image.title,
+                };
+            })"
+            :index="activeImage"
+            :fullScreen="true"
+            useZoomBar
+            closeOnClickOutsideMobile
+            @close="activeImage = null">
+    </CoolLightBox>
+    </div>
     <div v-for="milestone in milestones" :key="milestone.id" class="my-6">
         <!-- PARENT MILESTONE -->
         <v-card  class="bg-white px-2 py-2 px-lg-6 py-lg-4 drop-shadow-xl" elevation="0" rounded="lg" v-if="milestone.parent_milestone == null">
@@ -9,10 +25,11 @@
                         {{ milestone.title }}
                     </span>
 
+
                     <span class="block text-[10px] lg:text-[14px] text-slate-500">{{ milestone.activities.length != 0 ? milestone.activities.length + ' actividades' : 'Más información' }}</span>
                 </div>
 
-                <v-icon v-if="milestoneOpened != milestone.id" @click="milestoneOpened = milestone.id" class="rounded-full cursor-pointer" :style="{ backgroundColor: milestone.color }" color="white">
+                <v-icon v-if="milestoneOpened != milestone.id" @click="milestoneOpened = milestone.id; currentParentPage = 0" class="rounded-full cursor-pointer" :style="{ backgroundColor: milestone.color }" color="white">
                     mdi-chevron-down
                 </v-icon>
 
@@ -24,169 +41,8 @@
         <!-- PARENT MILESTONE -->
 
         <!-- ACTIVE MILESTONE -->
-        <div v-if="activeMilestone && milestoneOpened == milestone.id" class="mt-4">
-
-            <!-- MILESTONE CHILDREN -->
-            <div v-if="childs_milestones.length > 0">
-                <div v-for="child_milestone in childs_milestones" :key="child_milestone.id" class="px-6 my-6">
-                    <v-card  class="bg-white px-2 py-2 px-lg-6 py-lg-4 drop-shadow-xl" elevation="0" rounded="lg">
-                        <div class="flex justify-between align-center">
-                            <span class="block text-[12px] lg:text-base">
-                                {{ child_milestone.title }}
-                            </span>
-
-                            <v-icon v-if="childMilestoneOpened != child_milestone.id" @click="childMilestoneOpened = child_milestone.id; currentChildPage = 0" class="rounded-full cursor-pointer" :style="{ backgroundColor: milestone.color }" color="white">
-                                mdi-chevron-down
-                            </v-icon>
-
-                            <v-icon v-if="childMilestoneOpened == child_milestone.id" @click="childMilestoneOpened = false" class="rounded-full cursor-pointer" :style="{ backgroundColor: milestone.color }" color="white">
-                                mdi-chevron-up
-                            </v-icon>
-                        </div>
-                    </v-card>
-
-                    <div v-if="childMilestoneOpened == child_milestone.id" class="mt-4">
-                            <div class="mb-6">
-                                <span class="text-slate-500 text-[15px] lg:text-[21px] block mb-4">{{ activeChildMilestone.excerpt }}</span>
-
-                                <span v-html="activeChildMilestone.body" class="text-[13px] lg:text-[18px] text-slate-400"></span>
-                            </div>
-
-                            <div v-if="!$vuetify.breakpoint.mobile && activeChildMilestone.activities.length > 0">
-                                <v-row> 
-                                    <v-col v-for="label in labels" :key="label.id" :cols="label.cols" :lg="label.lg">
-                                        <div v-if="activeChildMilestone.hidden_activities_fields">
-                                            <span v-if="!activeChildMilestone.hidden_activities_fields.includes(label.title)" class="font-bold text-[16px]">{{ label.title }}</span>
-                                        </div>
-
-                                        <div v-if="!activeChildMilestone.hidden_activities_fields">
-                                            <span class="font-bold text-[16px]">{{ label.title }}</span>
-                                        </div>
-                                    </v-col>
-                                </v-row>
-
-                                <v-divider class="my-4"></v-divider>
-                            </div>
-
-                             <div v-for="activity in activeChildMilestone.activities.slice(childStart, childEnd)" :key="activity.id">
-                                <v-row>
-                                    <v-col class="flex flex-col text-[12px]" cols="12" lg="4">
-                                        <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Actividad</span>
-                                        <span>{{ activity.title }}</span>
-                                    </v-col>
-
-                                    <v-col class="flex flex-col text-[12px]" cols="6" lg="3">
-                                        <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Fecha de inicio</span>
-                                        <span>{{ activity.date_start ? $moment(activity.date_start).format("DD/MM/YY") : '-' }}</span>
-                                    </v-col>
-
-                                    <v-col class="flex flex-col text-[12px]" cols="6" lg="3">
-                                        <div v-if="activity.date_end">
-                                            <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Fecha de término</span>
-                                            <span>{{ activity.date_end ? $moment(activity.date_end).format("DD/MM/YY") : '-' }}</span>
-                                        </div>
-                                    </v-col>
-
-                                    <v-col class="flex flex-col lg:align-end text-[12px]" cols="12" lg="1">
-                                        <div v-if="activity.files.length > 0" >
-                                            <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Archivos</span>
-                                            <span>{{ activity.files ? activity.files.length : '' }}</span>
-                                        </div>
-                                    </v-col>
-
-                                    <v-col lg="1">
-                                        <div v-if="$vuetify.breakpoint.mobile" @click="activityChildOpened = activity.id">
-                                            <span class="block mb-4 text-[10px] text-blue-700 font-bold">Más información</span>
-                                        </div>
-
-                                        <div v-if="!$vuetify.breakpoint.mobile">
-                                            <div v-if="activityChildOpened != activity.id" @click="activityChildOpened = activity.id" class="cursor-pointer flex align-center">
-                                                <v-icon small>mdi-chevron-down</v-icon>
-                                            </div>
-
-                                            <div v-if="activityChildOpened == activity.id" @click="activityChildOpened = false" class="cursor-pointer flex align-center">
-                                                <v-icon small>mdi-chevron-up</v-icon>
-                                            </div>
-                                        </div>
-                                    </v-col>
-                                </v-row>
-
-                               <!-- ACTIVITY OF CHILD MILESTONE -->    
-                                <div v-if="activeChildActivity && activityChildOpened == activity.id" class="shadow-inner mt-4 py-4 px-6 grey lighten-3">
-                                    <span class="block mb-2 text-[16px] text-gray-500 font-semibold">
-                                        {{ activeChildActivity.title }}
-                                    </span>
-
-                                    <span class="block text-[13px] text-gray-500 mb-2">
-                                        {{ activeChildActivity.excerpt }}
-                                    </span>
-
-                                    <!-- GALERIA -->
-                                    <div v-if="['Images'].includes(activeChildActivity.format)">
-                                        <div v-if="activeChildActivity.gallery.length">
-                                        <div class="d-flex flex-wrap gap-3 py-5">
-                                            <v-img
-                                            class="black"
-                                            v-for="(galleryfile, index) in activeChildActivity.gallery"
-                                            :key="index + 'g'"
-                                            :src="`${
-                                                $config.apiAssetsV2 +
-                                                galleryfile.directus_files_id.filename_disk + '?quality=50'
-                                            }`"
-                                            :width="$vuetify.breakpoint.mobile ? '180' : '300px'"
-                                            :max-width="$vuetify.breakpoint.mobile ? '180' : '300px'"
-                                            height="300px"
-                                            contain
-                                            >
-                                            </v-img>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <!-- GALERIA -->
-
-                                    <!-- FILES -->
-                                    <div v-if="['PDF'].includes(activeChildActivity.format)" class="py-2">
-                                        <span class="block text-[12px] text-slate-400">
-                                            Revisa el o los archivos adjuntos para más información.
-                                        </span>
-
-                                        <div v-if="activeChildActivity.files.length">
-                                        <div class="d-flex flex-wrap gap-8 py-4">
-                                            <div v-for="file in activeChildActivity.files" :key="file.directus_files_id.id" class="cursor-pointer">
-                                            <a :href="$config.apiUrlV2 + '/assets/' + file.directus_files_id.id" target="_blank">
-                                                <font-awesome-icon icon="fa-solid fa-file-pdf" class="w-8 h-12 text-red-600"/>
-                                                <span class="block text-[13px] w-9/12 text-slate-700">{{ file.directus_files_id.title }}</span>
-                                            </a>
-                                            </div>
-                                        </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- FILES -->
-                                </div>
-                                <!-- ACTIVITY OF CHILD MILESTONE -->    
-
-                                <v-divider class="my-4"></v-divider>
-                            </div>
-
-                            <!-- PAGINATION -->
-                            <div class="flex justify-end align-center text-[12px] text-slate-600" v-if="activeChildMilestone.activities.length > 0">
-                                <span>
-                                    {{ childStart + 1 }}
-                                    -
-                                     {{ activeChildMilestone.activities.length < itemsPerPage ? activeChildMilestone.activities.length : childEnd }}
-                                    de
-                                    {{ activeChildMilestone.activities.length }}
-                                </span>
-
-                                <v-icon small @click="moveOnePageBack()" :disabled="childStart == 0">mdi-chevron-left</v-icon>
-                                <v-icon small @click="moveOnePageForward()" :disabled="childEnd >= activeChildMilestone.activities.length">mdi-chevron-right</v-icon>
-                            </div>
-                             <!-- PAGINATION -->
-                    </div>
-                </div> 
-            </div>
-            <!-- MILESTONE CHILDREN -->
+        <div v-if="activeMilestone && milestoneOpened == milestone.id" class="mt-4 px-2 px-lg-6 py-2 py-lg-4">
+            <div class="bg-white drop-shadow-xl rounded-lg px-6 py-4">
 
             <!-- ACTIVE MILESTONE INFO -->
             <span v-html="activeMilestone.body" class=" text-[15px] lg:text-[18px] text-slate-400 block my-2"></span>
@@ -194,31 +50,31 @@
             <div v-if="!$vuetify.breakpoint.mobile && activeMilestone.activities.length > 0">
                 <v-row> 
                     <v-col v-for="label in labels" :key="label.id" :cols="label.cols" :lg="label.lg">
-                        <span class="font-bold text-[16px]">{{ label.title }}</span>
+                        <span v-if="!activeMilestone.hidden_activities_fields.includes['Fecha de término', 'Archivos']" class="font-bold text-[16px]">{{ label.title }}</span>
                     </v-col>
                 </v-row>
 
                 <v-divider class="my-4"></v-divider>
             </div>
 
-            <div v-for="activity in activeMilestone.activities" :key="activity.id">
+            <div v-for="activity in activeMilestone.activities.slice(childStart, childEnd)" :key="activity.id">
                 <v-row>
-                    <v-col class="flex flex-col text-[12px]" cols="12" lg="4">
+                    <v-col class="flex flex-col text-[14px]" cols="12" lg="4">
                         <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Actividad</span>
                         <span>{{ activity.title }}</span>
                     </v-col>
 
-                    <v-col class="flex flex-col text-[12px]" cols="6" lg="3">
+                    <v-col class="flex flex-col text-[14px]" cols="6" lg="3">
                         <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Fecha de inicio</span>
                         <span>{{ activity.date_start ? $moment(activity.date_start).format("DD/MM/YY") : '-' }}</span>
                     </v-col>
 
-                    <v-col class="flex flex-col text-[12px]" cols="6" lg="3">
+                    <v-col class="flex flex-col text-[14px]" cols="6" lg="3">
                         <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Fecha de término</span>
                         <span>{{ activity.date_end ? $moment(activity.date_end).format("DD/MM/YY") : '-' }}</span>
                     </v-col>
 
-                    <v-col class="flex flex-col lg:align-end text-[12px]" cols="12" lg="1">
+                    <v-col class="flex flex-col lg:align-end text-[14px]" cols="12" lg="1">
                         <span v-if="$vuetify.breakpoint.mobile" class="font-bold">Archivos</span>
                         <span>{{ activity.files ? activity.files.length : '' }}</span>
                     </v-col>
@@ -230,16 +86,15 @@
 
                         <div v-if="!$vuetify.breakpoint.mobile">
                             <div v-if="activityOpened != activity.id" @click="activityOpened = activity.id" class="cursor-pointer flex align-center">
-                                <v-icon small>mdi-chevron-down</v-icon>
+                                <v-icon>mdi-plus</v-icon>
                             </div>
 
                             <div v-if="activityOpened == activity.id" @click="activityOpened = false" class="cursor-pointer flex align-center">
-                                <v-icon small>mdi-chevron-up</v-icon>
+                                <v-icon>mdi-minus</v-icon>
                             </div>
                         </div>
                     </v-col>
                 </v-row>
-
                 
                 <!-- ACTIVITY OF PARENT MILESTONE -->
                 <div v-if="activeParentActivity && activityOpened == activity.id" class="shadow-inner mt-4 py-4 px-6 grey lighten-3">
@@ -254,21 +109,26 @@
                       <!-- GALERIA -->
                       <div v-if="['Images'].includes(activeParentActivity.format)">
                         <div v-if="activeParentActivity.gallery.length">
+                           
                           <div class="d-flex flex-wrap gap-3 py-5">
-                            <v-img
-                              class="black"
-                              v-for="(galleryfile, index) in activeParentActivity.gallery"
-                              :key="index + 'g'"
-                              :src="`${
-                                $config.apiAssetsV2 +
-                                galleryfile.directus_files_id.filename_disk + '?quality=50'
-                              }`"
-                              :width="$vuetify.breakpoint.mobile ? '180' : '300px'"
-                              :max-width="$vuetify.breakpoint.mobile ? '180' : '300px'"
-                              height="300px"
-                              contain
-                            >
-                            </v-img>
+                            <v-row>
+                                <v-col cols="12" lg="4" v-for="(galleryfile, index) in activeParentActivity.gallery" :key="index + 'g'">
+                                    <div class="w-full">
+                                        <v-img
+                                        aspect-ratio="1"
+                                        class="black rounded-lg object-fill cursor-pointer"
+                                        @click="activeImage = index"
+                                        :src="`${
+                                            $config.apiAssetsV2 +
+                                            galleryfile.directus_files_id.filename_disk + '?quality=50'
+                                        }`"
+                                        :height="$vuetify.breakpoint.mobile ? 200 : 300"
+                                        width="100%"
+                                        >
+                                        </v-img>
+                                    </div>
+                                </v-col>
+                            </v-row>
                           </div>
                         </div>
                       </div>
@@ -302,19 +162,22 @@
             <!-- PAGINATION -->
             <div class="flex justify-end align-center text-[12px] text-slate-600" v-if="activeMilestone.activities.length > 0">
                 <span>
-                    {{ currentParentPage + 1 }}
-                    -
-                    {{ activeMilestone.activities.length < itemsPerPage ? activeMilestone.activities.length : itemsPerPage + currentParentPage }}
+                    {{ activeMilestone.activities.length < itemsPerPage ? activeMilestone.activities.length : itemsPerPage * currentParentPage + 1 }}
                     de
                     {{ activeMilestone.activities.length }}
                     
                 </span>
 
-                <v-icon small>mdi-chevron-left</v-icon>
-                <v-icon small>mdi-chevron-right</v-icon>
+                <v-icon small class="cursor-pointer" :disabled="currentParentPage == 0"  @click="moveOnePageBack()">mdi-chevron-left</v-icon>
+                <v-icon small class="cursor-pointer" @click="moveOnePageForward()">mdi-chevron-right</v-icon>
             </div>
             <!-- PAGINATION -->
+
+          
             <!-- ACTIVE MILESTONE INFO -->
+
+            </div>
+
         </div>
         <!-- ACTIVE MILESTONE -->
     </div>
@@ -322,9 +185,17 @@
 </template>
 
 <script>
+
+import CoolLightBox from "vue-cool-lightbox";
+import "vue-cool-lightbox/dist/vue-cool-lightbox.min.css";
+
 export default {
+    components: {
+        CoolLightBox
+    },
     data() {
         return {
+            activeImage: null,
             milestoneOpened: false,
             childMilestoneOpened: false,
             itemsPerPage: 5,
@@ -345,13 +216,13 @@ export default {
     },
     methods: {
         moveOnePageBack() {
-            if(this.currentChildPage > 0) {
-                this.currentChildPage--
+            if(this.currentParentPage > 0) {
+                this.currentParentPage--
             }
         },
         moveOnePageForward() {
-            if(this.currentChildPage < this.childPages - 1) {
-                this.currentChildPage++
+            if(this.currentParentPage < this.itemsLength - 1) {
+                this.currentParentPage++
             }
         }
     },
@@ -377,14 +248,14 @@ export default {
         parentPages() {
             return Math.ceil(this.activeMilestone.activities.length / this.itemsPerPage)
         },
-        childPages() {
-            return Math.ceil(this.activeChildMilestone.activities.length / this.itemsPerPage)
+        itemsLength() {
+            return Math.ceil(this.activeMilestone.activities.length / this.itemsPerPage)
         },
         childStart() {
-            return this.currentChildPage == 0 ? 0 : this.itemsPerPage * this.currentChildPage
+            return this.currentParentdPage == 0 ? 0 : this.itemsPerPage * this.currentParentPage
         },
         childEnd() {
-            return this.currentChildPage == 0 ? this.itemsPerPage : this.itemsPerPage * this.currentChildPage + this.itemsPerPage
+            return this.currentParentPage == 0 ? this.itemsPerPage : this.itemsPerPage * this.currentParentPage + this.itemsPerPage
         }
     }
 }

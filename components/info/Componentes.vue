@@ -10,38 +10,30 @@
         
     <div style="border-bottom: 1px dashed #6b7280" class="mb-16"></div>
 
-    <v-card rounded="xl" color="#078BC7" class="pa-6" elevation="0">
-      <div class="text-white flex flex-col">
-        <span class="block font-black text-3xl lg:text-4xl">
-          {{ activeComponent.id }}
-        </span>
+    <v-row>
+      <v-col v-for="component in components" :key="component.key" cols="12" xl="3" lg="6">
+          <v-card rounded="xl" :color="component.color" class="pa-6" elevation="0" :height="height">
+            <div class="text-white flex flex-col">
+              <span class="block font-black text-lg lg:text-2xl">
+                {{ component.id }}
+              </span>
 
-        <span class="block mb-4 text-xl lg:text-2xl font-black">
-          {{ activeComponent.title }}
-        </span>
+              <span class="block mb-4 text-sm lg:text-lg font-bold">
+                {{ component.title }}
+              </span>
 
-        <span class="block font-bold text-sm lg:text-xl mb-4">
-          {{ activeComponent.sub_title }}
-        </span>
+              <span class="block font-bold text-sm lg:text-lg mb-4">
+                {{ component.sub_title }}
+              </span>
 
-        <span class="block text-[14px] lg:text-lg">
-          {{ activeComponent.description }}
-        </span>
-      </div>
-    </v-card>
+              <span class="block text-[14px] lg:text-[18px]">
+                {{ component.description }}
+              </span>
+            </div>
+          </v-card>
+      </v-col>
+    </v-row>
 
-    <div class="flex justify-center mt-8 space-x-4">
-      <div v-for="component in components" :key="'etapa' + component.id">
-        <v-icon
-          :class="
-            activeComponentKey == component.key ? 'opacity-100' : 'opacity-25'
-          "
-          small
-          @click="activeComponentKey = component.key"
-          >mdi-circle</v-icon
-        >
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -59,6 +51,7 @@ export default {
           description:
             "Revisión y análisis de información y estrategias regionales relacionadas a la iniciativa. Además de un mapeo inicial del SRI apoyado de bases de datos, encuestas y entrevistas. Todas estas actividades tienen el fin de establecer la línea base del ecosistema de CTCI de la región, sus componentes e indicadores.",
           actividades: ["Revisión", "Mapeo", "Indicadores"],
+          color: "#068ac6"
         },
         {
           id: "02",
@@ -69,6 +62,7 @@ export default {
           description:
             "Comprende reuniones de cobertura territorial así como mesas de trabajo con distintos representantes tanto del sector académico, gremios, sector privado y miembros del ecosistema de emprendimiento. Finalmente, la iteración de aprendizajes, información y con el Gobierno regional. Esto definirá lineamientos, desafíos y rutas de trabajo de la estrategia.",
           actividades: ["Mesas de trabajo", "Talleres", "Entrevistas"],
+          color: "#354393"
         },
         {
           id: "03",
@@ -79,6 +73,7 @@ export default {
           description:
             "Actividades de análisis interno de datos, gira tecnológica, definición de desafíos, validación, generación de estrategia y plan de difusión. Todo con el fin de obtener el marco estratégico, formas y volumen de las acciones y principales programas basados en misiones regionales.",
           actividades: ["Estrategia", "Marco de revisión", "Programas"],
+          color: "#f7ac23"
         },
         {
           id: "04",
@@ -93,6 +88,7 @@ export default {
             "Publicaciones de análisis",
             "Actividades y comunidad",
           ],
+          color: "#ff6469"
         },
       ],
     };
@@ -110,6 +106,20 @@ export default {
     activeComponent() {
       return this.components[this.activeComponentKey - 1];
     },
+    height() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return '440'
+        case 'sm':
+          return '440'
+        case 'md':
+          return '500'
+        case 'lg':
+          return '500'
+        case 'xl':
+          return '600'
+      }
+    }
   },
 };
 </script>

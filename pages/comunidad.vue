@@ -37,17 +37,29 @@
       class="max-w-screen-xl mx-auto"
       :style="{ padding: $vuetify.breakpoint.mobile ? '5% 7%' : '3% 7%' }"
     >
-      <v-img src="/img/mapa_de_palabras.svg" class="my-20"></v-img>
-
       <v-container>
         <div>
           <span
+            class="block text-[21px] mb-6 lg:text-4xl lg:text-center text-blue-900 font-bold"
+            >Las palabras que definen nuestra región: Un mapa colaborativo de
+            términos clave y expresiones populares</span
+          >
+        </div>
+      </v-container>
+      <v-img src="/img/mapa_de_palabras.svg" class="mt-10 mb-20"></v-img>
+
+      <v-divider></v-divider>
+
+      <v-container>
+        <div>
+          <!-- <span
             class="block text-[14px] lg:text-xl lg:text-center text-blue-900"
             >Hoja de Ruta</span
-          >
+          > -->
           <span
-            class="block text-[21px] lg:text-4xl lg:text-center text-blue-900 font-bold"
-            >Conoce el estado de avance</span
+            class="block text-[21px] my-12 lg:text-4xl lg:text-center text-blue-900 font-bold"
+            >Conoce el detalle de las actividades que hemos realizado con el
+            ecosistema de CTCI</span
           >
         </div>
 

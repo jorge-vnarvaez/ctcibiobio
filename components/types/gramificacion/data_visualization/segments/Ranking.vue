@@ -1,7 +1,7 @@
 <template>
   <div class="col-span-12">
     <v-card class="d-flex flex-column px-8 py-8" style="height: 100%">
-      <div class="flex justify-between">
+      <div class="flex flex-col space-y-8 lg:space-y-0 lg:flex-row justify-between">
         <div>
           <span class="text-lg block">¿Qué focos han sido priorizados por la comunidad?</span>
 
@@ -21,7 +21,7 @@
             >
           </v-chip-group>
 
-          <div class="flex flex-col space-y-4 w-80">
+          <div class="flex flex-col space-y-2 w-80">
             <v-select
               :disabled="activeOption !== 1"
               v-model="activeProvince"

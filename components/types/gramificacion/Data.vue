@@ -18,7 +18,7 @@
          <TypesGramificacionDataVisualizationSegmentsParticipantes v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsParticipantes>
          <TypesGramificacionDataVisualizationSegmentsParticipantesEdad v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsParticipantesEdad>
          <TypesGramificacionDataVisualizationSegmentsProvincias v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsProvincias>
-         <!-- <TypesGramificacionDataVisualizationSegmentsRanking v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsRanking> -->
+         <TypesGramificacionDataVisualizationSegmentsRanking v-if="!loadingChartsVisualizations"></TypesGramificacionDataVisualizationSegmentsRanking>
          <!-- <TypesGramificacionDataVisualizationStackedBarsMissionsByGender></TypesGramificacionDataVisualizationStackedBarsMissionsByGender>
          <TypesGramificacionDataVisualizationStackedBarsMissionsByProvince></TypesGramificacionDataVisualizationStackedBarsMissionsByProvince> -->
          <TypesGramificacionDataVisualizationDispersionsGenderDispersion></TypesGramificacionDataVisualizationDispersionsGenderDispersion>
