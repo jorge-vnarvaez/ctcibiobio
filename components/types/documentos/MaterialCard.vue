@@ -1,13 +1,13 @@
 <template>
-  <v-col cols="12" md="6" lg="6" xl="4">
-    <v-card elevation="0" :height="height" rounded="xl" class="drop-shadow-xl">
+  <v-col cols="12">
+    <v-card elevation="4" :height="height" rounded="xl">
       <div class="flex space-x-3">
         <!-- FEATURED IMAGE -->
         <v-img
           v-if="material.featured_image"
           :src="$config.apiUrlV2 + '/assets/' + material.featured_image"
           class="rounded-l-xl"
-          width="50%"
+          :width="$vuetify.breakpoint.mobile ? '40%' : '25%'"
           :height="height"
         >
         </v-img>

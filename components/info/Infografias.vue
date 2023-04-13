@@ -42,8 +42,10 @@
     </VueSlickCarousel>
 
     <div class="flex justify-center mt-12">
-      <v-btn rounded outlined color="#1e3a8a" to="/infografias">
+      <v-btn rounded text-color="white" color="#1e3a8a" to="/infografias">
+      <span class="text-white">
         Ver más infografías
+      </span>
       </v-btn>
     </div>
   </div>

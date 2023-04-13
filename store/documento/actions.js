@@ -26,6 +26,7 @@ export default {
         const query = this.$objectToQueryString({
             fields: [
                 'id',
+                'type',
                 'tag',
                 'title',
                 'excerpt',

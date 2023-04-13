@@ -4,7 +4,7 @@
     :style="{ padding: $vuetify.breakpoint.mobile ? '15% 7%' : '3% 7%' }"
   >
     <v-container>
-      <div v-if="documents.length > 0">
+      <div v-if="documents.length > 0" class="pb-6 pb-lg-16">
         <div class="flex flex-col align-center justify-center">
           <span class="block text-2xl lg:text-5xl text-blue-900 font-bold"
             >Documento</span
@@ -66,13 +66,52 @@
       </div>
     </v-container>
 
+    <v-divider class="my-16"></v-divider>
+
     <v-container>
+
+      <span class="block text-[14px] lg:text-xl lg:text-center text-blue-900"
+        >Listado de recursos</span
+      >
       <span
-        class="block text-lg lg:text-4xl mb-8 text-blue-900 font-bold text-center"
+        class="block pb-6 pb-lg-8 text-lg lg:text-4xl mb-8 text-blue-900 font-bold lg:text-center"
         >Material complementario</span
       >
 
-      <div v-if="materials.length > 0">
+          <v-card color="grey-lighten-4" elevation="8" rounded="xl" flat>
+              <v-row>
+                <v-col cols="12" lg="3">
+                    <div class="flex flex-col">
+                      <div
+                      v-for="documentType, index in documentTypes" :key="documentType.id"
+                      @click="activeType = documentType.filter"
+                      :class="[
+                        'pa-6 cursor-pointer',
+                        index == 0 ? 'rounded-tl-[24px]' : '',
+                        activeType == documentType.filter ? 'active' : 'inactive'
+                      ]">
+                        <span>
+                          {{ documentType.label }}
+                        </span>
+                      </div>
+                    </div>
+                </v-col>
+
+                <v-col cols="12" lg="9">
+                  <div class="pa-4 pa-lg-8">
+                    <v-row v-if="materials.length > 0">
+                      <TypesDocumentosMaterialCard
+                        v-for="material in materials"
+                        :key="material.id"
+                        :material="material"
+                      ></TypesDocumentosMaterialCard>
+                    </v-row>
+                  </div>
+                </v-col>
+              </v-row>
+          </v-card>
+
+      <!-- <div v-if="materials.length > 0">
         <v-row class="my-12">
           <TypesDocumentosMaterialCard
             v-for="material in materials"
@@ -80,9 +119,9 @@
             :material="material"
           ></TypesDocumentosMaterialCard>
         </v-row>
-      </div>
+      </div> -->
 
-      <div
+      <!-- <div
         v-if="materials.length == 0"
         class="flex flex-col align-center justify-center mt-12"
       >
@@ -98,7 +137,7 @@
           material complementario relacionado a la estrategia de CTCI en la
           región.
         </span>
-      </div>
+      </div> -->
     </v-container>
   </div>
 </template>
@@ -115,6 +154,16 @@ export default {
       },
     ],
   },
+  data() {
+    return {
+      documentTypes: [
+        { id: 1, label: "Reportes nacionales", filter: "Reporte nacional" },
+        // { id: 2, label: "Reportes internacionales", filter: "Reporte internacional" },
+        { id: 3, label: "Entregables del proyecto", filter: "Entregable del proyecto" },
+      ],
+      activeType: 'Reporte nacional',
+    };
+  },
   async asyncData({ store }) {
     await store.dispatch("documento/loadDocuments");
     await store.dispatch("documento/loadMaterials");
@@ -127,10 +176,26 @@ export default {
       return this.$store.getters["documento/getParentDocument"];
     },
     materials() {
-      return this.$store.getters["documento/getMaterials"];
+      const materials = this.$store.getters["documento/getMaterials"];
+
+      return materials.filter((material) => {
+        return material.type == this.activeType;
+      });
     },
   },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.active {
+  @apply font-bold;
+  @apply text-blue-800;
+  @apply bg-white;
+  @apply shadow-2xl;
+}
+
+.inactive {
+  @apply text-gray-400;
+  @apply bg-gray-100;
+}
+</style>
