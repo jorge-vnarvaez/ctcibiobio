@@ -69,7 +69,6 @@
     <v-divider class="my-16"></v-divider>
 
     <v-container>
-
       <span class="block text-[14px] lg:text-xl lg:text-center text-blue-900"
         >Listado de recursos</span
       >
@@ -110,34 +109,6 @@
                 </v-col>
               </v-row>
           </v-card>
-
-      <!-- <div v-if="materials.length > 0">
-        <v-row class="my-12">
-          <TypesDocumentosMaterialCard
-            v-for="material in materials"
-            :key="material.id"
-            :material="material"
-          ></TypesDocumentosMaterialCard>
-        </v-row>
-      </div> -->
-
-      <!-- <div
-        v-if="materials.length == 0"
-        class="flex flex-col align-center justify-center mt-12"
-      >
-        <font-awesome-icon
-          icon="fa-sharp fa-solid fa-clock-three"
-          class="w-12 h-12"
-          style="color: #9ca3af"
-        />
-        <span
-          class="block text-center text-xs lg:text-base font-thin text-gray-400 w:full lg:w-5/12 mt-8"
-        >
-          ¡Mantente atent@! Dentro de muy poco estaremos disponibilizando
-          material complementario relacionado a la estrategia de CTCI en la
-          región.
-        </span>
-      </div> -->
     </v-container>
   </div>
 </template>
