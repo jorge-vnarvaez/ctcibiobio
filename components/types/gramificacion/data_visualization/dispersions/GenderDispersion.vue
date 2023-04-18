@@ -60,7 +60,7 @@
               :bx="Math.floor(scales.segments_by_10(index))"
               :font-size="$vuetify.breakpoint.mobile ? 5 : 3"
             >
-              {{ Math.floor(scales.segments_by_10(index)) }}
+              {{ Math.floor(scales.segments_by_10(index)) - index }}
             </ChartText>
 
             <ChartText
@@ -105,6 +105,7 @@
       </ChartSvg>
     </v-card>
     <!-- MOBILE VERSION -->
+
     <!-- DESKTOP VERSION -->
     <v-card class="px-8 py-8" v-if="['md', 'lg', 'xl'].includes($vuetify.breakpoint.name)">
       <span class="block text-center mb-8 text-lg"
@@ -171,7 +172,7 @@
             >
               {{
                 $vuetify.breakpoint.mobile
-                  ? Math.floor(scales.segments_by_10(index))
+                  ? Math.floor(scales.segments_by_10(index) - index)
                   : (scales.plotX(index) * 100) / 400
               }}
             </ChartText>
