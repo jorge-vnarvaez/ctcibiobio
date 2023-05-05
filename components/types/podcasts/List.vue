@@ -8,7 +8,7 @@
       elevation="0"
       :width="$vuetify.breakpoint.mobile ? 320 : 700"
       :min-width="$vuetify.breakpoint.mobile ? 320 : 450"
-      :height="$vuetify.breakpoint.mobile ? 420 : 620"
+      :height="$vuetify.breakpoint.mobile ? 420 : 540"
       :href="podcast.url"
       target="_blank"
     >
@@ -22,9 +22,8 @@
       </div>
 
       <div class="px-4 px-lg-6 py-2 py-lg-4">
-        <span class="block text-[15px] lg:text-[17px] text-blue-900 font-bold h-10">{{
-          podcast.title
-        }}</span>
+        <span class="block text-[15px] lg:text-[17px] text-blue-900 font-bold h-12">
+          {{ podcast.sort }}.- {{ podcast.title }}</span>
         <span class="block text-[12px] lg:text-[15px] text-slate-500 h-28">{{
           podcast.excerpt
         }}</span>

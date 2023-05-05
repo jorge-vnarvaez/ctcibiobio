@@ -67,7 +67,7 @@ export default {
     height() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 200;
+          return 220;
         case "sm":
           return 250;
         case "md":
