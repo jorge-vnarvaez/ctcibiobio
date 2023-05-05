@@ -3,11 +3,13 @@
     <v-card elevation="4" height="300" rounded="xl">
       <div class="flex space-x-3">
         <!-- FEATURED IMAGE -->
-        <img
-          v-if="material.featured_image && !$vuetify.breakpoint.mobile"
-          :src="$config.apiUrlV2 + '/assets/' + material.featured_image"
-          class="rounded-l-xl object-cover object-left-top h-[300px]"
-        />
+        <div>
+          <img
+            v-if="material.featured_image && !$vuetify.breakpoint.mobile"
+            :src="$config.apiUrlV2 + '/assets/' + material.featured_image"
+            class="rounded-l-xl object-cover object-left-top h-[300px] w-[250px]"
+          />
+        </div>
         <!-- FEATURED IMAGE -->
 
         <div class="flex flex-col p-4 lg:p-0">
