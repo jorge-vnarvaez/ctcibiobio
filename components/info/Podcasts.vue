@@ -9,7 +9,7 @@
           >Podcasts CTCI</span
         >
 
-        <span class="block text-slate-400 text-xs lg:text-xl lg:text-center mb-6">
+        <span class="block text-slate-400 text-xs lg:text-xl lg:text-center mb-10">
           Sintoniza nuestros podcasts y adéntrate en el ecosistema de ciencia, tecnología, conocimiento e innovación de la región del Biobío
         </span>
 
