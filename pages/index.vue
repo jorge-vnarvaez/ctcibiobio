@@ -7,8 +7,7 @@
 
     <LazyInfoCifras></LazyInfoCifras>
 
-
-    <v-overlay
+    <!-- <v-overlay
       :value="overlay"
       :style="{ display: 'flex', flexDirection: 'column', padding: $vuetify.breakpoint.mobile ? '5% 7%' : '3% 7%', 'z-index': 1000 }"
     >
@@ -28,10 +27,6 @@
         >
 
         <div class="flex align-center justify-center my-8">
-          <!-- <span class="text-[14px] lg:text-2xl text-slate-400 w-full lg:w-48">
-            Ayúdanos a priorizar haciendo click en el botón inferior
-          </span> -->
-
           <v-img src="/illustration/22.svg" v-if="$vuetify.breakpoint.mobile" height="200" contain></v-img>
 
           <div>
@@ -45,7 +40,7 @@
           </v-btn>
         </div>
       </div>
-    </v-overlay>
+    </v-overlay> -->
 
     <!-- Podcasts -->
     <LazyInfoPodcasts></LazyInfoPodcasts>
