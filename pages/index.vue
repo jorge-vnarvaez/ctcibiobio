@@ -44,7 +44,7 @@
         </div>
 
         <div class="flex justify-center">
-          <v-btn color="#EB646B" rounded elevation="0" to="/gamificacion">
+          <v-btn color="#EB646B" rounded elevation="0" href="https://docs.google.com/forms/d/e/1FAIpQLSfVvZlDGCuoCc2pLQdXRgFIkX-WTealLimVVxuVGDdIraQF3g/viewform" target="_blank">
             <span class="text-[10px] lg:text-[14px] text-white">¡Quiero inscribirme! </span>
           </v-btn>
         </div>
