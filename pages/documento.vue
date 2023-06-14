@@ -77,7 +77,7 @@
         >Material complementario</span
       >
 
-          <v-card color="grey-lighten-4" elevation="8" rounded="xl" flat>
+          <v-card color="grey-lighten-4" elevation="0" rounded="xl" flat>
               <v-row>
                 <v-col cols="12" lg="3">
                     <div class="flex flex-col">

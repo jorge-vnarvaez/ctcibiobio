@@ -1,13 +1,15 @@
 <template>
   <v-col cols="12">
-    <v-card elevation="4" height="300" rounded="xl">
+    <v-card elevation="0" height="300" rounded="lg" class="drop-shadow-lg">
       <div class="flex space-x-3">
         <!-- FEATURED IMAGE -->
         <div>
-          <img
+          <v-img
             v-if="material.featured_image && !$vuetify.breakpoint.mobile"
             :src="$config.apiUrlV2 + '/assets/' + material.featured_image"
-            class="rounded-l-xl object-cover object-left-top h-[300px] w-[250px]"
+            class="rounded-l-lg"
+            width="200"
+            height="300"
           />
         </div>
         <!-- FEATURED IMAGE -->
@@ -40,7 +42,7 @@
           <!-- EXCERPT -->
           <span
             v-html="material.excerpt"
-            class="text-[13px] lg:text-[14px] block h-20 lg:h-28 mt-2 w-11/12 leading-tight"
+            class="text-[13px] lg:text-[14px] block h-24 lg:h-28 mt-2 w-11/12 leading-tight"
           ></span>
           <!-- EXCERPT -->
 

@@ -5,34 +5,28 @@
     <div class="d-flex">
       <nuxt-link to="/">
         <no-ssr>
-          <v-img max-height="45px" height="45px" max-width="210px" contain position="center left" src="/img/iso_ctci.png" />
+          <v-img max-height="45px" height="45px" max-width="140px" contain position="center left" src="/img/iso_ctci.png" />
         </no-ssr>
       </nuxt-link>
     </div>
-    <div class="d-none d-md-block mx-auto">
+    <div class="d-none d-md-block">
       <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey darken-1" medium to="/">Inicio</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey darken-1" medium to="/acerca_del_proyecto">Acerca</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/documento">Documento</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/comunidad">Comunidad</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/noticias">Noticias</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/equipo">Equipo</v-btn>
+      <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/capacitaciones">Capacitaciones</v-btn>
     </div>
     
-      <div>
-        <div class="ml-auto ml-md-0 align-center flex-wrap d-none d-md-flex">
-          <v-btn class="" icon href="https://www.linkedin.com/company/estrategia-de-ctci-biobio/" target="_blank">
-            <font-awesome-icon style="height:20px;" :icon="['fab','linkedin']" />
-          </v-btn>
-          <v-btn class="" icon href="https://www.youtube.com/channel/UCT98_1_L2v10ry5Ezfl0wGA" target="_blank">
-            <font-awesome-icon style="height:20px;" :icon="['fab','youtube']" />
-          </v-btn>
-          <v-btn class="" icon href="https://www.instagram.com/ctcibiobio/" target="_blank">
-            <font-awesome-icon style="height:20px;" :icon="['fab','instagram']" />
-          </v-btn>
-          <v-btn class="" icon href="https://www.facebook.com/ctcibiobio" target="_blank">
-            <font-awesome-icon style="height:20px;" :icon="['fab','facebook']" />
-          </v-btn>
-        </div>
+    <div>
+        <!-- <div class="flex space-x-4 align-center">
+          <div v-if="socialMedia" class="relative">
+            Social media
+          </div>
+          <font-awesome-icon @mouseover="socialMedia = true" @mouseleave="socialMedia = false" style="height: 20px" :icon="['fas', 'hashtag']"></font-awesome-icon>
+        </div> -->
+
 
         <!-- Menú desplegable -->
         <v-menu
@@ -66,6 +60,9 @@
               <v-list-item to="/equipo" class="px-3 text-body-2 grey--text text--darken-3">
                 Equipo
               </v-list-item>
+              <v-list-item to="/capacitaciones" class="px-3 text-body-2 grey--text text--darken-3">
+                Capacitaciones
+              </v-list-item>
             </v-list-item-group>
           </v-list>
 
@@ -97,7 +94,11 @@
 </template>
 <script>
 export default {
-  
+  data() {
+    return {
+      socialMedia: false
+    }
+  }
 }
 </script>
 <style lang="scss">
