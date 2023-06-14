@@ -3,6 +3,7 @@ export default {
       const query = new URLSearchParams({
         fields: [
           '*',
+          'recursos.directus_files_id.*',
         ]
       })
   
