@@ -130,6 +130,11 @@ export default {
       },
     },
     standalone: true,
+    loaders: {
+      vue: {
+        prettify: false
+      }
+    }
   },
 
   googleFonts: {
