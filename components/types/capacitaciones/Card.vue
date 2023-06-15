@@ -20,24 +20,23 @@
     <v-col cols="12" lg="12">
       <v-row>
         <!-- FLYER -->
-        <v-col cols="12" lg="4">
+        <v-col cols="12" xl="4" lg="6">
           <v-img
             :src="$config.apiUrlV2 + '/assets/' + capacitacion.flyer"
             :width="$vuetify.breakpoint.mobile ? '100%' : 500"
             :height="$vuetify.breakpoint.mobile ? '100%' : 500"
-            :contain="$vuetify.breakpoint.mobile"
             class="rounded-sm"
           ></v-img>
         </v-col>
         <!-- FLYER -->
 
 
-        <v-col cols="12" lg="8">
+        <v-col cols="12" xl="8" lg="6">
           <div class="flex flex-col justify-between">
             <div>
               <!-- EXPOSITOR -->
               <div>
-                <span class="block text-[12px]">Expositor </span>
+                <span class="block text-[12px]">Expositor</span>
                 <span class="block font-bold">
                   {{ capacitacion.expositor }}
                 </span>
