@@ -7,7 +7,7 @@
 
     <LazyInfoCifras></LazyInfoCifras>
 
-    <v-overlay
+    <!-- <v-overlay
       :value="overlay"
       :style="{ display: 'flex', flexDirection: 'column', padding: $vuetify.breakpoint.mobile ? '3% 7%' : '3% 7%', 'z-index': 1000 }"
     >
@@ -49,7 +49,7 @@
           </v-btn>
         </div>
       </div>
-    </v-overlay>
+    </v-overlay> -->
 
     <!-- Podcasts -->
     <LazyInfoPodcasts></LazyInfoPodcasts>
