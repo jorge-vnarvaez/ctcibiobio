@@ -8,7 +8,7 @@
       elevation="0"
       :width="$vuetify.breakpoint.mobile ? 320 : 700"
       :min-width="$vuetify.breakpoint.mobile ? 320 : 450"
-      :height="$vuetify.breakpoint.mobile ? 420 : 540"
+      :height="$vuetify.breakpoint.mobile ? 420 : 560"
       :href="podcast.url"
       target="_blank"
     >

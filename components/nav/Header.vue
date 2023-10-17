@@ -12,7 +12,7 @@
     <div class="d-none d-md-block">
       <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey darken-1" medium to="/">Inicio</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold cursor-pointer" color="blue-grey darken-1" medium to="/acerca_del_proyecto">Acerca</v-btn>
-      <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/documento">Documento</v-btn>
+      <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/estrategia">Estrategia</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/comunidad">Comunidad</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/noticias">Noticias</v-btn>
       <v-btn text class="mx-1 text-capitalize font-weight-bold" color="blue-grey darken-1" medium to="/equipo">Equipo</v-btn>
@@ -48,8 +48,8 @@
               <v-list-item to="/acerca_del_proyecto" class="px-3 text-body-2 grey--text text--darken-3">
                 Acerca
               </v-list-item>
-              <v-list-item to="/documento" class="px-3 text-body-2 grey--text text--darken-3">
-                Documento
+              <v-list-item to="/estrategia" class="px-3 text-body-2 grey--text text--darken-3">
+                Estrategia
               </v-list-item>
               <v-list-item to="/comunidad" class="px-3 text-body-2 grey--text text--darken-3">
                 Comunidad

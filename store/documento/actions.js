@@ -8,7 +8,9 @@ export default {
                 'title',
                 'excerpt',
                 'featured_image',
-                'file'
+                'file',
+                'diagnostico',
+                'estrategia'
             ],
         })
 
