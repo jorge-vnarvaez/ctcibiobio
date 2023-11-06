@@ -29,6 +29,9 @@ export default {
       absolute: true,
     };
   },
+  async mounted() {
+    await this.$store.dispatch("documento/loadDocuments");
+  },
   computed: {
     overlay() {
       return this.$store.getters["modals/modal_priorization"];

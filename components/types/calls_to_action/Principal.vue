@@ -19,6 +19,7 @@
       <div class="flex space-x-4 justify-between items-center">
         <div class="flex flex-col space-y-8">
           <span class="block w-8/12 text-[#546E7A] text-[14px]  lg:text-3xl font-bold">Conoce la Estrategia de CTCI (2023-2033) para la Región del Biobío</span>
+
           <div>
             <v-btn color="#ff474b" rounded elevation="0" class="px-6 py-6">
               <a :href="$config.apiUrlV2 + '/assets/' + parent_document.estrategia + '?download'">
